@@ -1,0 +1,17 @@
+{
+	"bundles": [
+		{
+			"name": "game",
+			"assets": [
+				{
+					"name": "gloria-hallelujah",
+					"srcs": "fonts/gloria-hallelujah.tff"
+				}
+			]
+		},
+		{
+			"name": "start",
+			"assets": []
+		}
+	]
+}

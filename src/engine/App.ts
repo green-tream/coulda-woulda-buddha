@@ -1,12 +1,12 @@
 import { Application, Assets } from "pixi.js";
 import type { IConfig } from "../config";
 import { SceneManager } from "./SceneManager";
-import ASSETS from "../assets.json";
+import * as ASSETS from "../../public/manifest.json";
 
 export class App {
 	private config: IConfig;
 	private app: Application;
-	private scenes: SceneManager;
+	public scenes: SceneManager;
 
 	constructor(config: IConfig) {
 		this.config = config;
@@ -14,9 +14,8 @@ export class App {
 		this.scenes = new SceneManager(this.app);
 
 		// Load all assets
-		for (const ASSET of ASSETS) {
-			Assets.load(`./${ASSET}`);
-		}
+		Assets.init({ manifest: "manifest.json" });
+		Assets.backgroundLoadBundle(ASSETS.bundles.map((bundle) => bundle.name));
 
 		for (const [key, scene] of Object.entries(this.config.scenes)) {
 			this.scenes.add(key, scene);

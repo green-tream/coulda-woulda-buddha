@@ -1,4 +1,4 @@
-import { Application } from "pixi.js";
+import { Application, Assets } from "pixi.js";
 import { Scene } from "./Scene";
 
 export class SceneManager {
@@ -16,6 +16,8 @@ export class SceneManager {
 	}
 
 	start(key: string) {
+		Assets.loadBundle(key);
+
 		this.app.stage.removeChildren();
 
 		const scene = this.scenes.get(key);

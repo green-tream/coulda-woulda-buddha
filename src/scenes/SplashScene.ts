@@ -1,12 +1,15 @@
 import * as PIXI from "pixi.js";
 import { Scene } from "../engine/Scene";
+import { app } from "../index";
 
 export default class SplashScene extends Scene {
 	private header: PIXI.Text;
 
 	public init(): void {
 		this.header = new PIXI.Text("My Game Studio", {
-			fontFamily: "SuperWoobly",
+			fontFamily: "GloriaHallelujah",
+			fill: "white",
+			fontSize: 64,
 		});
 		this.header.x = this.app!.screen.width / 2;
 		this.header.y = this.app!.screen.height / 2;
@@ -16,7 +19,7 @@ export default class SplashScene extends Scene {
 	public start(): void {
 		this.header.angle = 0;
 		setTimeout(() => {
-			console.log("hi!");
+			app.scenes.start("game");
 		}, 5000);
 		this.container.addChild(this.header);
 	}

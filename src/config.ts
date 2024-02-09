@@ -1,5 +1,5 @@
 import SplashScene from "./scenes/SplashScene";
-import type { Scene } from "./scenes/Scene";
+import type { Scene } from "./engine/Scene";
 import { BACKGROUND_COLOUR } from "./constants";
 
 const view = document.querySelector("#game") as HTMLCanvasElement;
