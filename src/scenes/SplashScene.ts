@@ -30,7 +30,7 @@ export default class SplashScene extends Scene {
 
 		this.header.angle = 0;
 		setTimeout(() => {
-			app.scenes.start("game");
+			app.scenes.start("test");
 		}, 5000);
 		this.container.addChild(this.header);
 

@@ -1,6 +1,8 @@
-import SplashScene from "./scenes/SplashScene";
 import type { Scene } from "./engine/Scene";
 import { BACKGROUND_COLOUR } from "./constants";
+
+import TestScene from "./scenes/TestScene";
+import SplashScene from "./scenes/SplashScene";
 
 const view = document.querySelector("#game") as HTMLCanvasElement;
 
@@ -16,7 +18,7 @@ export interface IConfig {
 }
 
 export const Config: IConfig = {
-	scenes: { game: SplashScene, test: SplashScene },
+	scenes: { game: SplashScene, test: TestScene },
 	application: {
 		view,
 		resizeTo: window,
