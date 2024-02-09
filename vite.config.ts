@@ -9,7 +9,7 @@ export default defineConfig({
     emptyOutDir: true,
     manifest: true,
     outDir: "public",
-    target: "es6"
+    target: "es2015"
   },
   plugins: [
     vitePluginFaviconsInject("./src/favicon/logo.png"),

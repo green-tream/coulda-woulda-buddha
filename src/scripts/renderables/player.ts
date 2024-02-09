@@ -5,7 +5,7 @@ class PlayerEntity extends Entity {
     /**
      * constructor
      */
-    constructor(x, y, settings) {
+    constructor(x: number, y: number, settings: any) {
         // call the parent constructor
         super(x, y , settings);
     }
@@ -13,7 +13,7 @@ class PlayerEntity extends Entity {
     /**
      * update the entity
      */
-    update(dt) {
+    update(dt: number) {
         // change body force based on inputs
         //....
         // call the parent method
@@ -24,7 +24,7 @@ class PlayerEntity extends Entity {
      * colision handler
      * (called when colliding with other objects)
      */
-    onCollision(response, other) {
+    onCollision(response: any, other: any) {
         // Make all other objects solid
         return true;
     }

@@ -1,25 +1,27 @@
 {
   "name": "coulda-woulda-buddha",
-  "version": "1.0.-0",
-  "main": "src/index.js",
-  "type": "module",
+  "version": "1.0.0",
+  "main": "src/index.ts",
   "author": "Green Team",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.11.16",
+    "sass": "^1.70.0",
+    "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vite-plugin-favicons-inject": "^2.2.0",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-static-copy": "^1.0.1",
-    "sass": "^1.70.0"
+    "vite-plugin-static-copy": "^1.0.1"
   },
   "browserslist": "defaults",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "tsc && vite dev",
+    "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@melonjs/debug-plugin": "^14.8.2",
     "melonjs": "^16.0.0"
-  }
+  },
+  "type": "module"
 }
