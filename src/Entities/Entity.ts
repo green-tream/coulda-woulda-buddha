@@ -12,7 +12,7 @@ export default abstract class Entity {
 
         // this.width = width;
         // this.height = height;
-        this.sprite = Sprite.from(assetName);//'sprites/buddha/zen_1.png'
+        this.sprite = Sprite.from(assetName);
         this.sprite.anchor.set(0.5);
 
     }
