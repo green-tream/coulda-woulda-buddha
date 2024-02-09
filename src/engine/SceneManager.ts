@@ -1,5 +1,5 @@
 import { Application } from "pixi.js";
-import { Scene } from "../scenes/Scene";
+import { Scene } from "./Scene";
 
 export class SceneManager {
 	private app: Application;

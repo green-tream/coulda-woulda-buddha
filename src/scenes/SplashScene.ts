@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import { Scene } from "./Scene";
+import { Scene } from "../engine/Scene";
 
 export default class SplashScene extends Scene {
 	private header: PIXI.Text;
@@ -16,9 +16,10 @@ export default class SplashScene extends Scene {
 		setTimeout(() => {
 			console.log("hi!");
 		}, 5000);
+		this.container.addChild(this.header);
 	}
 
 	public update(delta: number): void {
-		this.header.angle += (delta / 1000) * 45;
+		this.header.angle += (delta / 100) * 45;
 	}
 }
