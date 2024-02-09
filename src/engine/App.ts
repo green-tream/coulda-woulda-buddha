@@ -1,7 +1,7 @@
 import { Application, Assets } from "pixi.js";
 import type { IConfig } from "../config";
 import { SceneManager } from "./SceneManager";
-import * as ASSETS from "../assets.json";
+import ASSETS from "../assets.json";
 
 export class App {
 	private config: IConfig;
@@ -15,7 +15,7 @@ export class App {
 
 		// Load all assets
 		for (const ASSET of ASSETS) {
-			Assets.load(ASSET);
+			Assets.load(`./${ASSET}`);
 		}
 
 		for (const [key, scene] of Object.entries(this.config.scenes)) {

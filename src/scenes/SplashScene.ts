@@ -5,7 +5,9 @@ export default class SplashScene extends Scene {
 	private header: PIXI.Text;
 
 	public init(): void {
-		this.header = new PIXI.Text("My Game Studio");
+		this.header = new PIXI.Text("My Game Studio", {
+			fontFamily: "SuperWoobly",
+		});
 		this.header.x = this.app!.screen.width / 2;
 		this.header.y = this.app!.screen.height / 2;
 		this.header.anchor.set(0.5);
