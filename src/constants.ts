@@ -1,1 +1,1 @@
-export const FILL_COLOR = 0x000000;
+export const BACKGROUND_COLOUR = 0x292929;
