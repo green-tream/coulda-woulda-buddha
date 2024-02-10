@@ -1,28 +1,27 @@
-import * as PIXI from "pixi.js";
+import { Graphics, Assets } from "pixi.js";
 import { Scene } from "../engine/Scene";
-import { app } from "../index";
+import Player from "../Entities/Player";
+import EnviromentObject from "../Entities/BackgroundObject";
 
 export default class QueensScene extends Scene {
-	private header: PIXI.Text;
-	private background: PIXI.Graphics;
+	private player: Player;
+	private background: EnviromentObject;
 
 	async init(assets) {
-		this.assets = assets;
-		this.background = new PIXI.Graphics();
+		this.background = new EnviromentObject(800, 800, assets["background_dummy"]);
+
+		this.player = new Player(100, 150, assets);
+		// this.player.position(400, 350);
 	}
 
 	async start() {
-		this.background.drawRect(0, 0, 800, 400);
+		this.container.addChild(this.background.getSprite());
 
-		this.container.addChild(this.background);
-
-		setTimeout(async () => {
-			await app.scenes.start("queens");
-		}, 5000);
+		// this.container.addChild(this.player.getSprite());
+		document.addEventListener("keydown", (event) =>
+			this.player.handleInput(event)
+		);
 	}
 
-	async update(delta: number) {
-		this.background.beginFill(Math.random() * 1000 * 0x000001);
-		this.background.drawRect(0, 0, 800, 400);
-	}
+	public update(delta: number): void {}
 }

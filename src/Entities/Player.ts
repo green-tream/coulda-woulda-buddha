@@ -2,7 +2,7 @@ import { AnimatedSprite, Texture } from "pixi.js";
 
 import Entity from "./Entity";
 
-export default class Player extends Entity {
+export default class Player {
 
     private speed: number;
     private isRunning: boolean;
@@ -10,20 +10,18 @@ export default class Player extends Entity {
     private animationSpeed;
 
     constructor(width: number, height: number, assets: any) {
-        super(width, height, assets);
-
         this.speed = 5;
         this.animationSpeed = 0.5;
         this.isRunning = false;
 
-        this.loadAnimation(assets);
+        this.loadAnimation(assets, "running_animation");
     }
 
-    loadAnimation(assets: any): void {
+    loadAnimation(assets: any, animationName: string): void {
         const frames = [];
 
         for (let i = 1; i < 4; i++) {
-            frames.push(new Texture(assets[`running_animation_${i}.png`]));
+            frames.push(new Texture(assets[`${animationName}_${i}.png`]));
         }
 
         this.animation = new AnimatedSprite(frames);
@@ -38,15 +36,15 @@ export default class Player extends Entity {
             this.animation.play();
         }
 
-        switch (event.key) {
-            case "ArrowRight":
-                super.moveSprite(this.speed, 0);
-                break;
-            case "ArrowLeft":
-                super.moveSprite(-1 * this.speed, 0);
-                break;
+        // switch (event.key) {
+        //     case "ArrowRight":
+        //         super.moveSprite(this.speed, 0);
+        //         break;
+        //     case "ArrowLeft":
+        //         super.moveSprite(-1 * this.speed, 0);
+        //         break;
             
-        }
+        // }
 
     }
 

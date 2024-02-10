@@ -18,7 +18,7 @@ export default class MainMenuScene extends Scene {
 
 		setTimeout(async () => {
 			await app.scenes.start("queens");
-		}, 5000);
+		}, 500);
 	}
 
 	async update(delta: number) {

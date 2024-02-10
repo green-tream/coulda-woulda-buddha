@@ -1,4 +1,4 @@
-import { Sprite } from "pixi.js";
+import { Sprite, Texture } from "pixi.js";
 
 
 export default class Entity {
@@ -8,15 +8,11 @@ export default class Entity {
     private sprite: Sprite;
 
 
-    constructor(width: number, height: number, asset: any) {
+    constructor(width: number, height: number, sprite: Sprite) {
 
         this.width = width;
         this.height = height;
-        try {
-            this.sprite = Sprite.from(asset);
-        } catch {
-            throw new Error("Sprite not loaded");
-        }
+        this.sprite = sprite;
 
         this.sprite.anchor.set(0.5);
 
