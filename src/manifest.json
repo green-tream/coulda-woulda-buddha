@@ -46,7 +46,7 @@
 				},
 				{
 					"name": "background_queens",
-					"srcs": "img/background/queens.jpg"
+					"srcs": "img/background/queens.png"
 				},
 				{
 					"name": "idle_sprite",

@@ -1,7 +1,6 @@
 import Level from "../Level";
 import { HEIGHT, TILESIZE, WIDTH } from "../../constants";
 
-
 export default function level1(): Level {
     const levelWidth = WIDTH / TILESIZE;
     const levelHeight = HEIGHT / TILESIZE;

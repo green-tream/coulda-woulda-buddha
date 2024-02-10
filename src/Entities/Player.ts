@@ -26,8 +26,8 @@ export default class Player {
 	private runningSprite: AnimatedSprite;
 	private spriteList: AnimatedSprite[];
 
-    private maxspeed: number;
-    private velocity: number;
+	private maxspeed: number;
+	private velocity: number;
 
 	private level: Level;
 
@@ -240,6 +240,10 @@ export default class Player {
 
 	get position(): { x: number; y: number } {
 		return { x: this.xPos, y: this.yPos };
+	}
+
+	get mIdleSprite() {
+		return this.idleSprite;
 	}
 
 	set position(pos: { x: number; y: number }) {
