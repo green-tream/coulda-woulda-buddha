@@ -33,7 +33,7 @@ export default abstract class LevelScene extends Scene {
 		);
 
 		this.player = new Player(100, 150, assets, this);
-		this.player.position(400, 350);
+		this.player.setPosition(400, 400);
 
 		this.addEntity(this.background);
 

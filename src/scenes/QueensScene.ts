@@ -59,15 +59,7 @@ export default class QueensScene extends LevelScene {
 		// ).play();
 	}
 
-	public update(delta: number): void {}
-
 	startLevel() {
-		for (const sprite of this.player.getSprites()) {
-			this.container.addChild(sprite);
-		}
-
-		this.viewport.follow(this.player.getSprites()[0]);
-
 		document.addEventListener("keydown", (event) =>
 			this.player.handleKeydown(event)
 		);
