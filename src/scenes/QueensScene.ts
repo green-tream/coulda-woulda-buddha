@@ -8,13 +8,13 @@ export default class QueensScene extends Scene {
 	private background: BackgroundObject;
 
 	async init(assets) {
-		// this.background = new BackgroundObject(800, 800, assets["background_queens"]);
+		this.background = new BackgroundObject(800, 800, assets["background_queens"]);
 		this.player = new Player(100, 150, assets);
 		this.player.position(400, 350);
 	}
 
 	async start() {
-		// this.container.addChild(this.background.getSprite());
+		this.container.addChild(this.background.getSprite());
 
 		for (const sprite of this.player.getSprites()) {
 			this.container.addChild(sprite);

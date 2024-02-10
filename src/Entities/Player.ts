@@ -3,15 +3,17 @@ import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 
 export default class Player {
 
-    private speed: number;
     private animationSpeed;
     
     private idleSprite: AnimatedSprite;
     private runningSprite: AnimatedSprite;
     private spriteList: AnimatedSprite[];
 
+    private maxspeed: number;
+    private velocity: number
+
     constructor(width: number, height: number, assets: any) {
-        this.speed = 5;
+        this.maxspeed = 5;
         this.animationSpeed = 0.1;
 
         this.idleSprite = new AnimatedSprite([assets["idle_sprite"]])
@@ -45,7 +47,7 @@ export default class Player {
 
         switch (event.key) {
             case "ArrowRight":
-                this.moveSprite(this.speed, 0);
+                this.moveSprite(this.maxspeed, 0);
                 this.runningSprite.visible = true;
                 this.idleSprite.visible = false; 
                 this.runningSprite.play();
@@ -53,7 +55,7 @@ export default class Player {
                 this.runningSprite.width = this.idleSprite.width;
                 break;
             case "ArrowLeft":
-                this.moveSprite(-1 * this.speed, 0);
+                this.moveSprite(-1 * this.maxspeed, 0);
                 this.runningSprite.visible = true;
                 this.idleSprite.visible = false; 
                 this.runningSprite.play();
@@ -90,5 +92,7 @@ export default class Player {
         }
 
     }
+
+
 
 }
