@@ -34,21 +34,19 @@ export default class Level {
         y: number,
         width: number,
         height: number,
-        asset: Sprite,
-        label: string,
     ): void {
     
         for (let i=x; i<x+width; i++) {
             for (let j=y; j<y+height; j++) {
-                this.add(i, j, label, asset);
+                this.add(i, j);
             }
         }
     
     }
 
-    add(x: number, y: number, label: string, asset: Sprite) {
+    add(x: number, y: number) {
 
-        this.map[this.height - y][this.width - x] = new Block(label, x, y, this.squareSize, asset);
+        this.map[this.height - y][this.width - x] = new Block(x, y, this.squareSize);
 
     }
 
