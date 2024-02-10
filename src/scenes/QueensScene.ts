@@ -77,7 +77,7 @@ export default class QueensScene extends LevelScene {
 		);
 	}
 
-	updateBuddhaSprite(asset: any) {
-		this.buddha.getSprite().texture = asset;
+	public update(delta: number): void {
+		this.player.update(delta);
 	}
 }
