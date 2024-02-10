@@ -17,7 +17,8 @@ export default class MainMenuScene extends Scene {
 		// background
 		this.assets = assets;
 		this.background = new BackgroundObject(
-			WIDTH,
+			assets.background_main_menu.baseTexture.width *
+				(HEIGHT / assets.background_main_menu.baseTexture.height),
 			HEIGHT,
 			this.assets.background_main_menu,
 			this
@@ -59,21 +60,13 @@ export default class MainMenuScene extends Scene {
 			this.buddhaOpen = true;
 
 			Actions.sequence(
-				Actions.runFunc(() =>
-					this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)
-				),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
 				Actions.delay(0.1),
-				Actions.runFunc(() =>
-					this.buddha.setSpriteTexture(this.assets.menu_buddha_open)
-				),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
 				Actions.delay(1.5),
-				Actions.runFunc(() =>
-					this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)
-				),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
 				Actions.delay(0.1),
-				Actions.runFunc(() =>
-					this.buddha.setSpriteTexture(this.assets.menu_buddha_closed)
-				),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_closed)),
 				Actions.runFunc(() => (this.buddhaOpen = false))
 			).play();
 		});

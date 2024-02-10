@@ -16,13 +16,11 @@ export class App {
 		this.config = config;
 		this.app = new Application(config.application);
 
-		const worldWidth = WIDTH * 3;
-
 		this.viewport = new Viewport({
 			screenWidth: WIDTH,
 			screenHeight: HEIGHT,
-			worldWidth: 0,
-			worldHeight: 0,
+			worldWidth: WIDTH,
+			worldHeight: HEIGHT,
 			events: this.app.renderer.events,
 		});
 
@@ -31,9 +29,7 @@ export class App {
 
 	async setup() {
 		await Assets.init({ manifest: ASSETS });
-		await Assets.backgroundLoadBundle(
-			ASSETS.bundles.map((bundle) => bundle.name)
-		);
+		await Assets.backgroundLoadBundle(ASSETS.bundles.map((bundle) => bundle.name));
 
 		for (const [key, scene] of Object.entries(this.config.scenes)) {
 			this.scenes.add(key, scene);
@@ -41,7 +37,6 @@ export class App {
 
 		this.app.stage.addChild(this.viewport);
 		this.viewport.clamp({ direction: "all" }).decelerate();
-		this.viewport.moveCorner(0, HEIGHT);
 
 		this.app.ticker.add((delta) => Actions.tick(delta / 60));
 

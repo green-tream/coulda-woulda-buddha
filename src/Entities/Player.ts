@@ -31,7 +31,7 @@ export default class Player {
 
 	public level: Level; //Change back to private when using
 
-	constructor(width: number, height: number, assets: any, level: Level) {
+	constructor(spriteScale: number, assets: any, level: Level) {
 		this.level = level;
 		this.animationSpeed = 0.1;
 
@@ -41,6 +41,9 @@ export default class Player {
 		this.runningSprite.visible = false;
 
 		this.spriteList = [this.idleSprite, this.runningSprite];
+
+		const width = assets.idle_sprite.baseTexture.width * spriteScale;
+		const height = assets.idle_sprite.baseTexture.height * spriteScale;
 
 		this.width = width;
 		this.height = height;
@@ -153,7 +156,6 @@ export default class Player {
 	}
 
 	private changeSprites(): void {
-
 		if (Math.abs(this.xVel) > 0.1) {
 			this.runningSprite.visible = true;
 			this.idleSprite.visible = false;
@@ -174,10 +176,7 @@ export default class Player {
 
 		this.xPos += this.xVel;
 		if (this.xVel > 0) {
-			if (
-				this.pointInCollision(this.topRight) ||
-				this.pointInCollision(this.bottomRight)
-			) {
+			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight)) {
 				// TODO: move slightly to left
 				this.xPos = Math.min(
 					this.pointTileBounds(this.topRight).xMin,
@@ -186,10 +185,7 @@ export default class Player {
 				this.xVel = 0;
 			}
 		} else if (this.xVel < 0) {
-			if (
-				this.pointInCollision(this.topLeft) ||
-				this.pointInCollision(this.bottomLeft)
-			) {
+			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft)) {
 				// TODO: move slightly to right
 				this.xPos = Math.max(
 					this.pointTileBounds(this.topLeft).xMax,

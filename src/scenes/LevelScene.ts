@@ -28,7 +28,8 @@ export default abstract class LevelScene extends Scene {
 		this.assets = assets;
 
 		this.background = new BackgroundObject(
-			WIDTH * 3,
+			assets[this.BACKGROUND].baseTexture.width *
+				(HEIGHT / assets[this.BACKGROUND].baseTexture.height),
 			HEIGHT,
 			assets[this.BACKGROUND] as Texture,
 			this
@@ -36,7 +37,7 @@ export default abstract class LevelScene extends Scene {
 
 		this.initViewport();
 
-		this.player = new Player(100, 150, assets, level);
+		this.player = new Player(0.4, assets, level);
 		this.player.position = { x: WIDTH * 0.1, y: HEIGHT * 0.4 };
 
 		this.addEntity(this.background);

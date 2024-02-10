@@ -6,14 +6,13 @@ import QueensScene from "./scenes/QueensScene";
 import KingsParadeScene from "./scenes/KingsParadeScene";
 import IntelLabScene from "./scenes/IntelLabScene";
 
-const view = document.querySelector("#game") as HTMLCanvasElement;
+const view = document.querySelector("#canvas") as HTMLCanvasElement;
 
 export interface IConfig {
 	scenes: { [key: string]: typeof Scene };
 	application: {
 		view: HTMLCanvasElement;
-		resizeTo: Window;
-		resolution: number;
+		resizeTo: HTMLElement;
 		autoDensity: boolean;
 		backgroundColor: number;
 	};
@@ -28,8 +27,7 @@ export const Config: IConfig = {
 	},
 	application: {
 		view,
-		resizeTo: window,
-		resolution: window.devicePixelRatio || 1,
+		resizeTo: document.querySelector("#view") as HTMLDivElement,
 		autoDensity: true,
 		backgroundColor: BACKGROUND_COLOUR,
 	},
