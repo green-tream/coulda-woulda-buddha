@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { Scene } from "../engine/Scene";
+import { app } from "..";
 
 export default class SplashScene extends Scene {
 	private header: PIXI.Text;
@@ -29,11 +30,7 @@ export default class SplashScene extends Scene {
 
 		this.header.angle = 0;
 		setTimeout(() => {
-<<<<<<< Updated upstream
 			app.scenes.start("test");
-=======
-			// app.scenes.start("game");
->>>>>>> Stashed changes
 		}, 5000);
 		this.container.addChild(this.header);
 
