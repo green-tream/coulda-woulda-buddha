@@ -27,7 +27,6 @@ export abstract class Scene {
 	initViewport() {
 		this.viewport.worldHeight = this.background.getSprite().height;
 		this.viewport.worldWidth = this.background.getSprite().width;
-		console.log(this.viewport.worldHeight);
 	}
 
 	public abstract init(assets: any): void;

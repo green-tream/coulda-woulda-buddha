@@ -9,7 +9,7 @@ export default class QueensScene extends LevelScene {
 	private buddha: ForegroundObject;
 
 	async init(assets) {
-		this.initScene(assets, level1());
+		this.initScene(assets, level1(this.viewport.worldWidth));
 
 		// buddha
 		this.buddha = new ForegroundObject(
