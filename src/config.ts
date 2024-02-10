@@ -14,6 +14,7 @@ export interface IConfig {
 		view: HTMLCanvasElement;
 		resizeTo: HTMLElement;
 		autoDensity: boolean;
+		resolution: number;
 		backgroundColor: number;
 	};
 }
@@ -28,6 +29,7 @@ export const Config: IConfig = {
 	application: {
 		view,
 		resizeTo: document.querySelector("#view") as HTMLDivElement,
+		resolution: window.devicePixelRatio || 1,
 		autoDensity: true,
 		backgroundColor: BACKGROUND_COLOUR,
 	},
