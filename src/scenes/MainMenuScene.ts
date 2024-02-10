@@ -7,6 +7,7 @@ export default class MainMenuScene extends Scene {
 	private background: PIXI.Graphics;
 
 	async init(assets) {
+		this.assets = assets;
 		this.background = new PIXI.Graphics();
 	}
 
