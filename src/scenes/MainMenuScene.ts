@@ -9,7 +9,6 @@ import { Actions } from "pixi-actions";
 import { fadeToScene } from "../utils";
 
 export default class MainMenuScene extends Scene {
-	private background: BackgroundObject;
 	private buddha: UIObject;
 	private playButton: UIObject;
 	private buddhaOpen: boolean = false;
@@ -23,6 +22,8 @@ export default class MainMenuScene extends Scene {
 			this.assets.background_main_menu,
 			this
 		);
+
+		this.initViewport();
 
 		// buddha
 		this.buddha = new UIObject(

@@ -7,12 +7,11 @@ import { Graphics, Rectangle, TextStyle, Texture } from "pixi.js";
 import { HEIGHT, WIDTH } from "../constants";
 import Level from "../map/Level";
 
-import { Text } from 'pixi.js';
+import { Text } from "pixi.js";
 
 export default abstract class LevelScene extends Scene {
 	private objects: InteractableObject[];
 	private checkpoints: Checkpoint[];
-	private background: BackgroundObject;
 	public player: Player;
 	abstract BACKGROUND: string;
 
@@ -35,6 +34,8 @@ export default abstract class LevelScene extends Scene {
 			this
 		);
 
+		this.initViewport();
+
 		this.player = new Player(100, 150, assets, level);
 		this.player.position = { x: WIDTH * 0.1, y: HEIGHT * 0.4 };
 
@@ -43,14 +44,14 @@ export default abstract class LevelScene extends Scene {
 
 		const g: Graphics = new Graphics();
 		g.beginFill(0x000000, 0.2);
-		for (let j=0; j<this.player.level.height; j++) {
-            for (let i=0; i<this.player.level.width; i++) {
+		for (let j = 0; j < this.player.level.height; j++) {
+			for (let i = 0; i < this.player.level.width; i++) {
 				if (this.player.level.map[j][i] != null) {
 					g.drawRect(
 						this.player.level.squareSize * i,
 						this.player.level.squareSize * j,
 						this.player.level.squareSize,
-						this.player.level.squareSize,
+						this.player.level.squareSize
 					);
 				} else {
 					const text = new TextStyle({
@@ -64,9 +65,9 @@ export default abstract class LevelScene extends Scene {
 
 					this.addDisplayObject(t);
 				}
-            }
-        }
-		this.addDisplayObject(g)
+			}
+		}
+		this.addDisplayObject(g);
 
 		this.viewport.follow(this.player.mIdleSprite, {
 			speed: 1,
