@@ -37,7 +37,7 @@ export function closerObject(
 	a: InteractableObject,
 	b: InteractableObject
 ) {
-	const { x, y } = player.getPosition();
+	const { x, y } = player.position;
 
 	const distanceA =
 		Math.pow(a.getSprite().x - x, 2) + Math.pow(a.getSprite().y - y, 2);
@@ -46,4 +46,8 @@ export function closerObject(
 		Math.pow(b.getSprite().x - x, 2) + Math.pow(b.getSprite().y - y, 2);
 
 	return distanceA - distanceB;
+}
+
+export function sleep(time: number) {
+	return new Promise((resolve) => setTimeout(resolve, time));
 }
