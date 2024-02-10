@@ -1,10 +1,11 @@
-import * as PIXI from "pixi.js";
+import { Graphics, Assets } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Player from "../Entities/Player";
+import EnviromentObject from "../Entities/EnviromentObject";
 
 export default class SplashScene extends Scene {
 	private player: Player;
-	private background: PIXI.Graphics;
+	private background: EnviromentObject;
 
 	async init(assets) {
 		this.background = new PIXI.Graphics();

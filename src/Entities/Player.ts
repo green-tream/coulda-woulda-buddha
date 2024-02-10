@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js";
+import { AnimatedSprite, Texture } from "pixi.js";
 
 import Entity from "./Entity";
 
@@ -6,7 +6,7 @@ export default class Player extends Entity {
 
     private speed: number;
     private isRunning: boolean;
-    private animation: PIXI.AnimatedSprite;
+    private animation: AnimatedSprite;
     private animationSpeed;
 
     constructor(width: number, height: number, assetName: string) {
@@ -20,17 +20,15 @@ export default class Player extends Entity {
     }
 
     loadAnimation(): void { // Cant load/find file           Also, I just randomly copied and pasted some data into frames.json - check data
-        PIXI.Assets.load('./sprites/buddha/running_animation/frames.json').then(() => {
-            const frames = [];
+        const frames = [];
 
-            for (let i = 1; i < 4; i++) {
-                frames.push(PIXI.Texture.from(`${i}.png`));
-            }
+        for (let i = 1; i < 4; i++) {
+            frames.push(Texture.from(`${i}.png`));
+        }
 
-            this.animation = new PIXI.AnimatedSprite(frames);
-            this.animation.animationSpeed = this.animationSpeed;
-            console.log("Animation loaded");
-        });
+        this.animation = new AnimatedSprite(frames);
+        this.animation.animationSpeed = this.animationSpeed;
+        console.log("Animation loaded");
     }
 
     handleInput(event: KeyboardEvent): void {
