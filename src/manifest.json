@@ -4,21 +4,12 @@
 			"name": "game",
 			"assets": [
 				{
-					"name": "gloria-hallelujah",
-					"srcs": "fonts/gloria-hallelujah.ttf"
+					"name": "test",
+					"srcs": "assets.json"
 				},
 				{
-					"name": "frames",
-					"srcs": "sprites/buddha/running_animation/frames.json"
-				}
-			]
-		},
-		{
-			"name": "test",
-			"assets": [
-				{
-					"name": "funny name",
-					"srcs": "sprites/buddha/running_animation/frames.json"
+					"name": "gloria-hallelujah",
+					"srcs": "fonts/gloria-hallelujah.ttf"
 				}
 			]
 		}
