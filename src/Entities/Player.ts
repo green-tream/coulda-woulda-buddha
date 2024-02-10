@@ -25,6 +25,9 @@ export default class Player {
 	private runningSprite: AnimatedSprite;
 	private spriteList: AnimatedSprite[];
 
+    private maxspeed: number;
+    private velocity: number
+
 	constructor(width: number, height: number, assets: any, scene: Scene) {
 		this.animationSpeed = 0.1;
 
