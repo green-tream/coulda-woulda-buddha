@@ -9,6 +9,8 @@ export default class Player {
     private xAcc: number;
     private yAcc: number;
 
+    private width: number;
+    private height: number;
 
     private onGround: boolean;
 
@@ -19,7 +21,6 @@ export default class Player {
     private interactKeyPressed: boolean;
 
     
-	private speed: number;
 	private animationSpeed;
 
     private idleSprite: AnimatedSprite;
@@ -27,7 +28,6 @@ export default class Player {
     private spriteList: AnimatedSprite[];
 
 	constructor(width: number, height: number, assets: any, scene: Scene) {
-		this.speed = 5;
 		this.animationSpeed = 0.1;
 
 		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);
@@ -70,31 +70,7 @@ export default class Player {
         }
         
         return;
-
-		switch (event.key) {
-			case "ArrowRight":
-				this.moveSprite(this.speed, 0);
-				this.runningSprite.visible = true;
-				this.idleSprite.visible = false;
-				this.runningSprite.play();
-				this.runningSprite.scale.x = 1;
-				this.runningSprite.width = this.idleSprite.width;
-				break;
-			case "ArrowLeft":
-				this.moveSprite(-1 * this.speed, 0);
-				this.runningSprite.visible = true;
-				this.idleSprite.visible = false;
-				this.runningSprite.play();
-				this.runningSprite.scale.x = -1;
-				this.runningSprite.width = this.idleSprite.width;
-				break;
-		}
-
-	handleKeyup(event: KeyboardEvent): void {
-		this.runningSprite.visible = false;
-		this.idleSprite.visible = true;
-		this.runningSprite.stop();
-	}
+    }
 
     handleKeyup(event: KeyboardEvent): void {
         switch (event.key) {
@@ -108,12 +84,6 @@ export default class Player {
                 this.jumpKeyPressed = false;
                 break;
         }
-        
-        return;
-
-        this.runningSprite.visible = false;
-        this.idleSprite.visible = true; 
-        this.runningSprite.stop();
     }
 
     update(delta: number): void {
@@ -163,23 +133,60 @@ export default class Player {
     }
 
     private updateVisuals(): void {
+        this.changeSprites();
+        this.moveSprites();
+    }
+
+    private moveSprites(): void {
         for (const sprite of this.spriteList) {
             sprite.position.x = this.xPos;
             sprite.position.y = this.yPos;
+
+            if (this.xVel > 0) {
+                sprite.scale.x = 1;
+            } else if (this.xVel < 0) {
+                sprite.scale.x = -1;
+            }
         }
     }
 
-    private updateSprites(): void {
-        if (this.xVel > 0) {
-            this.runningSprite.scale.x = 1;
-            this.runningSprite.width = this.idleSprite.width;
-        } else if (this.xVel < 0) {
-            this.runningSprite.scale.x = -1;
-            this.runningSprite.width = this.idleSprite.width;
+    private changeSprites(): void {
+        // if (this.xVel > 0) {
+        //     this.runningSprite.scale.x = 1;
+        //     this.runningSprite.width = this.idleSprite.width;
+        // } else if (this.xVel < 0) {
+        //     this.runningSprite.scale.x = -1;
+        //     this.runningSprite.width = this.idleSprite.width;
+        // }
+
+        if (Math.abs(this.xVel) > 0.1) {
+            this.runningSprite.visible = true;
+            this.idleSprite.visible = false;
+            this.runningSprite.play();
+        } else {
+            this.runningSprite.visible = false;
+            this.idleSprite.visible = true;
+            this.runningSprite.stop();
         }
     }
 
-    getPosition() : { x: number; y: number; } {
+    get bottomLeft() : { x: number; y: number; } {
+        return { x: this.xPos - this.width / 2, y: this.yPos - this.height / 2 };
+    }
+
+    get bottomRight() : { x: number; y: number; } {
+        return { x: this.xPos + this.width / 2, y: this.yPos - this.height / 2 };
+    }
+
+    get topLeft() : { x: number; y: number; } {
+        return { x: this.xPos - this.width / 2, y: this.yPos + this.height / 2 };
+    }
+
+    get topRight() : { x: number; y: number; } {
+        return { x: this.xPos + this.width / 2, y: this.yPos + this.height / 2 };
+    }
+
+    get position() : { x: number; y: number; } {
         return { x: this.xPos, y: this.yPos };
     }
 
