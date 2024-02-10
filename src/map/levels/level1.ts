@@ -7,7 +7,7 @@ export default function level1(): Level {
     const levelHeight = HEIGHT / TILESIZE;
     const level: Level = new Level(levelWidth, levelHeight, TILESIZE);
     //Ground
-    level.applyRect(0, 0, levelWidth, 2);
+    level.applyRect(0, 0, levelWidth - 1, 2);
     //Bed
     level.applyRect(0, 2, 10, 2);
     //platform
