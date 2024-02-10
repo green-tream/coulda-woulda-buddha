@@ -3,6 +3,7 @@ import { Application, Container } from "pixi.js";
 export abstract class Scene {
 	public app: Application;
 	public container: Container;
+	public assets: any;
 
 	constructor(app: Application) {
 		this.app = app;

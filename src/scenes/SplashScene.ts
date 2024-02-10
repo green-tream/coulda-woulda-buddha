@@ -7,6 +7,8 @@ export default class SplashScene extends Scene {
 	private background: PIXI.Graphics;
 
 	async init(assets) {
+		console.log(assets);
+
 		this.background = new PIXI.Graphics();
 
 		this.header = new PIXI.Text("My Game Studio", {
