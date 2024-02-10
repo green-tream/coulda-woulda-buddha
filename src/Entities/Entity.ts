@@ -1,4 +1,5 @@
 import { Sprite, Texture } from "pixi.js";
+import { Scene } from "../engine/Scene";
 
 export default class Entity {
 	private width: number;
@@ -28,5 +29,9 @@ export default class Entity {
 	moveSprite(x: number, y: number): void {
 		this.sprite.x += x;
 		this.sprite.y += y;
+	}
+
+	setSpriteTexture(texture: Texture): void {
+		this.sprite.texture = texture;
 	}
 }

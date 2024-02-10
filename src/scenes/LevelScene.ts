@@ -22,7 +22,9 @@ export default abstract class LevelScene extends Scene {
 		closestObject.interact(this.player);
 	}
 
-	async init(assets) {
+	initScene(assets) {
+		this.assets = assets;
+
 		this.background = new BackgroundObject(
 			WIDTH,
 			HEIGHT,
