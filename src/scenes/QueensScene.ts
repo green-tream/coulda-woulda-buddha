@@ -17,9 +17,14 @@ export default class QueensScene extends Scene {
 	async start() {
 		this.container.addChild(this.background.getSprite());
 
-		// this.container.addChild(this.player.getSprite());
+		for (const sprite of this.player.getSprites()) {
+			this.container.addChild(sprite);
+		}
 		document.addEventListener("keydown", (event) =>
-			this.player.handleInput(event)
+			this.player.handleKeydown(event)
+		);
+		document.addEventListener("keyup", (event) =>
+			this.player.handleKeyup(event)
 		);
 	}
 
