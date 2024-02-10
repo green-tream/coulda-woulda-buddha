@@ -14,7 +14,7 @@ export default class TestScene extends Scene {
 		this.player.position(400, 350);
 	}
 
-	async start(assets) {
+	async start() {
 		this.container.addChild(this.background.getSprite());
 
 		this.container.addChild(this.player.getSprite());
@@ -23,5 +23,5 @@ export default class TestScene extends Scene {
 		);
 	}
 
-	public update(delta: number, assets): void {}
+	public update(delta: number): void {}
 }

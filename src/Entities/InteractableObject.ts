@@ -7,4 +7,6 @@ export default class InteractableObject extends Entity {
         super(width, height, texture);
     }
 
+    
+
 }

@@ -24,10 +24,10 @@ export class SceneManager {
 
 		if (scene) {
 			await scene.init(assets);
-			await scene.start(assets);
+			await scene.start();
 
 			this.app.stage.addChild(scene.container);
-			this.app.ticker.add((delta) => scene.update(delta, assets));
+			this.app.ticker.add((delta) => scene.update(delta));
 		} else {
 			throw new Error(`Scene with key ${key} not found`);
 		}
