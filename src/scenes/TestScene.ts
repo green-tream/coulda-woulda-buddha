@@ -20,7 +20,7 @@ export default class SplashScene extends Scene {
 
 	public start(): void {
 
-		// this.container.addChild(this.background);
+		this.container.addChild(this.background.getSprite());
 
 		this.container.addChild(this.player.getSprite());
         document.addEventListener('keydown', event => this.player.handleInput(event))
