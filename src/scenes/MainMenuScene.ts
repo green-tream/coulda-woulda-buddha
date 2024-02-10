@@ -28,12 +28,13 @@ export default class MainMenuScene extends Scene {
 
 		// buddha
 		this.buddha = new UIObject(
-			this.assets.menu_buddha_closed.baseTexture.width / 8,
-			this.assets.menu_buddha_closed.baseTexture.height / 8,
+			this.assets.menu_buddha_closed.baseTexture.width,
+			this.assets.menu_buddha_closed.baseTexture.height,
 			this.assets.menu_buddha_closed,
 			this
 		);
 
+		this.buddha.getSprite().scale.set(0.15);
 		this.buddha.position(WIDTH * 0.67, HEIGHT * 0.1);
 
 		// play button
