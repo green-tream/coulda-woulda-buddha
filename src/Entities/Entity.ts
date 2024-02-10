@@ -28,4 +28,11 @@ export default abstract class Entity {
         return this.sprite;
     }
 
+    moveSprite(x: number, y: number): void {
+
+        this.sprite.x += x;
+        this.sprite.y += y;
+
+    }
+
 }
