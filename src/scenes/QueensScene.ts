@@ -19,7 +19,7 @@ export default class QueensScene extends LevelScene {
 			this
 		);
 
-		this.buddha.position(400, 400);
+		this.buddha.position(3200, 400);
 	}
 
 	async start() {
@@ -31,7 +31,7 @@ export default class QueensScene extends LevelScene {
 			this.player.handleKeyup(event)
 		);
 
-		Actions.moveTo(this.player.mIdleSprite, 3200, 400, 10);
+		// Actions.moveTo(this.player.mIdleSprite, 3200, 400, 10);
 	}
 
 	public update(delta: number): void {

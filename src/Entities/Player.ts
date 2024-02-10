@@ -144,19 +144,21 @@ export default class Player {
 
 			if (this.xVel > 0) {
 				sprite.scale.x = 1;
+				sprite.width = this.width;
 			} else if (this.xVel < 0) {
 				sprite.scale.x = -1;
+				sprite.width = this.width;
 			}
 		}
 	}
 
 	private changeSprites(): void {
 		// if (this.xVel > 0) {
-		//     this.runningSprite.scale.x = 1;
-		//     this.runningSprite.width = this.idleSprite.width;
+		// 	this.runningSprite.scale.x = 1;
+		// 	this.runningSprite.width = this.idleSprite.width;
 		// } else if (this.xVel < 0) {
-		//     this.runningSprite.scale.x = -1;
-		//     this.runningSprite.width = this.idleSprite.width;
+		// 	this.runningSprite.scale.x = -1;
+		// 	this.runningSprite.width = this.idleSprite.width;
 		// }
 
 		if (Math.abs(this.xVel) > 0.1) {
@@ -208,7 +210,7 @@ export default class Player {
 	}
 
 	pointInCollision(point: { x: number; y: number }): boolean {
-		return this.level.is_in_uwu_block(point.x, point.y)
+		return this.level.is_in_uwu_block(point.x, point.y);
 	}
 
 	pointTileBounds(point: { x: number; y: number }): {
@@ -217,7 +219,6 @@ export default class Player {
 		yMin: number;
 		yMax: number;
 	} {
-
 		return this.level.what_around_the_box(point.x, point.y);
 	}
 
