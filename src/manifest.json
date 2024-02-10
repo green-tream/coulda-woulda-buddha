@@ -6,6 +6,10 @@
 				{
 					"name": "gloria-hallelujah",
 					"srcs": "fonts/gloria-hallelujah.ttf"
+				},
+				{
+					"name": "test",
+					"srcs": "assets.json"
 				}
 			]
 		}

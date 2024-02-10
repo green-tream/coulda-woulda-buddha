@@ -16,18 +16,18 @@ export class SceneManager {
 	}
 
 	async start(key: string) {
-		await Assets.loadBundle(key);
+		const assets = await Assets.loadBundle(key);
 
 		this.app.stage.removeChild();
 
 		const scene = this.scenes.get(key);
 
 		if (scene) {
-			scene.init();
-			scene.start();
+			await scene.init(assets);
+			await scene.start(assets);
 
 			this.app.stage.addChild(scene.container);
-			this.app.ticker.add((delta) => scene.update(delta));
+			this.app.ticker.add((delta) => scene.update(delta, assets));
 		} else {
 			throw new Error(`Scene with key ${key} not found`);
 		}
