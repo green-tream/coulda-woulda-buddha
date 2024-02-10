@@ -3,16 +3,16 @@ import { Sprite } from "pixi.js";
 
 export default class Entity {
 
-    // private width: number;
-    // private height: number;
+    private width: number;
+    private height: number;
     private sprite: Sprite;
 
 
-    constructor(width: number, height: number, assets: any) {
+    constructor(width: number, height: number, asset: any) {
 
-        // this.width = width;
-        // this.height = height;
-        // this.sprite = Sprite.from(assetName);
+        this.width = width;
+        this.height = height;
+        this.sprite = Sprite.from(assetName);
 
         this.sprite.width = width;
         this.sprite.height = height;

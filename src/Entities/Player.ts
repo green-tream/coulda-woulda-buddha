@@ -16,8 +16,6 @@ export default class Player extends Entity {
         this.animationSpeed = 0.5;
         this.isRunning = false;
 
-        console.log(assets)
-
         this.loadAnimation();
     }
 
