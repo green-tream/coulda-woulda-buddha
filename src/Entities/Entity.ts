@@ -1,7 +1,7 @@
 import { Sprite } from "pixi.js";
 
 
-export default abstract class Entity {
+export default class Entity {
 
     // private width: number;
     // private height: number;

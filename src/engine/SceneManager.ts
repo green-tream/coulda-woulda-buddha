@@ -18,7 +18,7 @@ export class SceneManager {
 	async start(key: string) {
 		const assets = await Assets.loadBundle(key);
 
-		this.app.stage.removeChild();
+		this.app.stage.removeChildren();
 
 		const scene = this.scenes.get(key);
 
