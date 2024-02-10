@@ -1,6 +1,5 @@
 import { AnimatedSprite, Sprite, Texture } from "pixi.js";
 
-import Entity from "./Entity";
 
 export default class Player {
 

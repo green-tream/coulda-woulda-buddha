@@ -1,7 +1,7 @@
 import { Graphics, Assets } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Player from "../Entities/Player";
-import BackgroundObject from "../Entities/BackgroundObject";
+import BackgroundObject from "../entities/BackgroundObject";
 
 export default class QueensScene extends Scene {
 	private player: Player;
