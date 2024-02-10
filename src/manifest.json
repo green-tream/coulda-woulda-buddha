@@ -8,6 +8,15 @@
 					"srcs": "fonts/gloria-hallelujah.ttf"
 				}
 			]
+		},
+		{
+			"name": "test",
+			"assets": [
+				{
+					"name": "funny name",
+					"srcs": "sprites/buddha/running_animation/frames.json"
+				}
+			]
 		}
 	]
 }

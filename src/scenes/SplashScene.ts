@@ -19,17 +19,17 @@ export default class SplashScene extends Scene {
 		this.header.anchor.set(0.5);
 	}
 
-	public start(): void {
+	public start() {
 		this.background.beginFill(0x404040);
 		this.background.drawRect(0, 0, 800, 800);
 
 		this.container.addChild(this.background);
 
 		this.header.angle = 0;
-		setTimeout(() => {
-			app.scenes.start("test");
+		setTimeout(async () => {
+			await app.scenes.start("test");
 		}, 1000);
-		
+
 		this.container.addChild(this.header);
 	}
 

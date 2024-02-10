@@ -16,15 +16,13 @@ export class SceneManager {
 	}
 
 	async start(key: string) {
-		await Assets.loadBundle(key);
-
 		this.app.stage.removeChildren();
 
 		const scene = this.scenes.get(key);
 
 		if (scene) {
-			scene.init();
-			scene.start();
+			await scene.init();
+			await scene.start();
 
 			this.app.stage.addChild(scene.container);
 			this.app.ticker.add((delta) => scene.update(delta));
