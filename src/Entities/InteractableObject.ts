@@ -4,8 +4,8 @@ import Entity from "./Entity";
 
 export default class InteractableObject extends Entity {
 
-    constructor(width: number, height: number, sprite: Sprite) {
-        super(width, height, sprite);
+    constructor(width: number, height: number, texture: Texture) {
+        super(width, height, texture);
     }
 
     

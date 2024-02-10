@@ -1,14 +1,14 @@
 import { Graphics, Assets } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Player from "../Entities/Player";
-import EnviromentObject from "../Entities/BackgroundObject";
+import BackgroundObject from "../entities/BackgroundObject";
 
 export default class QueensScene extends Scene {
 	private player: Player;
-	private background: EnviromentObject;
+	private background: BackgroundObject;
 
 	async init(assets) {
-		this.background = new EnviromentObject(800, 800, assets["background_dummy"]);
+		this.background = new BackgroundObject(800, 800, assets["background_dummy"]);
 
 		this.player = new Player(100, 150, assets);
 		// this.player.position(400, 350);
