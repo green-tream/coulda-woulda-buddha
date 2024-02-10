@@ -37,6 +37,6 @@ export class App {
 
 		this.app.stage.addChild(this.viewport);
 
-		await this.scenes.start("mainMenu");
+		await this.scenes.start("queens");
 	}
 }
