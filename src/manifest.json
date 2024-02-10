@@ -47,6 +47,10 @@
 				{
 					"name": "background_queens",
 					"srcs": "img/background/queens.jpg"
+				},
+				{
+					"name": "idle_sprite",
+					"srcs": "sprites/buddha/zen.png"
 				}
 			]
 		}
