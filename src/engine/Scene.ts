@@ -1,4 +1,5 @@
 import { Application, Container } from "pixi.js";
+import Entity from "../entities/Entity";
 
 export abstract class Scene {
 	public app: Application;
@@ -8,6 +9,10 @@ export abstract class Scene {
 	constructor(app: Application) {
 		this.app = app;
 		this.container = new Container();
+	}
+
+	addEntity(entity: Entity) {
+		this.container.addChild(entity.getSprite());
 	}
 
 	public abstract init(assets: any): void;
