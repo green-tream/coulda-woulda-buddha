@@ -18,30 +18,31 @@ export default class MainMenuScene extends Scene {
 		// background
 		this.assets = assets;
 		this.background = new BackgroundObject(
-			1600,
-			900,
-			this.assets.background_main_menu
+			WIDTH,
+			HEIGHT,
+			this.assets.background_main_menu,
+			this
 		);
 
 		// buddha
 		this.buddha = new UIObject(
 			this.assets.buddha_closed.baseTexture.width / 7,
 			this.assets.buddha_closed.baseTexture.height / 7,
-			this.assets.buddha_closed
+			this.assets.buddha_closed,
+			this
 		);
 
 		this.buddha.position(1060, 250);
-		this.buddha.getSprite().cursor = "pointer";
 
 		// play button
 		this.playButton = new UIObject(
 			this.assets.play_button.baseTexture.width / 2,
 			this.assets.play_button.baseTexture.height / 2,
-			this.assets.play_button
+			this.assets.play_button,
+			this
 		);
 
 		this.playButton.position(1050, 650);
-		this.playButton.getSprite().cursor = "pointer";
 	}
 
 	async start() {
