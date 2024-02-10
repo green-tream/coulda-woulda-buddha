@@ -10,7 +10,7 @@ export default class SplashScene extends Scene {
 		this.background = new PIXI.Graphics();
 
 		this.header = new PIXI.Text("My Game Studio", {
-			fontFamily: "Gloria Hallelujah",
+			fontFamily: assets["gloria-hallelujah"].family,
 			fill: "white",
 			fontSize: 64,
 		});
@@ -25,13 +25,10 @@ export default class SplashScene extends Scene {
 
 		this.container.addChild(this.background);
 
-		console.log(assets);
-
 		this.header.angle = 0;
 		setTimeout(() => {
 			app.scenes.start("test");
-		}, 1000);
-		
+		}, 5000);
 		this.container.addChild(this.header);
 	}
 

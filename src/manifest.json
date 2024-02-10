@@ -8,8 +8,8 @@
 					"srcs": "fonts/gloria-hallelujah.ttf"
 				},
 				{
-					"name": "test",
-					"srcs": "assets.json"
+					"name": "frames",
+					"srcs": "sprites/buddha/running_animation/frames.json"
 				}
 			]
 		}
