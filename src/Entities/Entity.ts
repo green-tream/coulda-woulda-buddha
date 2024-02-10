@@ -12,7 +12,13 @@ export default class Entity {
 
         this.width = width;
         this.height = height;
-        this.sprite = Sprite.from(assetName);
+        try {
+            this.sprite = Sprite.from(asset);
+        } catch {
+            throw new Error("Sprite not loaded");
+        }
+
+        this.sprite.anchor.set(0.5);
 
         this.sprite.width = width;
         this.sprite.height = height;
