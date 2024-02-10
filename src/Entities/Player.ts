@@ -92,7 +92,7 @@ export default class Player {
 
 	update(delta: number): void {
 		this.updateInputs();
-		this.updatePhysics(delta);
+		// this.updatePhysics(delta);
 		this.updateVisuals();
 	}
 
@@ -166,50 +166,51 @@ export default class Player {
 		}
 	}
 
-	private updatePhysics(delta: number): void {
-		this.yAcc = -5;
-		// Update position
-		this.xVel += this.xAcc;
-		this.yVel += this.yAcc;
-		this.yVel = Math.min(this.yVel, 10);
+	// private updatePhysics(delta: number): void {
+	// 	this.yAcc = -5;
+	// 	// Update position
+	// 	this.xVel += this.xAcc;
+	// 	this.yVel += this.yAcc;
+	// 	this.yVel = Math.min(this.yVel, 10);
 
-		this.xPos += this.xVel;
-		if (this.xVel > 0) {
-			if (
-				this.pointInCollision(this.topRight) ||
-				this.pointInCollision(this.bottomRight)
-			) {
-				// TODO: move slightly to left
-				this.xPos = Math.min(
-					this.pointTileBounds(this.topRight).xMin,
-					this.pointTileBounds(this.bottomRight).xMin
-				);
-				this.xVel = 0;
-			}
-		} else if (this.xVel < 0) {
-			if (
-				this.pointInCollision(this.topLeft) ||
-				this.pointInCollision(this.bottomLeft)
-			) {
-				// TODO: move slightly to right
-				this.xPos = Math.max(
-					this.pointTileBounds(this.topLeft).xMax,
-					this.pointTileBounds(this.bottomLeft).xMax
-				);
-				this.xVel = 0;
-			}
-		}
-		// TODO: x vel pos
-	}
+	// 	this.xPos += this.xVel;
+	// 	if (this.xVel > 0) {
+	// 		if (
+	// 			this.pointInCollision(this.topRight) ||
+	// 			this.pointInCollision(this.bottomRight)
+	// 		) {
+	// 			// TODO: move slightly to left
+	// 			this.xPos = Math.min(
+	// 				this.pointTileBounds(this.topRight).xMin,
+	// 				this.pointTileBounds(this.bottomRight).xMin
+	// 			);
+	// 			this.xVel = 0;
+	// 		}
+	// 	} else if (this.xVel < 0) {
+	// 		if (
+	// 			this.pointInCollision(this.topLeft) ||
+	// 			this.pointInCollision(this.bottomLeft)
+	// 		) {
+	// 			// TODO: move slightly to right
+	// 			this.xPos = Math.max(
+	// 				this.pointTileBounds(this.topLeft).xMax,
+	// 				this.pointTileBounds(this.bottomLeft).xMax
+	// 			);
+	// 			this.xVel = 0;
+	// 		}
+	// 	}
+	// 	// TODO: x vel pos
+	// }
 
-	pointInCollision(point: { x: number; y: number }): boolean {}
+	// pointInCollision(point: { x: number; y: number }): boolean {}
 
-	pointTileBounds(point: { x: number; y: number }): {
-		xMin: number;
-		xMax: number;
-		yMin: number;
-		yMax: number;
-	} {}
+	// pointTileBounds(point: { x: number; y: number }): {
+	// 	xMin: number;
+	// 	xMax: number;
+	// 	yMin: number;
+	// 	yMax: number;
+	// } {
+	// }
 
 	addToScene(scene: Scene): void {
 		for (const sprite of this.spriteList) {
