@@ -1,9 +1,10 @@
-import { Application, Assets } from "pixi.js";
+import { Application, Assets, TickerCallback } from "pixi.js";
 import { Scene } from "./Scene";
 
 export class SceneManager {
 	private app: Application;
 	private scenes: Map<string, Scene>;
+	private currentUpdate: TickerCallback<string>;
 
 	constructor(app: Application) {
 		this.app = app;
@@ -19,6 +20,7 @@ export class SceneManager {
 		const assets = await Assets.loadBundle(key);
 
 		this.app.stage.removeChildren();
+		this.app.ticker.remove(this.currentUpdate, key);
 
 		const scene = this.scenes.get(key);
 
@@ -26,8 +28,10 @@ export class SceneManager {
 			await scene.init(assets);
 			await scene.start();
 
+			this.currentUpdate = (delta) => scene.update(delta);
+
 			this.app.stage.addChild(scene.container);
-			this.app.ticker.add((delta) => scene.update(delta));
+			this.app.ticker.add(this.currentUpdate, key);
 		} else {
 			throw new Error(`Scene with key ${key} not found`);
 		}

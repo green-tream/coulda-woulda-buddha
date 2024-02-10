@@ -1,12 +1,8 @@
 {
 	"bundles": [
 		{
-			"name": "game",
+			"name": "mainMenu",
 			"assets": [
-				{
-					"name": "test",
-					"srcs": "assets.json"
-				},
 				{
 					"name": "gloria-hallelujah",
 					"srcs": "fonts/gloria-hallelujah.ttf"
