@@ -43,14 +43,14 @@ export default class Level {
     }
 
     add(x: number, y: number) {
-
-        this.map[this.height - y][this.width - x] = new Block(x, y, this.squareSize);
+        
+        this.map[this.height - y - 1][ x] = new Block(x, y, this.squareSize);
 
     }
 
     delete(x: number, y: number) {
-        // This is probably wrong, wait for someone to start complaining
-        this.map[this.height - y][this.width - x] = null;
+
+        this.map[this.height - y - 1][x] = null;
 
     }
 
