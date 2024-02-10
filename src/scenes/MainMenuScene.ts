@@ -36,13 +36,13 @@ export default class MainMenuScene extends Scene {
 
 		// play button
 		this.playButton = new UIObject(
-			this.assets.play_button.baseTexture.width / 2.5,
-			this.assets.play_button.baseTexture.height / 2.5,
+			this.assets.play_button.baseTexture.width / 3,
+			this.assets.play_button.baseTexture.height / 3,
 			this.assets.play_button,
 			this
 		);
 
-		this.playButton.position(WIDTH * 0.2, HEIGHT * 0.5);
+		this.playButton.position(WIDTH * 0.7, HEIGHT * 0.7);
 
 		this.addEntity(this.background);
 		this.addEntity(this.buddha);
