@@ -6,11 +6,11 @@ export default class SplashScene extends Scene {
 	private header: PIXI.Text;
 	private background: PIXI.Graphics;
 
-	public init(): void {
+	async init(assets) {
 		this.background = new PIXI.Graphics();
 
 		this.header = new PIXI.Text("My Game Studio", {
-			fontFamily: "Gloria Hallelujah",
+			fontFamily: assets["gloria-hallelujah"].family,
 			fill: "white",
 			fontSize: 64,
 		});
@@ -19,7 +19,7 @@ export default class SplashScene extends Scene {
 		this.header.anchor.set(0.5);
 	}
 
-	public start() {
+	async start(assets) {
 		this.background.beginFill(0x404040);
 		this.background.drawRect(0, 0, 800, 800);
 
@@ -28,12 +28,11 @@ export default class SplashScene extends Scene {
 		this.header.angle = 0;
 		setTimeout(async () => {
 			await app.scenes.start("test");
-		}, 1000);
-
+		}, 5000);
 		this.container.addChild(this.header);
 	}
 
-	public update(delta: number): void {
+	public update(delta: number, assets): void {
 		this.header.angle += (delta / 100) * 45;
 	}
 }

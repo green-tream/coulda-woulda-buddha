@@ -9,12 +9,14 @@ export default class Player extends Entity {
     private animation: AnimatedSprite;
     private animationSpeed;
 
-    constructor(width: number, height: number, assetName: string) {
-        super(width, height, assetName);
+    constructor(width: number, height: number, assets: any) {
+        super(width, height, assets);
 
         this.speed = 5;
         this.animationSpeed = 0.5;
         this.isRunning = false;
+
+        console.log(assets)
 
         this.loadAnimation();
     }

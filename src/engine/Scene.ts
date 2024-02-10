@@ -9,7 +9,7 @@ export abstract class Scene {
 		this.container = new Container();
 	}
 
-	public abstract init(): void;
-	public abstract start(): void;
-	public abstract update(delta: number): void;
+	public abstract init(assets: any): void;
+	public abstract start(assets: any): void;
+	public abstract update(delta: number, assets: any): void;
 }
