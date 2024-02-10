@@ -15,7 +15,6 @@ export class App {
 	}
 
 	async setup() {
-		// Load all assets
 		await Assets.init({ manifest: ASSETS });
 		await Assets.backgroundLoadBundle(
 			ASSETS.bundles.map((bundle) => bundle.name)
@@ -25,6 +24,6 @@ export class App {
 			this.scenes.add(key, scene);
 		}
 
-		await this.scenes.start("game");
+		await this.scenes.start("mainMenu");
 	}
 }

@@ -3,6 +3,10 @@ import { BACKGROUND_COLOUR } from "./constants";
 
 import TestScene from "./scenes/TestScene";
 import SplashScene from "./scenes/SplashScene";
+import MainMenuScene from "./scenes/MainMenuScene";
+import QueensScene from "./scenes/QueensScene";
+import KingsParadeScene from "./scenes/KingsParadeScene";
+import IntelLabScene from "./scenes/IntelLabScene";
 
 const view = document.querySelector("#game") as HTMLCanvasElement;
 
@@ -18,7 +22,12 @@ export interface IConfig {
 }
 
 export const Config: IConfig = {
-	scenes: { game: SplashScene, test: TestScene },
+	scenes: {
+		mainMenu: MainMenuScene,
+		queens: QueensScene,
+		kings: KingsParadeScene,
+		lab: IntelLabScene,
+	},
 	application: {
 		view,
 		resizeTo: window,
