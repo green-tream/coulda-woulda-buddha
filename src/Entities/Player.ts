@@ -2,30 +2,28 @@ import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 
 export default class Player {
-    private xPos: number;
-    private yPos: number;
-    private xVel: number;
-    private yVel: number;
-    private xAcc: number;
-    private yAcc: number;
+	private xPos: number;
+	private yPos: number;
+	private xVel: number;
+	private yVel: number;
+	private xAcc: number;
+	private yAcc: number;
 
-    private width: number;
-    private height: number;
+	private width: number;
+	private height: number;
 
-    private onGround: boolean;
+	private onGround: boolean;
 
+	private leftKeyPressed: boolean;
+	private rightKeyPressed: boolean;
+	private jumpKeyPressed: boolean;
+	private interactKeyPressed: boolean;
 
-    private leftKeyPressed: boolean;
-    private rightKeyPressed: boolean;
-    private jumpKeyPressed: boolean;
-    private interactKeyPressed: boolean;
-
-    
 	private animationSpeed;
 
-    private idleSprite: AnimatedSprite;
-    private runningSprite: AnimatedSprite;
-    private spriteList: AnimatedSprite[];
+	private idleSprite: AnimatedSprite;
+	private runningSprite: AnimatedSprite;
+	private spriteList: AnimatedSprite[];
 
 	constructor(width: number, height: number, assets: any, scene: Scene) {
 		this.animationSpeed = 0.1;
@@ -37,8 +35,8 @@ export default class Player {
 
 		this.spriteList = [this.idleSprite, this.runningSprite];
 
-        this.width = width;
-        this.height = height;
+		this.width = width;
+		this.height = height;
 
 		for (const sprite of this.spriteList) {
 			sprite.width = width;
@@ -60,141 +58,143 @@ export default class Player {
 	}
 
 	handleKeydown(event: KeyboardEvent): void {
-        switch (event.key) {
-            case "a":
-                this.leftKeyPressed = true;
-                break;
-            case "d":
-                this.rightKeyPressed = true;
-                break;
-            case " ":
-                this.jumpKeyPressed = true;
-                break;
-        }
-        
-        return;
-    }
+		switch (event.key) {
+			case "a":
+				this.leftKeyPressed = true;
+				break;
+			case "d":
+				this.rightKeyPressed = true;
+				break;
+			case " ":
+				this.jumpKeyPressed = true;
+				break;
+		}
 
-    handleKeyup(event: KeyboardEvent): void {
-        switch (event.key) {
-            case "a":
-                this.leftKeyPressed = false;
-                break;
-            case "d":
-                this.rightKeyPressed = false;
-                break;
-            case " ":
-                this.jumpKeyPressed = false;
-                break;
-        }
-    }
+		return;
+	}
 
-    update(delta: number): void {
-        
-        this.updateInputs();
-        
-        this.updateVisuals();
+	handleKeyup(event: KeyboardEvent): void {
+		switch (event.key) {
+			case "a":
+				this.leftKeyPressed = false;
+				break;
+			case "d":
+				this.rightKeyPressed = false;
+				break;
+			case " ":
+				this.jumpKeyPressed = false;
+				break;
+		}
+	}
 
+	update(delta: number): void {
+		this.updateInputs();
 
-        this.xVel += this.xAcc;
-        this.yVel += this.yAcc;
-        this.xPos += this.xVel;
-        this.yPos += this.yVel;
-    }
+		this.updateVisuals();
 
-    updateInputs(): void {
-        // Left
-        if (this.leftKeyPressed && !this.rightKeyPressed) {
-            // Initial speed boost when starting to move
-            if (Math.abs(this.xVel) < 5) {
-                this.xAcc = -2;
-            } else {
-                this.xAcc = -1;
-            }
+		this.xVel += this.xAcc;
+		this.yVel += this.yAcc;
+		this.xPos += this.xVel;
+		this.yPos += this.yVel;
+	}
 
-        } 
-        
-        // Right
-        if (this.rightKeyPressed && !this.leftKeyPressed) {
-            // Initial speed boost when starting to move
-            if (Math.abs(this.xVel) < 5) {
-                this.xAcc = 2;
-            } else {
-                this.xAcc = 1;
-            }
-        }
-        this.xVel *= 0.9;
+	updateInputs(): void {
+		// Left
+		if (this.leftKeyPressed && !this.rightKeyPressed) {
+			// Initial speed boost when starting to move
+			if (Math.abs(this.xVel) < 5) {
+				this.xAcc = -2;
+			} else {
+				this.xAcc = -1;
+			}
+		}
 
-        // Jump
-        if (this.jumpKeyPressed && this.onGround) {
-            this.yVel = 10;
-            this.onGround = false;
-        }
-        
-        // Gravity
-        this.yAcc = -1;
-    }
+		// Right
+		if (this.rightKeyPressed && !this.leftKeyPressed) {
+			// Initial speed boost when starting to move
+			if (Math.abs(this.xVel) < 5) {
+				this.xAcc = 2;
+			} else {
+				this.xAcc = 1;
+			}
+		}
+		this.xVel *= 0.9;
 
-    private updateVisuals(): void {
-        this.changeSprites();
-        this.moveSprites();
-    }
+		// Jump
+		if (this.jumpKeyPressed && this.onGround) {
+			this.yVel = 10;
+			this.onGround = false;
+		}
 
-    private moveSprites(): void {
-        for (const sprite of this.spriteList) {
-            sprite.position.x = this.xPos;
-            sprite.position.y = this.yPos;
+		// Gravity
+		this.yAcc = -1;
+	}
 
-            if (this.xVel > 0) {
-                sprite.scale.x = 1;
-            } else if (this.xVel < 0) {
-                sprite.scale.x = -1;
-            }
-        }
-    }
+	private updateVisuals(): void {
+		this.changeSprites();
+		this.moveSprites();
+	}
 
-    private changeSprites(): void {
-        // if (this.xVel > 0) {
-        //     this.runningSprite.scale.x = 1;
-        //     this.runningSprite.width = this.idleSprite.width;
-        // } else if (this.xVel < 0) {
-        //     this.runningSprite.scale.x = -1;
-        //     this.runningSprite.width = this.idleSprite.width;
-        // }
+	private moveSprites(): void {
+		for (const sprite of this.spriteList) {
+			sprite.position.x = this.xPos;
+			sprite.position.y = this.yPos;
 
-        if (Math.abs(this.xVel) > 0.1) {
-            this.runningSprite.visible = true;
-            this.idleSprite.visible = false;
-            this.runningSprite.play();
-        } else {
-            this.runningSprite.visible = false;
-            this.idleSprite.visible = true;
-            this.runningSprite.stop();
-        }
-    }
+			if (this.xVel > 0) {
+				sprite.scale.x = 1;
+			} else if (this.xVel < 0) {
+				sprite.scale.x = -1;
+			}
+		}
+	}
 
-    get bottomLeft() : { x: number; y: number; } {
-        return { x: this.xPos - this.width / 2, y: this.yPos - this.height / 2 };
-    }
+	private changeSprites(): void {
+		// if (this.xVel > 0) {
+		//     this.runningSprite.scale.x = 1;
+		//     this.runningSprite.width = this.idleSprite.width;
+		// } else if (this.xVel < 0) {
+		//     this.runningSprite.scale.x = -1;
+		//     this.runningSprite.width = this.idleSprite.width;
+		// }
 
-    get bottomRight() : { x: number; y: number; } {
-        return { x: this.xPos + this.width / 2, y: this.yPos - this.height / 2 };
-    }
+		if (Math.abs(this.xVel) > 0.1) {
+			this.runningSprite.visible = true;
+			this.idleSprite.visible = false;
+			this.runningSprite.play();
+		} else {
+			this.runningSprite.visible = false;
+			this.idleSprite.visible = true;
+			this.runningSprite.stop();
+		}
+	}
 
-    get topLeft() : { x: number; y: number; } {
-        return { x: this.xPos - this.width / 2, y: this.yPos + this.height / 2 };
-    }
+	public addToScene(scene: Scene) {
+		scene.container.addChild(this.idleSprite);
+		scene.container.addChild(this.runningSprite);
+	}
 
-    get topRight() : { x: number; y: number; } {
-        return { x: this.xPos + this.width / 2, y: this.yPos + this.height / 2 };
-    }
+	get bottomLeft(): { x: number; y: number } {
+		return { x: this.xPos - this.width / 2, y: this.yPos - this.height / 2 };
+	}
 
-    get position() : { x: number; y: number; } {
-        return { x: this.xPos, y: this.yPos };
-    }
+	get bottomRight(): { x: number; y: number } {
+		return { x: this.xPos + this.width / 2, y: this.yPos - this.height / 2 };
+	}
 
-    set position(pos: { x: number; y: number; }) {
-        this.xPos = pos.x;
-        this.yPos = pos.y;
-    }
+	get topLeft(): { x: number; y: number } {
+		return { x: this.xPos - this.width / 2, y: this.yPos + this.height / 2 };
+	}
+
+	get topRight(): { x: number; y: number } {
+		return { x: this.xPos + this.width / 2, y: this.yPos + this.height / 2 };
+	}
+
+	get position(): { x: number; y: number } {
+		return { x: this.xPos, y: this.yPos };
+	}
+
+	set position(pos: { x: number; y: number }) {
+		this.xPos = pos.x;
+		this.yPos = pos.y;
+	}
 }
