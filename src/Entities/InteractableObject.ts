@@ -1,14 +1,17 @@
-import { Sprite, Texture } from "pixi.js";
+import { Texture } from "pixi.js";
 import Entity from "./Entity";
+import LevelScene from "../scenes/LevelScene";
+import Player from "./Player";
 
+export default abstract class InteractableObject extends Entity {
+	constructor(
+		width: number,
+		height: number,
+		texture: Texture,
+		scene: LevelScene
+	) {
+		super(width, height, texture, scene);
+	}
 
-export default class InteractableObject extends Entity {
-
-    constructor(width: number, height: number, texture: Texture) {
-        super(width, height, texture);
-    }
-
-    
-
-
+	abstract interact(player: Player): void;
 }

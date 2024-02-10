@@ -3,6 +3,8 @@ import type { IConfig } from "../config";
 import { SceneManager } from "./SceneManager";
 import * as ASSETS from "../manifest.json";
 import { Viewport } from "pixi-viewport";
+import { HEIGHT, WIDTH } from "../constants";
+import { Actions } from "pixi-actions";
 
 export class App {
 	private config: IConfig;
@@ -17,8 +19,8 @@ export class App {
 		this.viewport = new Viewport({
 			screenWidth: window.innerWidth,
 			screenHeight: window.innerHeight,
-			worldWidth: 1920,
-			worldHeight: 1080,
+			worldWidth: WIDTH,
+			worldHeight: HEIGHT,
 			events: this.app.renderer.events,
 		});
 
@@ -36,7 +38,11 @@ export class App {
 		}
 
 		this.app.stage.addChild(this.viewport);
+		this.viewport.clamp({ direction: "all" }).decelerate();
+		this.viewport.moveCorner(0, HEIGHT);
 
-		await this.scenes.start("queens");
+		this.app.ticker.add((delta) => Actions.tick(delta / 60));
+
+		await this.scenes.start("mainMenu");
 	}
 }

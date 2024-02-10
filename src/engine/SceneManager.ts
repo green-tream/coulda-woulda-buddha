@@ -16,7 +16,7 @@ export class SceneManager {
 
 	add(key: string, scene: typeof Scene) {
 		//@ts-ignore
-		this.scenes.set(key, new scene(this.viewport));
+		this.scenes.set(key, new scene(this.app, this.viewport));
 	}
 
 	async start(key: string) {
