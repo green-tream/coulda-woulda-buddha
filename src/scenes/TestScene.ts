@@ -11,22 +11,18 @@ export default class SplashScene extends Scene {
         this.background = new PIXI.Graphics();
 
 		this.player = new Player(100, 170, 'sprites/buddha/zen.png');
-        this.player.position(400, 400);
+        this.player.position(300, 300);
 	}
 
 	public start(): void {
 
 		this.background.beginFill(0x404040);
 		this.background.drawRect(0, 0, 800, 800);
-
 		this.container.addChild(this.background);
 
-		setTimeout(() => {
-			console.log("Loading Assest Test");
-		}, 5000);
-		this.container.addChild(this.player.getSprite());
 
-        document.addEventListener('keydown', this.player.handleInput)
+		this.container.addChild(this.player.getSprite());
+        document.addEventListener('keydown', event => this.player.handleInput(event))
 
 	}
 
