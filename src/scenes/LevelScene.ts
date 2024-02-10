@@ -29,14 +29,14 @@ export default abstract class LevelScene extends Scene {
 		this.assets = assets;
 
 		this.background = new BackgroundObject(
-			WIDTH,
+			WIDTH * 3,
 			HEIGHT,
 			assets[this.BACKGROUND] as Texture,
 			this
 		);
 
 		this.player = new Player(100, 150, assets, level);
-		this.player.position = { x: 400, y: 650 };
+		this.player.position = { x: WIDTH * 0.1, y: HEIGHT * 0.4 };
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);

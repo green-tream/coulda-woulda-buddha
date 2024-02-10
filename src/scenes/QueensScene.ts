@@ -19,7 +19,7 @@ export default class QueensScene extends LevelScene {
 			this
 		);
 
-		this.buddha.position(3200, 400);
+		this.buddha.position(WIDTH * 0.2, HEIGHT * 0.4);
 	}
 
 	async start() {

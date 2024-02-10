@@ -1,4 +1,4 @@
-import { Application, Assets } from "pixi.js";
+import { Application, Assets, Point } from "pixi.js";
 import type { IConfig } from "../config";
 import { SceneManager } from "./SceneManager";
 import * as ASSETS from "../manifest.json";
@@ -16,14 +16,16 @@ export class App {
 		this.config = config;
 		this.app = new Application(config.application);
 
-		this.viewport = new Viewport({
-			screenWidth: window.innerWidth,
-			screenHeight: window.innerHeight,
-			worldWidth: WIDTH,
-			worldHeight: HEIGHT,
-			events: this.app.renderer.events,
-		});
+		const worldWidth = WIDTH * 3;
 
+		this.viewport = new Viewport({
+			screenWidth: WIDTH,
+			screenHeight: HEIGHT,
+			worldWidth: worldWidth,
+			worldHeight: HEIGHT,
+			events: this.app.renderer.events
+		});
+		// this.viewport.center = new Point(500, 500);
 		this.scenes = new SceneManager(this.app, this.viewport);
 	}
 
