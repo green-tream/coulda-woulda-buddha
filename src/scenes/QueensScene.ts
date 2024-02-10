@@ -1,17 +1,11 @@
-import { Graphics, Assets } from "pixi.js";
+import { Graphics, Assets, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Player from "../entities/Player";
 import BackgroundObject from "../entities/BackgroundObject";
+import LevelScene from "./LevelScene";
 
-export default class QueensScene extends Scene {
-	private player: Player;
-	private background: BackgroundObject;
-
-	async init(assets) {
-		// this.background = new BackgroundObject(800, 800, assets["background_queens"]);
-		this.player = new Player(100, 150, assets);
-		this.player.position(400, 350);
-	}
+export default class QueensScene extends LevelScene {
+	BACKGROUND = "background_queens";
 
 	async start() {
 		// this.container.addChild(this.background.getSprite());
@@ -19,9 +13,11 @@ export default class QueensScene extends Scene {
 		for (const sprite of this.player.getSprites()) {
 			this.container.addChild(sprite);
 		}
+
 		document.addEventListener("keydown", (event) =>
 			this.player.handleKeydown(event)
 		);
+
 		document.addEventListener("keyup", (event) =>
 			this.player.handleKeyup(event)
 		);

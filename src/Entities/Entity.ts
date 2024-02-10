@@ -4,11 +4,13 @@ export default class Entity {
 	private width: number;
 	private height: number;
 	private sprite: Sprite;
+	private scene: Scene;
 
-	constructor(width: number, height: number, texture: Texture) {
+	constructor(width: number, height: number, texture: Texture, scene: Scene) {
 		this.width = width;
 		this.height = height;
 		this.sprite = new Sprite(texture);
+		this.scene = scene;
 
 		this.sprite.width = width;
 		this.sprite.height = height;

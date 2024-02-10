@@ -43,6 +43,6 @@ export class App {
 
 		this.app.ticker.add((delta) => Actions.tick(delta / 60));
 
-		await this.scenes.start("queens");
+		await this.scenes.start("mainMenu");
 	}
 }
