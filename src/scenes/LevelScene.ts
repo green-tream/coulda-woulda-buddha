@@ -34,14 +34,14 @@ export default abstract class LevelScene extends Scene {
 		);
 
 		this.player = new Player(100, 150, assets, level);
-		this.player.position = { x: 400, y: 400 };
+		this.player.position = { x: 400, y: 650 };
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);
 
 		this.viewport.follow(this.player.mIdleSprite, {
 			speed: 1,
-			acceleration: 0.1,
+			acceleration: 3,
 		});
 
 		fadeInScene(this);

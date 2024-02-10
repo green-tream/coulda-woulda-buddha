@@ -18,7 +18,7 @@ export default class MainMenuScene extends Scene {
 		// background
 		this.assets = assets;
 		this.background = new BackgroundObject(
-			WIDTH,
+			WIDTH / 3,
 			HEIGHT,
 			this.assets.background_main_menu,
 			this
