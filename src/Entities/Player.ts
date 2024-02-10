@@ -153,13 +153,6 @@ export default class Player {
 	}
 
 	private changeSprites(): void {
-		// if (this.xVel > 0) {
-		// 	this.runningSprite.scale.x = 1;
-		// 	this.runningSprite.width = this.idleSprite.width;
-		// } else if (this.xVel < 0) {
-		// 	this.runningSprite.scale.x = -1;
-		// 	this.runningSprite.width = this.idleSprite.width;
-		// }
 
 		if (Math.abs(this.xVel) > 0.1) {
 			this.runningSprite.visible = true;
@@ -205,7 +198,6 @@ export default class Player {
 				this.xVel = 0;
 			}
 		}
-		console.log(this.xPos);
 		// TODO: x vel pos
 	}
 
