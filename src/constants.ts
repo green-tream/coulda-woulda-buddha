@@ -1,4 +1,4 @@
 export const BACKGROUND_COLOUR = 0x292929;
-export const WIDTH = 4800;
-export const HEIGHT = 900;
+export const WIDTH = 1000;
+export const HEIGHT = 600;
 export const TILESIZE = 25;

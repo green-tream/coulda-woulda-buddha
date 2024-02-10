@@ -3,11 +3,11 @@ import Block from "./Block";
 
 export default class Level {
 
-    private map: Block[][];
+    public map: Block[][];
 
-    private squareSize: number;
-    private width: number;
-    private height: number;
+    public squareSize: number;
+    public width: number;
+    public height: number;
 
     constructor(width: number, height: number, squareSize: number) {
 
@@ -57,7 +57,7 @@ export default class Level {
 
     is_in_uwu_block(world_x: number, world_y: number): boolean {
 
-        return false;
+        // return false;
 
         if (
             0 >= world_x ||

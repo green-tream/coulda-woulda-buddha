@@ -18,7 +18,7 @@ export default class MainMenuScene extends Scene {
 		// background
 		this.assets = assets;
 		this.background = new BackgroundObject(
-			WIDTH / 3,
+			WIDTH,
 			HEIGHT,
 			this.assets.background_main_menu,
 			this
@@ -26,23 +26,23 @@ export default class MainMenuScene extends Scene {
 
 		// buddha
 		this.buddha = new UIObject(
-			this.assets.menu_buddha_closed.baseTexture.width / 7,
-			this.assets.menu_buddha_closed.baseTexture.height / 7,
+			this.assets.menu_buddha_closed.baseTexture.width / 8,
+			this.assets.menu_buddha_closed.baseTexture.height / 8,
 			this.assets.menu_buddha_closed,
 			this
 		);
 
-		this.buddha.position(1060, 250);
+		this.buddha.position(WIDTH * 0.67, HEIGHT * 0.1);
 
 		// play button
 		this.playButton = new UIObject(
-			this.assets.play_button.baseTexture.width / 2,
-			this.assets.play_button.baseTexture.height / 2,
+			this.assets.play_button.baseTexture.width / 2.5,
+			this.assets.play_button.baseTexture.height / 2.5,
 			this.assets.play_button,
 			this
 		);
 
-		this.playButton.position(1050, 650);
+		this.playButton.position(WIDTH * 0.2, HEIGHT * 0.5);
 
 		this.addEntity(this.background);
 		this.addEntity(this.buddha);

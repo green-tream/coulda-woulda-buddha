@@ -20,7 +20,7 @@ export default class Player {
 	private jumpKeyPressed: boolean;
 	private interactKeyPressed: boolean;
 
-	private animationSpeed;
+	private animationSpeed: number;
 
 	private idleSprite: AnimatedSprite;
 	private runningSprite: AnimatedSprite;
@@ -29,7 +29,7 @@ export default class Player {
 	private maxspeed: number;
 	private velocity: number;
 
-	private level: Level;
+	public level: Level; //Change back to private when using
 
 	constructor(width: number, height: number, assets: any, level: Level) {
 		this.level = level;
