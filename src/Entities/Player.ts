@@ -37,6 +37,9 @@ export default class Player {
 
 		this.spriteList = [this.idleSprite, this.runningSprite];
 
+        this.width = width;
+        this.height = height;
+
 		for (const sprite of this.spriteList) {
 			sprite.width = width;
 			sprite.height = height;
@@ -190,4 +193,8 @@ export default class Player {
         return { x: this.xPos, y: this.yPos };
     }
 
+    set position(pos: { x: number; y: number; }) {
+        this.xPos = pos.x;
+        this.yPos = pos.y;
+    }
 }
