@@ -12,6 +12,7 @@
 		"vite": "^4.1.0"
 	},
 	"dependencies": {
+		"pixi-viewport": "^5.0.2",
 		"pixi.js": "^7.4.0",
 		"tweedle.js": "^2.0.1"
 	}

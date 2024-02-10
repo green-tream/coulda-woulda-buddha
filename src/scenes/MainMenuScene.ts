@@ -6,7 +6,13 @@ export default class MainMenuScene extends Scene {
 
 	async init(assets) {
 		this.assets = assets;
-		this.background = new BackgroundObject(1920, 1080, this.assets.background);
+		this.background = new BackgroundObject(
+			1920,
+			1080,
+			this.assets.background_main
+		);
+
+		this.viewport.drag();
 	}
 
 	async start() {

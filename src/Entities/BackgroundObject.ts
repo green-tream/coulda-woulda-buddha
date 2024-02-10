@@ -4,5 +4,7 @@ import Entity from "./Entity";
 export default class BackgroundObject extends Entity {
 	constructor(width: number, height: number, texture: Texture) {
 		super(width, height, texture);
+
+		this.getSprite().anchor.set(0, 0);
 	}
 }

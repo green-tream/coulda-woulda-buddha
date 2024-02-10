@@ -4,12 +4,12 @@
 			"name": "mainMenu",
 			"assets": [
 				{
-					"name": "gloria-hallelujah",
+					"name": "gloria_allelujah",
 					"srcs": "fonts/gloria-hallelujah.ttf"
 				},
 				{
 					"name": "background_main",
-					"srcs": "background_dummy.jpg"
+					"srcs": "img/background/main.jpg"
 				}
 			]
 		},
@@ -30,7 +30,7 @@
 				},
 				{
 					"name": "background_queens",
-					"srcs": "background_dummy.png"
+					"srcs": "img/background/queens.jpg"
 				}
 			]
 		}

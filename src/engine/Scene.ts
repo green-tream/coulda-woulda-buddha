@@ -1,13 +1,14 @@
-import { Application, Container } from "pixi.js";
+import { Container } from "pixi.js";
 import Entity from "../entities/Entity";
+import { Viewport } from "pixi-viewport";
 
 export abstract class Scene {
-	public app: Application;
+	public viewport: Viewport;
 	public container: Container;
 	public assets: any;
 
-	constructor(app: Application) {
-		this.app = app;
+	constructor(viewport: Viewport) {
+		this.viewport = viewport;
 		this.container = new Container();
 	}
 

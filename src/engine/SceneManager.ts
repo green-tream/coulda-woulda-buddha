@@ -1,25 +1,28 @@
 import { Application, Assets, TickerCallback } from "pixi.js";
 import { Scene } from "./Scene";
+import { Viewport } from "pixi-viewport";
 
 export class SceneManager {
+	private viewport: Viewport;
 	private app: Application;
 	private scenes: Map<string, Scene>;
 	private currentUpdate: TickerCallback<string>;
 
-	constructor(app: Application) {
+	constructor(app: Application, viewport: Viewport) {
+		this.viewport = viewport;
 		this.app = app;
 		this.scenes = new Map();
 	}
 
 	add(key: string, scene: typeof Scene) {
 		//@ts-ignore
-		this.scenes.set(key, new scene(this.app));
+		this.scenes.set(key, new scene(this.viewport));
 	}
 
 	async start(key: string) {
 		const assets = await Assets.loadBundle(key);
 
-		this.app.stage.removeChildren();
+		this.viewport.removeChildren();
 		this.app.ticker.remove(this.currentUpdate, key);
 
 		const scene = this.scenes.get(key);
@@ -30,7 +33,7 @@ export class SceneManager {
 
 			this.currentUpdate = (delta) => scene.update(delta);
 
-			this.app.stage.addChild(scene.container);
+			this.viewport.addChild(scene.container);
 			this.app.ticker.add(this.currentUpdate, key);
 		} else {
 			throw new Error(`Scene with key ${key} not found`);
