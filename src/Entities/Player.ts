@@ -1,5 +1,6 @@
 import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
+import Level from "../map/Level";
 
 export default class Player {
 	private xPos: number;
@@ -28,7 +29,10 @@ export default class Player {
 	private maxspeed: number;
 	private velocity: number;
 
-	constructor(width: number, height: number, assets: any, scene: Scene) {
+	private level: Level;
+
+	constructor(width: number, height: number, assets: any, level: Level) {
+		this.level = level;
 		this.animationSpeed = 0.1;
 
 		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);
@@ -92,7 +96,7 @@ export default class Player {
 
 	update(delta: number): void {
 		this.updateInputs();
-		this.updatePhysics(delta);
+		// this.updatePhysics(delta);
 		this.updateVisuals();
 	}
 
@@ -166,54 +170,51 @@ export default class Player {
 		}
 	}
 
-	private updatePhysics(delta: number): void {
-		this.yAcc = -5;
-		// Update position
-		this.xVel += this.xAcc;
-		this.yVel += this.yAcc;
-		this.yVel = Math.min(this.yVel, 10);
+	// private updatePhysics(delta: number): void {
+	// 	this.yAcc = -5;
+	// 	// Update position
+	// 	this.xVel += this.xAcc;
+	// 	this.yVel += this.yAcc;
+	// 	this.yVel = Math.min(this.yVel, 10);
 
-		this.xPos += this.xVel;
-		if (this.xVel > 0) {
-			if (
-				this.pointInCollision(this.topRight) ||
-				this.pointInCollision(this.bottomRight)
-			) {
-				// TODO: move slightly to left
-				this.xPos = Math.min(
-					this.pointTileBounds(this.topRight).xMin,
-					this.pointTileBounds(this.bottomRight).xMin
-				);
-				this.xVel = 0;
-			}
-		} else if (this.xVel < 0) {
-			if (
-				this.pointInCollision(this.topLeft) ||
-				this.pointInCollision(this.bottomLeft)
-			) {
-				// TODO: move slightly to right
-				this.xPos = Math.max(
-					this.pointTileBounds(this.topLeft).xMax,
-					this.pointTileBounds(this.bottomLeft).xMax
-				);
-				this.xVel = 0;
-			}
-		}
-		// TODO: x vel pos
-	}
+	// 	this.xPos += this.xVel;
+	// 	if (this.xVel > 0) {
+	// 		if (
+	// 			this.pointInCollision(this.topRight) ||
+	// 			this.pointInCollision(this.bottomRight)
+	// 		) {
+	// 			// TODO: move slightly to left
+	// 			this.xPos = Math.min(
+	// 				this.pointTileBounds(this.topRight).xMin,
+	// 				this.pointTileBounds(this.bottomRight).xMin
+	// 			);
+	// 			this.xVel = 0;
+	// 		}
+	// 	} else if (this.xVel < 0) {
+	// 		if (
+	// 			this.pointInCollision(this.topLeft) ||
+	// 			this.pointInCollision(this.bottomLeft)
+	// 		) {
+	// 			// TODO: move slightly to right
+	// 			this.xPos = Math.max(
+	// 				this.pointTileBounds(this.topLeft).xMax,
+	// 				this.pointTileBounds(this.bottomLeft).xMax
+	// 			);
+	// 			this.xVel = 0;
+	// 		}
+	// 	}
+	// 	// TODO: x vel pos
+	// }
 
-	pointInCollision(point: { x: number; y: number }): boolean {
-		return false;
-	}
+	// pointInCollision(point: { x: number; y: number }): boolean {}
 
-	pointTileBounds(point: { x: number; y: number }): {
-		xMin: number;
-		xMax: number;
-		yMin: number;
-		yMax: number;
-	} {
-		return { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
-	}
+	// pointTileBounds(point: { x: number; y: number }): {
+	// 	xMin: number;
+	// 	xMax: number;
+	// 	yMin: number;
+	// 	yMax: number;
+	// } {
+	// }
 
 	addToScene(scene: Scene): void {
 		for (const sprite of this.spriteList) {

@@ -5,6 +5,7 @@ import { closerObject, fadeInScene } from "../utils";
 import BackgroundObject from "../entities/BackgroundObject";
 import { Texture } from "pixi.js";
 import { HEIGHT, WIDTH } from "../constants";
+import Level from "../map/Level";
 
 export default abstract class LevelScene extends Scene {
 	private objects: InteractableObject[];
@@ -22,7 +23,7 @@ export default abstract class LevelScene extends Scene {
 		closestObject.interact(this.player);
 	}
 
-	initScene(assets) {
+	initScene(assets: any, level: Level) {
 		this.assets = assets;
 
 		this.background = new BackgroundObject(
@@ -32,7 +33,7 @@ export default abstract class LevelScene extends Scene {
 			this
 		);
 
-		this.player = new Player(100, 150, assets, this);
+		this.player = new Player(100, 150, assets, level);
 		this.player.position = { x: 400, y: 400 };
 
 		this.addEntity(this.background);

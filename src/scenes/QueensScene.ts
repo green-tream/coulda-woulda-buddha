@@ -3,13 +3,14 @@ import { HEIGHT, WIDTH } from "../constants";
 import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import UIObject from "../entities/UIObject";
+import level1 from "../map/levels/level1";
 
 export default class QueensScene extends LevelScene {
 	BACKGROUND = "background_queens";
 	private buddha: ForegroundObject;
 
 	async init(assets) {
-		this.initScene(assets);
+		this.initScene(assets, level1());
 
 		// buddha
 		this.buddha = new ForegroundObject(
@@ -21,43 +22,9 @@ export default class QueensScene extends LevelScene {
 
 		this.buddha.position(400, 400);
 
-		// this.addEntity(this.buddha);
 	}
 
 	async start() {
-		this.startLevel();
-
-		// Actions.sequence(
-		// 	Actions.delay(2),
-		// 	Actions.runFunc(() =>
-		// 		this.buddha.setSpriteTexture(this.assets.buddha_middle)
-		// 	),
-		// 	Actions.delay(0.1),
-		// 	Actions.runFunc(() =>
-		// 		this.buddha.setSpriteTexture(this.assets.buddha_open)
-		// 	),
-		// 	Actions.delay(0.75),
-		// 	Actions.runFunc(() =>
-		// 		this.buddha.setSpriteTexture(this.assets.buddha_middle)
-		// 	),
-		// 	Actions.delay(0.1),
-		// 	Actions.runFunc(() =>
-		// 		this.buddha.setSpriteTexture(this.assets.buddha_closed)
-		// 	),
-		// 	Actions.delay(1),
-		// 	Actions.runFunc(() =>
-		// 		this.buddha.setSpriteTexture(this.assets.buddha_middle)
-		// 	),
-		// 	Actions.delay(0.1),
-		// 	Actions.runFunc(() =>
-		// 		this.buddha.setSpriteTexture(this.assets.buddha_open)
-		// 	),
-		// 	Actions.delay(2),
-		// 	Actions.runFunc(() => this.startLevel())
-		// ).play();
-	}
-
-	startLevel() {
 		document.addEventListener("keydown", (event) =>
 			this.player.handleKeydown(event)
 		);
@@ -66,6 +33,7 @@ export default class QueensScene extends LevelScene {
 			this.player.handleKeyup(event)
 		);
 	}
+
 
 	public update(delta: number): void {
 		this.player.update(delta);
