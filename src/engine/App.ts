@@ -21,11 +21,11 @@ export class App {
 		this.viewport = new Viewport({
 			screenWidth: WIDTH,
 			screenHeight: HEIGHT,
-			worldWidth: worldWidth,
-			worldHeight: HEIGHT,
-			events: this.app.renderer.events
+			worldWidth: 0,
+			worldHeight: 0,
+			events: this.app.renderer.events,
 		});
-		// this.viewport.center = new Point(500, 500);
+
 		this.scenes = new SceneManager(this.app, this.viewport);
 	}
 
