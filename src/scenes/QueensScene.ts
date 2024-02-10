@@ -2,7 +2,6 @@ import { Actions } from "pixi-actions";
 import { HEIGHT, WIDTH } from "../constants";
 import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
-import UIObject from "../entities/UIObject";
 import level1 from "../map/levels/level1";
 
 export default class QueensScene extends LevelScene {
@@ -20,8 +19,7 @@ export default class QueensScene extends LevelScene {
 			this
 		);
 
-		this.buddha.position(400, 400);
-
+		this.buddha.position(3200, 400);
 	}
 
 	async start() {
@@ -32,8 +30,9 @@ export default class QueensScene extends LevelScene {
 		document.addEventListener("keyup", (event) =>
 			this.player.handleKeyup(event)
 		);
-	}
 
+		// Actions.moveTo(this.player.mIdleSprite, 3200, 400, 10);
+	}
 
 	public update(delta: number): void {
 		this.player.update(delta);
