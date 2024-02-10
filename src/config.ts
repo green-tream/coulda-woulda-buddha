@@ -1,8 +1,6 @@
 import type { Scene } from "./engine/Scene";
 import { BACKGROUND_COLOUR } from "./constants";
 
-import TestScene from "./scenes/TestScene";
-import SplashScene from "./scenes/SplashScene";
 import MainMenuScene from "./scenes/MainMenuScene";
 import QueensScene from "./scenes/QueensScene";
 import KingsParadeScene from "./scenes/KingsParadeScene";

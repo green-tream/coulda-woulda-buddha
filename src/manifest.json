@@ -8,13 +8,13 @@
 					"srcs": "fonts/gloria-hallelujah.ttf"
 				},
 				{
-					"name": "background",
+					"name": "background_main",
 					"srcs": "background_dummy.png"
 				}
 			]
 		},
 		{
-			"name": "test",
+			"name": "queens",
 			"assets": [
 				{
 					"name": "runnin_animation_1.png",
@@ -27,6 +27,10 @@
 				{
 					"name": "runnin_animation_3.png",
 					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
+				},
+				{
+					"name": "background_queens",
+					"srcs": "background_dummy.png"
 				}
 			]
 		}
