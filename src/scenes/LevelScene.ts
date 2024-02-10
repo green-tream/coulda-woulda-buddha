@@ -38,6 +38,11 @@ export default abstract class LevelScene extends Scene {
 		this.addEntity(this.background);
 		this.player.addToScene(this);
 
+		this.viewport.follow(this.player.mIdleSprite, {
+			speed: 1,
+			acceleration: 0.1,
+		});
+
 		fadeInScene(this);
 	}
 }

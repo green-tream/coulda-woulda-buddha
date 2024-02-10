@@ -25,8 +25,8 @@ export default class Player {
 	private runningSprite: AnimatedSprite;
 	private spriteList: AnimatedSprite[];
 
-    private maxspeed: number;
-    private velocity: number
+	private maxspeed: number;
+	private velocity: number;
 
 	constructor(width: number, height: number, assets: any, scene: Scene) {
 		this.animationSpeed = 0.1;
@@ -202,14 +202,18 @@ export default class Player {
 		// TODO: x vel pos
 	}
 
-	pointInCollision(point: { x: number; y: number }): boolean {}
+	pointInCollision(point: { x: number; y: number }): boolean {
+		return false;
+	}
 
 	pointTileBounds(point: { x: number; y: number }): {
 		xMin: number;
 		xMax: number;
 		yMin: number;
 		yMax: number;
-	} {}
+	} {
+		return { xMin: 0, xMax: 0, yMin: 0, yMax: 0 };
+	}
 
 	addToScene(scene: Scene): void {
 		for (const sprite of this.spriteList) {
@@ -235,6 +239,10 @@ export default class Player {
 
 	get position(): { x: number; y: number } {
 		return { x: this.xPos, y: this.yPos };
+	}
+
+	get mIdleSprite() {
+		return this.idleSprite;
 	}
 
 	set position(pos: { x: number; y: number }) {
