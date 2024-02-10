@@ -3,12 +3,12 @@ import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
 
 export default class Player {
-	private xPos: number;
-	private yPos: number;
-	private xVel: number;
-	private yVel: number;
-	private xAcc: number;
-	private yAcc: number;
+	private xPos: number = 0;
+	private yPos: number = 0;
+	private xVel: number = 0;
+	private yVel: number = 0;
+	private xAcc: number = 0;
+	private yAcc: number = 0;
 
 	private width: number;
 	private height: number;
@@ -129,7 +129,7 @@ export default class Player {
 		}
 
 		// Gravity
-		this.yAcc = 0;
+		this.yAcc = -1;
 	}
 
 	private updateVisuals(): void {
@@ -203,6 +203,7 @@ export default class Player {
 				this.xVel = 0;
 			}
 		}
+		console.log(this.xPos);
 		// TODO: x vel pos
 	}
 
