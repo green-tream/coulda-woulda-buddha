@@ -10,7 +10,8 @@ export default class SplashScene extends Scene {
 	public init(): void {
         this.background = new PIXI.Graphics();
 
-		this.player = new Player('sprites/buddha/zen_1.png');
+		this.player = new Player(100, 170, 'sprites/buddha/zen.png');
+        this.player.position(400, 400);
 	}
 
 	public start(): void {

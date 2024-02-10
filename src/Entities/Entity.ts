@@ -8,12 +8,15 @@ export default abstract class Entity {
     private sprite: Sprite;
 
 
-    constructor(assetName: string) {//constructor(width: number, height: number, assetName: string) {
+    constructor(width: number, height: number, assetName: string) {
 
         // this.width = width;
         // this.height = height;
         this.sprite = Sprite.from(assetName);
         this.sprite.anchor.set(0.5);
+
+        this.sprite.width = width;
+        this.sprite.height = height;
 
     }
 

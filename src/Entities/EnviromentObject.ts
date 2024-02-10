@@ -3,12 +3,9 @@ import Entity from "./Entity";
 
 export default class EnviromentObject extends Entity {
 
-    // constructor(width: number, height: number, assetName: string) {
-    //     super(width, height, assetName);
-    // }
 
-    constructor(assetName: string) {
-        super(assetName);
+    constructor(width: number, height: number, assetName: string) {
+        super(width, height, assetName);
     }
     
 
