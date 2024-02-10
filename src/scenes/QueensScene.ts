@@ -9,9 +9,21 @@ export default class QueensScene extends LevelScene {
 	private buddha: ForegroundObject;
 
 	async init(assets) {
-		// this.background = new BackgroundObject(800, 800, assets["background_queens"]);
-		this.player = new Player(100, 150, assets);
-		this.player.position(400, 350);
+		this.initScene(assets);
+
+		console.log(assets);
+
+		// buddha
+		this.buddha = new UIObject(
+			this.assets.buddha_closed.baseTexture.width / 7,
+			this.assets.buddha_closed.baseTexture.height / 7,
+			this.assets.buddha_closed,
+			this
+		);
+
+		this.buddha.position(400, 400);
+
+		this.addEntity(this.buddha);
 	}
 
 	async start() {
