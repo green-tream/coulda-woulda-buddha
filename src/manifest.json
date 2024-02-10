@@ -6,6 +6,10 @@
 				{
 					"name": "gloria-hallelujah",
 					"srcs": "fonts/gloria-hallelujah.ttf"
+				},
+				{
+					"name": "background",
+					"srcs": "background_dummy.png"
 				}
 			]
 		},
