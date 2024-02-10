@@ -14,7 +14,7 @@ export default class SplashScene extends Scene {
 		this.player.position(400, 350);
 	}
 
-	async start(assets) {
+	async start() {
 
 		this.container.addChild(this.background.getSprite());
 
@@ -24,5 +24,5 @@ export default class SplashScene extends Scene {
 		);
 	}
 
-	public update(delta: number, assets): void {}
+	public update(delta: number): void {}
 }

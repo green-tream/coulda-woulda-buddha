@@ -10,6 +10,6 @@ export abstract class Scene {
 	}
 
 	public abstract init(assets: any): void;
-	public abstract start(assets: any): void;
-	public abstract update(delta: number, assets: any): void;
+	public abstract start(): void;
+	public abstract update(delta: number): void;
 }

@@ -1,25 +1,26 @@
 {
     "frames": {
-        "rollSequence0000.png": {
+        "1.png": {
             "frame": { "x": 483, "y": 692, "w": 169, "h": 226 },
             "rotated": false,
             "trimmed": true,
             "spriteSourceSize": { "x": 3, "y": 4, "w": 169, "h": 226 },
             "sourceSize": { "w": 175, "h": 240 }
         },
-        "rollSequence0001.png": {
+        "2.png": {
             "frame": { "x": 468, "y": 2, "w": 169, "h": 226 },
             "rotated": false,
             "trimmed": true,
             "spriteSourceSize": { "x": 3, "y": 4, "w": 169, "h": 226 },
             "sourceSize": { "w": 175, "h": 240 }
-        },
-        "rollSequence0002.png": {
-            "frame": { "x": 639, "y": 2, "w": 167, "h": 226 },
-            "rotated": false,
-            "trimmed": true,
-            "spriteSourceSize": { "x": 3, "y": 5, "w": 167, "h": 226 },
-            "sourceSize": { "w": 175, "h": 240 }
         }
+    },
+    "meta": {
+        "app": "http://localhost:8080",
+        "version": "1.0",
+        "image": "1.png",
+        "format": "RGBA8888",
+        "size": { "w": 1024, "h": 1024 },
+        "scale": "1"
     }
 }

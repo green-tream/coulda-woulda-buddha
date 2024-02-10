@@ -19,7 +19,7 @@ export default class SplashScene extends Scene {
 		this.header.anchor.set(0.5);
 	}
 
-	async start(assets) {
+	async start() {
 		this.background.beginFill(0x404040);
 		this.background.drawRect(0, 0, 800, 800);
 
@@ -32,7 +32,7 @@ export default class SplashScene extends Scene {
 		this.container.addChild(this.header);
 	}
 
-	public update(delta: number, assets): void {
+	public update(delta: number): void {
 		this.header.angle += (delta / 100) * 45;
 	}
 }
