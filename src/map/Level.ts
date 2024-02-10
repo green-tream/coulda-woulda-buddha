@@ -43,8 +43,8 @@ export default class Level {
     }
 
     add(x: number, y: number) {
-        
-        this.map[this.height - y - 1][ x] = new Block(x, y, this.squareSize);
+
+        this.map[this.height - y - 1][x] = new Block(x, y, this.squareSize);
 
     }
 
@@ -56,6 +56,17 @@ export default class Level {
 
 
     is_in_uwu_block(world_x: number, world_y: number): boolean {
+
+        return false;
+
+        if (
+            0 >= world_x ||
+            this.squareSize * this.width <= world_x ||
+            0 >= world_y ||
+            this.squareSize * this.height <= world_y
+        ) {
+            return true;
+        }
 
         return this.map[Math.floor(world_x / this.squareSize)][Math.floor(world_y / this.squareSize)] == null;
 
