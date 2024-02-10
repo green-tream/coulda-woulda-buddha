@@ -92,14 +92,8 @@ export default class Player {
     update(delta: number): void {
         
         this.updateInputs();
-        
+        this.updatePhysics(delta);   
         this.updateVisuals();
-
-
-        this.xVel += this.xAcc;
-        this.yVel += this.yAcc;
-        this.xPos += this.xVel;
-        this.yPos += this.yVel;
     }
 
     updateInputs(): void {
@@ -127,7 +121,7 @@ export default class Player {
 
         // Jump
         if (this.jumpKeyPressed && this.onGround) {
-            this.yVel = 10;
+            this.yVel = -10;
             this.onGround = false;
         }
         
@@ -173,20 +167,53 @@ export default class Player {
         }
     }
 
+    private updatePhysics(delta: number): void {
+        this.yAcc = -5;
+        // Update position
+        this.xVel += this.xAcc;
+        this.yVel += this.yAcc;
+        this.yVel = Math.min(this.yVel, 10);
+            
+        this.xPos += this.xVel;
+        if (this.xVel > 0) {
+            if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight)) {
+                // TODO: move slightly to left
+                this.xPos = Math.min(this.pointTileBounds(this.topRight).xMin, this.pointTileBounds(this.bottomRight).xMin);
+                this.xVel = 0;
+            }
+        } else if (this.xVel < 0) {
+            if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft)) {
+                // TODO: move slightly to right
+                this.xPos = Math.max(this.pointTileBounds(this.topLeft).xMax, this.pointTileBounds(this.bottomLeft).xMax);
+                this.xVel = 0;
+            }
+        }
+        // TODO: x vel pos
+
+    }
+
+    pointInCollision(point: { x: number; y: number; }): boolean {
+
+    }
+
+    pointTileBounds(point: { x: number; y: number; }): { xMin: number; xMax: number; yMin: number; yMax: number; } {
+
+    }
+
     get bottomLeft() : { x: number; y: number; } {
-        return { x: this.xPos - this.width / 2, y: this.yPos - this.height / 2 };
-    }
-
-    get bottomRight() : { x: number; y: number; } {
-        return { x: this.xPos + this.width / 2, y: this.yPos - this.height / 2 };
-    }
-
-    get topLeft() : { x: number; y: number; } {
         return { x: this.xPos - this.width / 2, y: this.yPos + this.height / 2 };
     }
 
-    get topRight() : { x: number; y: number; } {
+    get bottomRight() : { x: number; y: number; } {
         return { x: this.xPos + this.width / 2, y: this.yPos + this.height / 2 };
+    }
+
+    get topLeft() : { x: number; y: number; } {
+        return { x: this.xPos - this.width / 2, y: this.yPos - this.height / 2 };
+    }
+
+    get topRight() : { x: number; y: number; } {
+        return { x: this.xPos + this.width / 2, y: this.yPos - this.height / 2 };
     }
 
     get position() : { x: number; y: number; } {
@@ -196,5 +223,21 @@ export default class Player {
     set position(pos: { x: number; y: number; }) {
         this.xPos = pos.x;
         this.yPos = pos.y;
+    }
+
+    set rightEdgePosition(x: number) {
+        this.xPos = x - this.width / 2;
+    }
+
+    set leftEdgePosition(x: number) {
+        this.xPos = x + this.width / 2;
+    }
+
+    set bottomEdgePosition(y: number) {
+        this.yPos = y - this.height / 2;
+    }
+
+    set topEdgePosition(y: number) {
+        this.yPos = y + this.height / 2;
     }
 }
