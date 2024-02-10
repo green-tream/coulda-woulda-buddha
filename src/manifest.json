@@ -8,8 +8,24 @@
 					"srcs": "fonts/gloria-hallelujah.ttf"
 				},
 				{
-					"name": "background_main",
-					"srcs": "img/background/main.jpg"
+					"name": "background_main_menu",
+					"srcs": "img/background/main_menu.png"
+				},
+				{
+					"name": "play_button",
+					"srcs": "img/button/play.png"
+				},
+				{
+					"name": "buddha_closed",
+					"srcs": "img/buddha/closed.png"
+				},
+				{
+					"name": "buddha_middle",
+					"srcs": "img/buddha/middle.png"
+				},
+				{
+					"name": "buddha_open",
+					"srcs": "img/buddha/open.png"
 				}
 			]
 		},
