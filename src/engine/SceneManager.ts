@@ -15,10 +15,10 @@ export class SceneManager {
 		this.scenes.set(key, new scene(this.app));
 	}
 
-	start(key: string) {
-		Assets.loadBundle(key);
+	async start(key: string) {
+		await Assets.loadBundle(key);
 
-		this.app.stage.removeChildren();
+		this.app.stage.removeChild();
 
 		const scene = this.scenes.get(key);
 

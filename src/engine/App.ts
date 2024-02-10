@@ -1,7 +1,7 @@
 import { Application, Assets } from "pixi.js";
 import type { IConfig } from "../config";
 import { SceneManager } from "./SceneManager";
-import * as ASSETS from "../../public/manifest.json";
+import * as ASSETS from "../manifest.json";
 
 export class App {
 	private config: IConfig;
@@ -12,15 +12,19 @@ export class App {
 		this.config = config;
 		this.app = new Application(config.application);
 		this.scenes = new SceneManager(this.app);
+	}
 
+	async setup() {
 		// Load all assets
-		Assets.init({ manifest: "manifest.json" });
-		Assets.backgroundLoadBundle(ASSETS.bundles.map((bundle) => bundle.name));
+		await Assets.init({ manifest: ASSETS });
+		await Assets.backgroundLoadBundle(
+			ASSETS.bundles.map((bundle) => bundle.name)
+		);
 
 		for (const [key, scene] of Object.entries(this.config.scenes)) {
 			this.scenes.add(key, scene);
 		}
 
-		this.scenes.start("game");
+		await this.scenes.start("game");
 	}
 }

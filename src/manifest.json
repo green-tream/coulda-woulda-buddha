@@ -5,13 +5,9 @@
 			"assets": [
 				{
 					"name": "gloria-hallelujah",
-					"srcs": "fonts/gloria-hallelujah.tff"
+					"srcs": "fonts/gloria-hallelujah.ttf"
 				}
 			]
-		},
-		{
-			"name": "start",
-			"assets": []
 		}
 	]
 }
