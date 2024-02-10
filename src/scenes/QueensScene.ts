@@ -1,6 +1,6 @@
 import { Graphics, Assets } from "pixi.js";
 import { Scene } from "../engine/Scene";
-import Player from "../Entities/Player";
+import Player from "../entities/Player";
 import BackgroundObject from "../entities/BackgroundObject";
 
 export default class QueensScene extends Scene {
@@ -27,5 +27,7 @@ export default class QueensScene extends Scene {
 		);
 	}
 
-	public update(delta: number): void {}
+	public update(delta: number): void {
+		this.player.update(delta);
+	}
 }
