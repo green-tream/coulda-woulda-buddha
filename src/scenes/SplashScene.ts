@@ -1,12 +1,12 @@
 import * as PIXI from "pixi.js";
 import { Scene } from "../engine/Scene";
+import { app } from "../index";
 
 export default class SplashScene extends Scene {
 	private header: PIXI.Text;
-	private background: PIXI.Graphics
+	private background: PIXI.Graphics;
 
 	public init(): void {
-
 		this.background = new PIXI.Graphics();
 
 		this.header = new PIXI.Text("My Game Studio", {
@@ -17,11 +17,9 @@ export default class SplashScene extends Scene {
 		this.header.x = this.app!.screen.width / 2;
 		this.header.y = this.app!.screen.height / 2;
 		this.header.anchor.set(0.5);
-
 	}
 
 	public start(): void {
-
 		this.background.beginFill(0x404040);
 		this.background.drawRect(0, 0, 800, 800);
 
@@ -29,14 +27,9 @@ export default class SplashScene extends Scene {
 
 		this.header.angle = 0;
 		setTimeout(() => {
-<<<<<<< Updated upstream
 			app.scenes.start("test");
-=======
-			// app.scenes.start("game");
->>>>>>> Stashed changes
 		}, 5000);
 		this.container.addChild(this.header);
-
 	}
 
 	public update(delta: number): void {
