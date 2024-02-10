@@ -17,15 +17,15 @@
 			"name": "queens",
 			"assets": [
 				{
-					"name": "runnin_animation_1.png",
+					"name": "running_animation_1",
 					"srcs": "sprites/buddha/running_animation/running_animation_1.png"
 				},
 				{
-					"name": "runnin_animation_2.png",
+					"name": "running_animation_2",
 					"srcs": "sprites/buddha/running_animation/running_animation_2.png"
 				},
 				{
-					"name": "runnin_animation_3.png",
+					"name": "running_animation_3",
 					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
 				},
 				{
