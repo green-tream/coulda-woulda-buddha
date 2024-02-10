@@ -1,5 +1,6 @@
 import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
+import Level from "../map/Level";
 
 export default class Player {
 	private xPos: number;
@@ -26,9 +27,12 @@ export default class Player {
 	private spriteList: AnimatedSprite[];
 
     private maxspeed: number;
-    private velocity: number
+    private velocity: number;
 
-	constructor(width: number, height: number, assets: any, scene: Scene) {
+	private level: Level;
+
+	constructor(width: number, height: number, assets: any, level: Level) {
+		this.level = level;
 		this.animationSpeed = 0.1;
 
 		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);

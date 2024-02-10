@@ -1,4 +1,3 @@
-import { Sprite } from "pixi.js";
 import Block from "./block";
 
 

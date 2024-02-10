@@ -1,12 +1,8 @@
-import { Sprite } from "pixi.js";
-import Level from "../map";
+import Level from "../Level";
 import { HEIGHT, TILESIZE, WIDTH } from "../../constants";
 
 
-export default function level1(
-    air: Sprite,
-    ground: Sprite
-) {
+export default function level1(): Level {
     const levelWidth = WIDTH / TILESIZE;
     const levelHeight = HEIGHT / TILESIZE;
     const level: Level = new Level(levelWidth, levelHeight, TILESIZE);
@@ -18,5 +14,8 @@ export default function level1(
     level.applyRect(30, 2, 10, 14);
     //smaller platform
     level.applyRect(15, 13, 15, 3);
+
+
+    return level;
 
 }
