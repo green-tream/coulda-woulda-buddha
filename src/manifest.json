@@ -6,10 +6,6 @@
 				{
 					"name": "gloria-hallelujah",
 					"srcs": "fonts/gloria-hallelujah.ttf"
-				},
-				{
-					"name": "frames",
-					"srcs": "sprites/buddha/running_animation/frames.json"
 				}
 			]
 		},
@@ -17,8 +13,16 @@
 			"name": "test",
 			"assets": [
 				{
-					"name": "funny name",
-					"srcs": "sprites/buddha/running_animation/frames.json"
+					"name": "runnin_animation_1.png",
+					"srcs": "sprites/buddha/running_animation/running_animation_1.png"
+				},
+				{
+					"name": "runnin_animation_2.png",
+					"srcs": "sprites/buddha/running_animation/running_animation_2.png"
+				},
+				{
+					"name": "runnin_animation_3.png",
+					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
 				}
 			]
 		}

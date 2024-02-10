@@ -16,14 +16,14 @@ export default class Player extends Entity {
         this.animationSpeed = 0.5;
         this.isRunning = false;
 
-        this.loadAnimation();
+        this.loadAnimation(assets);
     }
 
-    loadAnimation(): void { // Cant load/find file           Also, I just randomly copied and pasted some data into frames.json - check data
+    loadAnimation(assets: any): void {
         const frames = [];
 
         for (let i = 1; i < 4; i++) {
-            frames.push(Texture.from(`${i}.png`));
+            frames.push(new Texture(assets[`running_animation_${i}.png`]));
         }
 
         this.animation = new AnimatedSprite(frames);
