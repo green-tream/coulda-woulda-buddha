@@ -1,7 +1,7 @@
 import { AnimatedSprite, ObservablePoint, Point, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
-import { fadeIn, fadeInOut, fadeOut, fadeOutToScene, sleep } from "../utils";
+import { fadeIn, fadeInOut, fadeOut, fadeOutToScene, mathematicalBridge, sleep } from "../utils";
 import { Actions } from "pixi-actions";
 import SavedState from "./SavedState";
 import { app } from "..";
@@ -137,6 +137,8 @@ export default class Player {
 				break;
 			case "r":
 				this.restartScene();
+			case "q":
+				// this.checkForItem();
 				break;
 		}
 	}
@@ -155,7 +157,11 @@ export default class Player {
 			}
 			this.ghostSprites[i].alpha = 0.5;
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
-			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
+			this.ghostSprites[i].position.y =
+				this.previousStates[i][this.ghostIndex].position.y +
+				(this.levelName == "queens"
+					? mathematicalBridge(this.previousStates[i][this.ghostIndex].position.x)
+					: 0);
 		}
 
 		if (this.canMove) {

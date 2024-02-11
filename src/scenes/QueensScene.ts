@@ -5,7 +5,7 @@ import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
 import Level from "../map/Level";
 import Entity from "../entities/Entity";
-import { fadeOutToScene } from "../utils";
+import { fadeOutToScene, mathematicalBridge } from "../utils";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
@@ -82,14 +82,7 @@ export default class QueensScene extends LevelScene {
 		if (this.switchingScenes) return;
 		this.player.update(delta);
 
-		if (this.player.position.x > 1315 && this.player.position.x < 2075) {
-			const fixed = ((this.player.position.x - 1315) / (2075 - 1315)) * Math.PI - Math.PI / 2;
-			const transformedY = Math.cos(fixed / 0.81);
-
-			this.player.yOffset = -(2 * TILESIZE + transformedY * 100);
-		} else {
-			this.player.yOffset = 0;
-		}
+		this.player.yOffset = mathematicalBridge(this.player.position.x);
 
 		if (this.end.ifInside(this.player)) {
 			this.switchingScenes = true;

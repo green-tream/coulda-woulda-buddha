@@ -3,12 +3,14 @@ import { Scene } from "../engine/Scene";
 import InteractableObject from "../entities/InteractableObject";
 import { closerObject, fadeIn } from "../utils";
 import BackgroundObject from "../entities/BackgroundObject";
-import { Graphics, Rectangle, TextStyle, Texture } from "pixi.js";
+import { Graphics, Point, Rectangle, TextStyle, Texture } from "pixi.js";
 import { HEIGHT, TILESIZE, WIDTH } from "../constants";
 import Level from "../map/Level";
 
 import { Text } from "pixi.js";
 import End from "../mechanics/End";
+import BoxBlock from "../map/BoxBlock";
+import Box from "../mechanics/Box";
 
 export default abstract class LevelScene extends Scene {
 	private objects: InteractableObject[];
@@ -49,6 +51,8 @@ export default abstract class LevelScene extends Scene {
 
 		this.player = new Player(0.05, assets, level, this.RESPAWN, this, this.LEVEL);
 		this.player.addToScene(this);
+
+		const box = new Box(assets, "queens", this.player.level, new Point(8, 8));
 
 		const g: Graphics = new Graphics();
 		g.beginFill(0x000000, 0.5);
