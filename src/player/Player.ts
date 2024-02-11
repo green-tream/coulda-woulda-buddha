@@ -177,22 +177,22 @@ export default class Player {
 				continue;
 			}
 			if (
-				this.previousStates[i][Math.min(this.ghostIndex, this.previousStates[i].length - 1)].state
-					.type == "holding-on-to-a-fucking-box"
+				this.previousStates[i][Math.min(this.ghostIndex, this.previousStates[i].length - 1)]
+					.state == "holding-on-to-a-fucking-box"
 			) {
 				ghostsWithBoxes.push(this.ghostSprites[i]);
 			}
 
-			if (this.previousStates[i][this.ghostIndex].state.type == "interact") {
-				this.previousStates[i][this.ghostIndex].state.data.interact(this, this.assets);
-			}
-
-			// if (this.ghostSprites[i].alpha == 0) {
-			// 	Actions.fadeTo(this.ghostSprites[i], 0.8, 0.5).play();
-			// }
-
 			if (this.previousStates[i].length < this.ghostIndex + 1) {
 				continue;
+			}
+
+			if (this.previousStates[i][this.ghostIndex].istate.type == "interact") {
+				this.previousStates[i][this.ghostIndex].istate.data.interact(this, this.assets);
+			}
+
+			if (this.ghostSprites[i].alpha == 0) {
+				Actions.fadeTo(this.ghostSprites[i], 0.8, 0.5).play();
 			}
 
 			this.ghostSprites[i].alpha = 0.5;
@@ -278,7 +278,8 @@ export default class Player {
 
 		this.previousStates[this.previousStates.length - 1].push({
 			position: new Point(this.xPos, this.yPos),
-			state: state,
+			state: this.state,
+			istate: state,
 		});
 	}
 

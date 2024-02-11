@@ -37,6 +37,7 @@ export default abstract class LevelScene extends Scene {
 
 	initScene(assets: any, make_level: () => Level) {
 		this.assets = assets;
+		this.objects = [];
 
 		const assetName = this.LEVEL + "_background";
 		this.background = new BackgroundObject(
@@ -64,7 +65,7 @@ export default abstract class LevelScene extends Scene {
 			for (let i = 0; i < this.player.level.width; i++) {
 				if (this.player.level.map[j][i] instanceof BoxBlock) {
 					this.addDisplayObject((this.player.level.map[j][i] as BoxBlock).getSprite());
-				} 
+				}
 				// if (this.player.level.map[j][i] != null) {
 				// 	g.drawRect(
 				// 		this.player.level.squareSize * i,
