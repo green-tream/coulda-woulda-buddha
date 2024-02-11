@@ -113,9 +113,9 @@ export default class Player {
 		this.updatePhysics(delta);
 		this.updateVisuals();
 
-		console.log('Player position:', this.xPos, this.yPos);
-		console.log('Player velocity:', this.xVel, this.yVel);
-		console.log('Player acceleration:', this.xAcc, this.yAcc);
+		// console.log('Player position:', this.xPos, this.yPos);
+		// console.log('Player velocity:', this.xVel, this.yVel);
+		// console.log('Player acceleration:', this.xAcc, this.yAcc);
 	}
 
 	updateInputs(): void {
@@ -145,7 +145,8 @@ export default class Player {
 		}
 
 		// Jump
-		if (this.jumpKeyPressed && this.onGround) {
+		// if (this.jumpKeyPressed && this.onGround) {
+		if (this.jumpKeyPressed) {
 			this.yVel = -15;
 			this.onGround = false;
 		}
@@ -261,8 +262,8 @@ export default class Player {
 						this.pointTileBounds(this.topRight).yMax
 					) + 0.1;
 				this.yVel = 1;
-			}
 			console.log("ceiling");
+			}
 		}
 	}
 
