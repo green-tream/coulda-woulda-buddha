@@ -154,8 +154,7 @@ export default class Player {
 		}
 
 		// Jump
-		// if (this.jumpKeyPressed && this.onGround) {
-		if (this.jumpKeyPressed) {
+		if (this.jumpKeyPressed && this.onGround) {
 			this.yVel = -15;
 			this.onGround = false;
 		}
