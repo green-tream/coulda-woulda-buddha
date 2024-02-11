@@ -122,9 +122,9 @@ export default class Player {
 		this.updatePhysics(delta);
 		this.updateVisuals();
 
-		// console.log('Player position:', this.xPos, this.yPos);
-		// console.log('Player velocity:', this.xVel, this.yVel);
-		// console.log('Player acceleration:', this.xAcc, this.yAcc);
+		console.log('Player position:', this.xPos, this.yPos);
+		console.log('Player velocity:', this.xVel, this.yVel);
+		console.log('Player acceleration:', this.xAcc, this.yAcc);
 	}
 
 	updateInputs(): void {
@@ -184,7 +184,6 @@ export default class Player {
 	private updateVisuals(): void {
 		this.changeSprites();
 		this.moveSprites();
-		this.yPos = 400;
 	}
 
 	private moveSprites(): void {
@@ -263,6 +262,7 @@ export default class Player {
 					) - 0.1;
 				this.yVel = 0;
 				this.onGround = true;
+                console.log("ground");
 			}
 		} else if (this.yVel < 0) {
 			// Ceiling

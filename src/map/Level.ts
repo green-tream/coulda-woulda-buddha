@@ -48,7 +48,6 @@ export default class Level {
 		) {
 			return true;
 		}
-		console.log(Math.floor(world_x / this.squareSize), Math.floor(world_y / this.squareSize));
 
 		return (
 			this.map[Math.floor(world_x / this.squareSize)][Math.floor(world_y / this.squareSize)] != null
