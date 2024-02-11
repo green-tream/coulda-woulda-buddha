@@ -43,9 +43,9 @@ export default class Player {
 
 	private levelName: string;
 
-	private previousStates: SavedState[][] = []; //Add in constructir
+	private previousStates: SavedState[][] = [[]]; //Add in constructir
 	private ghostSprites: Sprite[] = [];
-	private ghostIndex: number;
+	private ghostIndex: number = 0;
 
 	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, scene: Scene, levelName: string) {
 		this.level = level;
@@ -135,6 +135,11 @@ export default class Player {
 
 		// Might not work cos of frame timings
 		this.saveState();
+
+		// for (let i=0; i<this.previousStates.length - 1; i++) {
+		// 	this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
+		// 	this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
+		// }
 	}
 
 	saveState() {
@@ -203,6 +208,7 @@ export default class Player {
 
 		this.ghostSprites.push(new Sprite(this.assets[`${this.levelName}_zen_sprite`]))
 		this.previousStates.push([]);
+		this.ghostIndex = 0;
 
 		this.reflecting = false;
 	}
