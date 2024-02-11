@@ -123,7 +123,11 @@ export default class Player {
 				this.xAcc = 1;
 			}
 		}
-		this.xVel *= 0.9;
+
+        // None
+        if (!this.rightKeyPressed && !this.leftKeyPressed) {
+            this.xAcc = 0;
+        }
 
 		// Jump
 		if (this.jumpKeyPressed && this.onGround) {
@@ -132,7 +136,7 @@ export default class Player {
 		}
 
 		// Gravity
-		this.yAcc = -1;
+		this.yAcc = 3;
 	}
 
 	private updateVisuals(): void {
@@ -168,7 +172,13 @@ export default class Player {
 	}
 
 	private updatePhysics(delta: number): void {
-		this.yAcc = -5;
+        if (!this.leftKeyPressed && !this.rightKeyPressed) {
+            this.xVel *= 0.9;
+        } else {
+            this.xVel *= 0.4;
+        }
+        
+        
 		// Update position
 		this.xVel += this.xAcc;
 		this.yVel += this.yAcc;
