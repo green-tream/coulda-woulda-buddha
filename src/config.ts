@@ -5,6 +5,7 @@ import MainMenuScene from "./scenes/MainMenuScene";
 import QueensScene from "./scenes/QueensScene";
 import KingsParadeScene from "./scenes/KingsParadeScene";
 import IntelLabScene from "./scenes/IntelLabScene";
+import EndScene from "./scenes/EndScene";
 
 const view = document.querySelector("#canvas") as HTMLCanvasElement;
 
@@ -25,6 +26,7 @@ export const Config: IConfig = {
 		queens: QueensScene,
 		kings: KingsParadeScene,
 		lab: IntelLabScene,
+		end: EndScene,
 	},
 	application: {
 		view,

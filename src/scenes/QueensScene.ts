@@ -10,7 +10,7 @@ import { fadeOutToScene, mathematicalBridge } from "../utils";
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
 	RESPAWN = { x: TILESIZE * 5, y: TILESIZE * 14 };
-	END = { x: TILESIZE * 108, y: TILESIZE * 2 };
+	END = { x: TILESIZE * 108.5, y: TILESIZE * 1 };
 	private buddha: ForegroundObject;
 	private bridge: ForegroundObject;
 
@@ -44,7 +44,18 @@ export default class QueensScene extends LevelScene {
 		this.bridge.position(1090, HEIGHT);
 		this.addEntity(this.bridge);
 
-		// this.player.canMove = false;
+		const ledge = new ForegroundObject(
+			assets.queens_ledge.baseTexture.width * (HEIGHT / assets.queens_ledge.baseTexture.height),
+			HEIGHT,
+			this.assets.queens_ledge,
+			this
+		);
+
+		ledge.getSprite().anchor.set(0, 0);
+		ledge.position(0, 0);
+		this.addEntity(ledge);
+
+		this.player.canMove = false;
 
 		Actions.sequence(
 			// Actions.delay(2),
@@ -60,12 +71,19 @@ export default class QueensScene extends LevelScene {
 			// Actions.delay(0.1),
 			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
 			// Actions.delay(1),
+			// this.player.popUpText([
+			// 	"oh no!",
+			// 	"i'm late for the\ngame jam results!",
+			// 	"better get to the\nintel lab quick!",
+			// ]),
 			Actions.parallel(
 				Actions.fadeOut(this.buddha.getSprite(), 1),
 				Actions.fadeIn(this.player.mIdleSprite, 1)
 			),
 			Actions.runFunc(() => this.setupInputs()),
-			Actions.runFunc(() => (this.player.canMove = true))
+			Actions.runFunc(() => (this.player.canMove = true)),
+			Actions.delay(1),
+			this.player.popUpText(["a, d to move\nspace to jump"])
 		).play();
 	}
 
@@ -79,14 +97,15 @@ export default class QueensScene extends LevelScene {
 	}
 
 	public update(delta: number): void {
-		if (this.switchingScenes) return;
 		this.player.update(delta);
 
 		this.player.yOffset = mathematicalBridge(this.player.position.x);
 
+		if (this.switchingScenes) return;
+
 		if (this.end.ifInside(this.player)) {
 			this.switchingScenes = true;
-			fadeOutToScene(this, "kings", this.viewport);
+			fadeOutToScene(this, "kings", this.viewport).play();
 		}
 	}
 }

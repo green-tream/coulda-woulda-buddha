@@ -1,7 +1,9 @@
 import { Point } from "pixi.js";
 
-
 export default interface SavedState {
-    position: Point;
-    state: string;
+	position: Point;
+	state: {
+		type: string;
+		data: any | null;
+	};
 }

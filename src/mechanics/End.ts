@@ -7,17 +7,15 @@ import { TILESIZE } from "../constants";
 
 export default class End extends Entity {
 	constructor(scene: Scene, texture: Texture) {
-		super(TILESIZE * 2, TILESIZE * 4, texture, scene);
-
-		this.getSprite().scale.set(0.05);
+		super(texture.baseTexture.width, texture.baseTexture.height, texture, scene);
 	}
 
 	public ifInside(player: Player) {
 		if (
-			player.position.x > this.getSprite().x - this.getSprite().width / 2 &&
-			player.position.x < this.getSprite().x + this.getSprite().width / 2 &&
-			player.position.y > this.getSprite().y - this.getSprite().height / 2 &&
-			player.position.y < this.getSprite().y + this.getSprite().height / 2
+			player.position.x > this.getSprite().x - this.getSprite().width / 2 - 20 &&
+			player.position.x < this.getSprite().x + this.getSprite().width / 2 + 20 &&
+			player.position.y > this.getSprite().y - this.getSprite().height / 2 - 20 &&
+			player.position.y < this.getSprite().y + this.getSprite().height / 2 + 20
 		) {
 			return true;
 		}

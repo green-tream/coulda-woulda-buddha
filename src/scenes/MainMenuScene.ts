@@ -53,7 +53,22 @@ export default class MainMenuScene extends Scene {
 	}
 
 	async start() {
-		this.playButton.getSprite().on("click", () => fadeOutToScene(this, "lab", this.viewport));
+		this.playButton.getSprite().on("click", () => {
+			const audioContext = new window.AudioContext();
+			const source = audioContext.createBufferSource();
+			source.connect(audioContext.destination);
+			fetch("soundtrack.wav")
+				.then((response) => response.arrayBuffer())
+				.then((buffer) => audioContext.decodeAudioData(buffer))
+				.then((audioBuffer) => {
+					source.buffer = audioBuffer;
+					source.loop = true; // Set looping to true
+					source.start(0); // Start playing the sound
+				})
+				.catch((error) => console.error(error));
+
+			fadeOutToScene(this, "queens", this.viewport).play();
+		});
 
 		this.buddha.getSprite().on("click", () => {
 			if (this.buddhaOpen) return;

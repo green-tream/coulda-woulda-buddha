@@ -5,7 +5,7 @@ export default class Entity {
 	private width: number;
 	private height: number;
 	private sprite: Sprite;
-	private scene: Scene;
+	public scene: Scene;
 
 	constructor(width: number, height: number, texture: Texture, scene: Scene) {
 		this.width = width;

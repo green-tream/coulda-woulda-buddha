@@ -11,17 +11,37 @@ export function fadeOut(currentScene: Scene, viewport: Viewport, time: number = 
 	const box = new Graphics();
 	box.beginFill(0x000000);
 	box.alpha = 0;
-	box.drawRect(viewport.corner.x, viewport.corner.y, WIDTH, HEIGHT);
+	box.drawRect(viewport.corner.x, viewport.corner.y, WIDTH * 3, HEIGHT);
 	currentScene.addDisplayObject(box);
 
 	return Actions.fadeIn(box, time);
+}
+
+export function fadeInOutFunc(
+	currentScene: Scene,
+	viewport: Viewport,
+	fn: () => void,
+	time: number = 0.5
+) {
+	const box = new Graphics();
+	box.beginFill(0x000000);
+	box.alpha = 0;
+	box.drawRect(0, 0, WIDTH * 3, HEIGHT);
+	currentScene.addDisplayObject(box);
+
+	return Actions.sequence(
+		Actions.fadeIn(box, time),
+		Actions.runFunc(fn),
+		Actions.delay(0.1),
+		Actions.fadeOut(box, time)
+	);
 }
 
 export function fadeIn(currentScene: Scene, viewport: Viewport, time: number = 1) {
 	const box = new Graphics();
 	box.beginFill(0x000000);
 	box.alpha = 1;
-	box.drawRect(viewport.corner.x, viewport.corner.y, WIDTH, HEIGHT);
+	box.drawRect(0, 0, WIDTH * 3, HEIGHT);
 	currentScene.addDisplayObject(box);
 
 	return Actions.fadeOut(box, time);
@@ -40,10 +60,10 @@ export function fadeOutToScene(
 	viewport: Viewport,
 	time: number = 1
 ) {
-	Actions.sequence(
+	return Actions.sequence(
 		fadeOut(currentScene, viewport, time),
 		Actions.runFunc(() => app.scenes.start(nextSceneKey))
-	).play();
+	);
 }
 
 export function closerObject(player: Player, a: InteractableObject, b: InteractableObject) {
@@ -58,7 +78,6 @@ export function closerObject(player: Player, a: InteractableObject, b: Interacta
 export function sleep(time: number) {
 	return new Promise((resolve) => setTimeout(resolve, time));
 }
-
 
 export function mathematicalBridge(x: number): number {
 	if (x > 1315 && x < 2075) {

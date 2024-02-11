@@ -13,7 +13,7 @@ import BoxBlock from "../map/BoxBlock";
 import Box from "../mechanics/Box";
 
 export default abstract class LevelScene extends Scene {
-	private objects: InteractableObject[];
+	public objects: InteractableObject[];
 	public switchingScenes: boolean = false;
 	public player: Player;
 	public end: End;
@@ -21,13 +21,18 @@ export default abstract class LevelScene extends Scene {
 	abstract RESPAWN: { x: number; y: number };
 	abstract END: { x: number; y: number };
 
-	playerInteract() {
+	playerInteract(): InteractableObject | null {
 		const closestObject = this.objects
-			// .filter((o) => o.isInteractable())
-			// .filter((o) => o.isWithinThreshold());
+			.filter((o) => o.isInteractable())
+			.filter((o) => o.isWithinThreshold(this.player))
 			.toSorted((a, b) => closerObject(this.player, a, b))[0];
 
-		closestObject.interact(this.player);
+		if (closestObject) {
+			closestObject.interact(this.player, this.assets);
+			return closestObject;
+		} else {
+			return null;
+		}
 	}
 
 	initScene(assets: any, make_level: () => Level) {
@@ -53,32 +58,32 @@ export default abstract class LevelScene extends Scene {
 		this.player.addToScene(this);
 
 		// NOW RENDERS BOX
-		const g: Graphics = new Graphics();
-		g.beginFill(0x000000, 0.5);
-		for (let j = 0; j < this.player.level.height; j++) {
-			for (let i = 0; i < this.player.level.width; i++) {
-				if (this.player.level.map[j][i] != null) {
-					g.drawRect(
-						this.player.level.squareSize * i,
-						this.player.level.squareSize * j,
-						this.player.level.squareSize,
-						this.player.level.squareSize
-					);
-				} else {
-					const text = new TextStyle({
-						fill: "black",
-						fontSize: 8,
-					});
+		// const g: Graphics = new Graphics();
+		// g.beginFill(0x000000, 0.5);
+		// for (let j = 0; j < this.player.level.height; j++) {
+		// 	for (let i = 0; i < this.player.level.width; i++) {
+		// 		if (this.player.level.map[j][i] != null) {
+		// 			g.drawRect(
+		// 				this.player.level.squareSize * i,
+		// 				this.player.level.squareSize * j,
+		// 				this.player.level.squareSize,
+		// 				this.player.level.squareSize
+		// 			);
+		// 		} else {
+		// 			const text = new TextStyle({
+		// 				fill: "black",
+		// 				fontSize: 8,
+		// 			});
 
-					const t = new Text(`${i},${j}`, text);
-					t.position.x = i * this.player.level.squareSize;
-					t.position.y = j * this.player.level.squareSize;
+		// 			const t = new Text(`${i},${j}`, text);
+		// 			t.position.x = i * this.player.level.squareSize;
+		// 			t.position.y = j * this.player.level.squareSize;
 
-					this.addDisplayObject(t);
-				}
-			}
-		}
-		this.addDisplayObject(g);
+		// 			this.addDisplayObject(t);
+		// 		}
+		// 	}
+		// }
+		// this.addDisplayObject(g);
 
 		this.viewport.follow(this.player.mIdleSprite, {
 			speed: 5,

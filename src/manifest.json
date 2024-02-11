@@ -57,6 +57,14 @@
 					"srcs": "sprites/buddha/zen.png"
 				},
 				{
+					"name": "queens_ghost_sprite",
+					"srcs": "sprites/buddha/ghost.png"
+				},
+				{
+					"name": "queens_ghost_lift_sprite",
+					"srcs": "sprites/buddha/ghost_lift.png"
+				},
+				{
 					"name": "queens_box",
 					"srcs": "sprites/item/box/box.png"
 				},
@@ -77,6 +85,10 @@
 					"srcs": "sprites/environment/mathematical_bridge.png"
 				},
 				{
+					"name": "queens_end",
+					"srcs": "sprites/environment/end.png"
+				},
+				{
 					"name": "queens_box_1",
 					"srcs": "sprites/item/box/box_bl.png"
 				},
@@ -91,6 +103,10 @@
 				{
 					"name": "queens_box_4",
 					"srcs": "sprites/item/box/box_tr.png"
+				},
+				{
+					"name": "queens_ledge",
+					"srcs": "sprites/environment/ledge.png"
 				}
 			]
 		},
@@ -122,6 +138,14 @@
 					"srcs": "sprites/buddha/zen.png"
 				},
 				{
+					"name": "kings_ghost_sprite",
+					"srcs": "sprites/buddha/ghost.png"
+				},
+				{
+					"name": "kings_ghost_lift_sprite",
+					"srcs": "sprites/buddha/ghost_lift.png"
+				},
+				{
 					"name": "kings_box",
 					"srcs": "sprites/item/box/box.png"
 				},
@@ -139,7 +163,7 @@
 				},
 				{
 					"name": "kings_end",
-					"srcs": "sprites/environment/mathematical_bridge.png"
+					"srcs": "sprites/environment/end.png"
 				},
 				{
 					"name": "kings_box_1",
@@ -187,6 +211,14 @@
 					"srcs": "sprites/buddha/zen.png"
 				},
 				{
+					"name": "lab_ghost_sprite",
+					"srcs": "sprites/buddha/ghost.png"
+				},
+				{
+					"name": "lab_ghost_lift_sprite",
+					"srcs": "sprites/buddha/ghost_lift.png"
+				},
+				{
 					"name": "lab_buddha_closed",
 					"srcs": "img/buddha/closed.png"
 				},
@@ -200,7 +232,24 @@
 				},
 				{
 					"name": "lab_end",
-					"srcs": "sprites/environment/mathematical_bridge.png"
+					"srcs": "sprites/environment/end.png"
+				},
+				{
+					"name": "lab_electrocuter",
+					"srcs": "sprites/item/electrocuter.png"
+				},
+				{
+					"name": "lab_electricity",
+					"srcs": "sprites/item/electricity.png"
+				}
+			]
+		},
+		{
+			"name": "end",
+			"assets": [
+				{
+					"name": "end_background",
+					"srcs": "img/background/end.png"
 				}
 			]
 		}

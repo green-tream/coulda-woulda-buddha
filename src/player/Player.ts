@@ -1,15 +1,24 @@
-import { AnimatedSprite, ObservablePoint, Point, Sprite, Texture } from "pixi.js";
+import { AnimatedSprite, ObservablePoint, Point, Sprite, Text, TextStyle, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
-import { fadeIn, fadeInOut, fadeOut, fadeOutToScene, mathematicalBridge, sleep } from "../utils";
+import {
+	fadeIn,
+	fadeInOut,
+	fadeInOutFunc,
+	fadeOut,
+	fadeOutToScene,
+	mathematicalBridge,
+	sleep,
+} from "../utils";
 import { Actions } from "pixi-actions";
 import SavedState from "./SavedState";
 import { app } from "..";
 import LevelScene from "../scenes/LevelScene";
 import Box from "../mechanics/Box";
+import InteractableObject from "../entities/InteractableObject";
 
 export default class Player {
-	private scene: Scene;
+	private scene: LevelScene;
 
 	private xPos: number = 0;
 	private yPos: number = 0;
@@ -55,13 +64,14 @@ export default class Player {
 	private previousStates: SavedState[][] = [[]]; //Add in constructir
 	private ghostSprites: Sprite[] = [];
 	private ghostIndex: number = -1;
+	private interactedWith: InteractableObject | null = null;
 
 	constructor(
 		spriteScale: number,
 		assets: any,
 		level: Level,
 		respawn: { x: number; y: number },
-		scene: Scene,
+		scene: LevelScene,
 		levelName: string
 	) {
 		this.level = level;
@@ -96,7 +106,7 @@ export default class Player {
 			sprite.anchor.set(0.5);
 		}
 
-		this.box = new Box(assets, "queens", this.level, new Point(8, 8));
+		// this.box = new Box(assets, "queens", this.level, new Point(8, 8));
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
@@ -142,7 +152,8 @@ export default class Player {
 			case "r":
 				this.restartScene();
 			case "q":
-				this.box.interact();
+				this.interactedWith = this.scene.playerInteract();
+				// this.box.interact(this);
 				break;
 		}
 	}
@@ -159,7 +170,15 @@ export default class Player {
 			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) {
 				continue;
 			}
-			this.ghostSprites[i].alpha = 0.5;
+
+			if (this.previousStates[i][this.ghostIndex].state.type == "interact") {
+				this.previousStates[i][this.ghostIndex].state.data.interact(this, this.assets);
+			}
+
+			// if (this.ghostSprites[i].alpha == 0) {
+			// 	Actions.fadeTo(this.ghostSprites[i], 0.8, 0.5).play();
+			// }
+
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y =
 				this.previousStates[i][this.ghostIndex].position.y +
@@ -175,9 +194,23 @@ export default class Player {
 	}
 
 	saveState() {
+		let state = {
+			type: "running",
+			data: null,
+		};
+
+		if (this.interactedWith) {
+			state = {
+				type: "interact",
+				data: this.interactedWith,
+			};
+
+			this.interactedWith = null;
+		}
+
 		this.previousStates[this.previousStates.length - 1].push({
 			position: new Point(this.xPos, this.yPos),
-			state: "running",
+			state: state,
 		});
 	}
 
@@ -239,15 +272,15 @@ export default class Player {
 
 		Actions.sequence(
 			Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)),
-			Actions.delay(1),
-			Actions.runFunc(() => (this.position = this.respawn)),
-			Actions.delay(1),
+			Actions.delay(0.75),
+			fadeInOutFunc(this.scene, this.scene.viewport, () => (this.position = this.respawn), 0.5),
+			Actions.delay(0.75),
 			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1)),
 			Actions.runFunc(() => (this.canMove = true)),
 			Actions.runFunc(() => (this.reflecting = false))
 		).play();
 
-		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`]);
+		const ghostSprite = new Sprite(this.assets[`${this.levelName}_ghost_sprite`]);
 		ghostSprite.width = this.width;
 		ghostSprite.height = this.height;
 		ghostSprite.anchor.set(0.5);
@@ -352,6 +385,30 @@ export default class Player {
 		}
 	}
 
+	popUpText(txts: string[]) {
+		const style = new TextStyle({
+			fontFamily: "Gloria Hallelujah",
+			fill: "#FFFFFF",
+			fontSize: 16,
+			align: "center",
+		});
+
+		const texts = txts.map((txt) => new Text(txt, style));
+
+		for (const text of texts) {
+			text.alpha = 0;
+			text.anchor.set(0.5, 1);
+			text.position.set(this.xPos, this.yPos - 50);
+			this.scene.addDisplayObject(text);
+		}
+
+		return Actions.sequence(
+			...texts.map((t) =>
+				Actions.sequence(Actions.fadeIn(t, 0.3), Actions.delay(2), Actions.fadeOut(t, 0.3))
+			)
+		);
+	}
+
 	pointInCollision(point: { x: number; y: number }): boolean {
 		return this.level.is_in_uwu_block(point.x, point.y);
 	}
@@ -369,6 +426,11 @@ export default class Player {
 		for (const sprite of this.spriteList) {
 			scene.addDisplayObject(sprite);
 		}
+	}
+
+	addMotion(x = 0, y = 0) {
+		this.xVel += x;
+		this.yVel += y;
 	}
 
 	get bottomLeft(): { x: number; y: number } {
