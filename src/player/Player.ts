@@ -4,6 +4,7 @@ import Level from "../map/Level";
 import { fadeIn, fadeInOut, fadeOut, mathematicalBridge, sleep } from "../utils";
 import { Actions } from "pixi-actions";
 import SavedState from "./SavedState";
+import Box from "../mechanics/Box";
 
 export default class Player {
 	private scene: Scene;
@@ -38,8 +39,9 @@ export default class Player {
 	private zenSprite: Sprite;
 	private assets: any;
 
-	private maxspeed: number;
-	private velocity: number;
+	private box: Box;
+
+	private state: string
 
 	public level: Level; //Change back to private when using
 	private reflecting: boolean;
@@ -91,6 +93,9 @@ export default class Player {
 			sprite.height = height;
 			sprite.anchor.set(0.5);
 		}
+
+		this.box = new Box(assets, "queens", this.level, new Point(8, 8))
+
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
@@ -134,7 +139,7 @@ export default class Player {
 				this.startReflection();
 				break;
 			case "q":
-				// this.checkForItem();
+				this.box.interact();
 				break;
 		}
 	}
