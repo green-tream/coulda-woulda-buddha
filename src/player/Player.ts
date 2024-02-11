@@ -63,6 +63,7 @@ export default class Player {
 	private levelName: string;
 	public canMove: boolean;
 	public yOffset: number;
+	private tutorialdone = false;
 
 	private previousStates: SavedState[][] = [[]]; //Add in constructir
 	private ghostSprites: Sprite[] = [];
@@ -169,6 +170,11 @@ export default class Player {
 		this.updateInputs();
 		this.updatePhysics(delta);
 		this.updateVisuals();
+
+		if (this.holdingBox !== undefined && this.tutorialdone == false && this.position.x > 600) {
+			this.tutorialdone = true;
+			this.popUpText(["press e to reflect\non your actions..."]).play();
+		}
 
 		const ghostsWithBoxes = [];
 
@@ -433,7 +439,11 @@ export default class Player {
 		this.xPos += this.xVel;
 		if (this.xVel > 0) {
 			// Right wall
-			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight) || this.pointInCollision(this.rightCenter)) {
+			if (
+				this.pointInCollision(this.topRight) ||
+				this.pointInCollision(this.bottomRight) ||
+				this.pointInCollision(this.rightCenter)
+			) {
 				this.rightEdgePosition =
 					Math.min(
 						this.pointTileBounds(this.topRight).xMin,
@@ -444,7 +454,11 @@ export default class Player {
 			}
 		} else if (this.xVel < 0) {
 			// Left wall
-			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.leftCenter)) {
+			if (
+				this.pointInCollision(this.topLeft) ||
+				this.pointInCollision(this.bottomLeft) ||
+				this.pointInCollision(this.leftCenter)
+			) {
 				this.leftEdgePosition =
 					Math.max(
 						this.pointTileBounds(this.topLeft).xMax,
@@ -459,7 +473,11 @@ export default class Player {
 		this.onGround = false;
 		if (this.yVel > 0) {
 			// Ground
-			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight) || this.pointInCollision(this.bottomCenter)) {
+			if (
+				this.pointInCollision(this.bottomLeft) ||
+				this.pointInCollision(this.bottomRight) ||
+				this.pointInCollision(this.bottomCenter)
+			) {
 				this.bottomEdgePosition =
 					Math.min(
 						this.pointTileBounds(this.bottomLeft).yMin,
@@ -471,7 +489,11 @@ export default class Player {
 			}
 		} else if (this.yVel < 0) {
 			// Ceiling
-			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.topRight) || this.pointInCollision(this.topCenter)) {
+			if (
+				this.pointInCollision(this.topLeft) ||
+				this.pointInCollision(this.topRight) ||
+				this.pointInCollision(this.topCenter)
+			) {
 				this.topEdgePosition =
 					Math.max(
 						this.pointTileBounds(this.topLeft).yMax,
