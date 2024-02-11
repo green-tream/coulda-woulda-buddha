@@ -1,10 +1,12 @@
 import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
-import { sleep } from "../utils";
+import { fadeIn, fadeInOut, fadeOut, sleep } from "../utils";
 import { Actions } from "pixi-actions";
 
 export default class Player {
+	private scene: Scene;
+
 	private xPos: number = 0;
 	private yPos: number = 0;
 	private xVel: number = 0;
@@ -37,11 +39,18 @@ export default class Player {
 	public level: Level; //Change back to private when using
 	private reflecting: boolean;
 
-	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }) {
+	constructor(
+		spriteScale: number,
+		assets: any,
+		level: Level,
+		respawn: { x: number; y: number },
+		scene: Scene
+	) {
 		this.level = level;
 		this.animationSpeed = 0.1;
 		this.respawn = respawn;
 		this.position = respawn;
+		this.scene = scene;
 
 		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);
 		this.zenSprite = new Sprite(assets["zen_sprite"]);
@@ -155,16 +164,19 @@ export default class Player {
 	}
 
 	private startReflection() {
-		console.log(this.xVel);
-
 		if (this.reflecting) return;
-		// if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
-
-		console.log("Reflecting");
-
+		if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
 		this.reflecting = true;
 
-		Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)).play();
+		Actions.sequence(
+			Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)),
+			Actions.delay(1.5),
+			fadeOut(this.scene),
+			Actions.moveTo(this.idleSprite, this.respawn.x, this.respawn.y, 0),
+			fadeIn(this.scene),
+			Actions.delay(1.5),
+			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
+		).play();
 
 		this.reflecting = false;
 	}
