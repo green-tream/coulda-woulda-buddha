@@ -21,34 +21,37 @@ export default class QueensScene extends LevelScene {
 
 		// buddha
 		this.buddha = new ForegroundObject(
-			this.assets.queens_buddha_closed.baseTexture.width * 0.055,
-			this.assets.queens_buddha_closed.baseTexture.height * 0.055,
+			this.assets.queens_buddha_closed.baseTexture.width * 0.0475,
+			this.assets.queens_buddha_closed.baseTexture.height * 0.0475,
 			this.assets.queens_buddha_closed,
 			this
 		);
 
-		this.buddha.position(this.RESPAWN.x, this.RESPAWN.y);
+		this.buddha.position(this.RESPAWN.x, this.RESPAWN.y + TILESIZE);
 		this.addEntity(this.buddha);
+
+		this.player.canMove = false;
 
 		Actions.sequence(
 			Actions.delay(2),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.055)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
 			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.055)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
 			Actions.delay(1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.055)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
 			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.055)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.0475)),
 			Actions.delay(1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.055)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
 			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.055)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
 			Actions.delay(1),
 			Actions.parallel(
 				Actions.fadeOut(this.buddha.getSprite(), 1),
 				Actions.fadeIn(this.player.mIdleSprite, 1)
 			),
-			Actions.runFunc(() => this.setupInputs())
+			Actions.runFunc(() => this.setupInputs()),
+			Actions.runFunc(() => (this.player.canMove = true))
 		).play();
 	}
 

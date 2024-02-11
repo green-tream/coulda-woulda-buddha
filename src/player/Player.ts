@@ -42,11 +42,11 @@ export default class Player {
 	private reflecting: boolean;
 
 	private levelName: string;
-	private canMove: boolean;
+	public canMove: boolean;
 
 	private previousStates: SavedState[][] = [[]]; //Add in constructir
 	private ghostSprites: Sprite[] = [];
-	private ghostIndex: number = 0;
+	private ghostIndex: number = -1;
 
 	constructor(
 		spriteScale: number,
@@ -142,6 +142,7 @@ export default class Player {
 			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) {
 				continue;
 			}
+			this.ghostSprites[i].alpha = 0.5;
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
 		}
@@ -193,7 +194,7 @@ export default class Player {
 
 		// Jump
 		if (this.jumpKeyPressed && this.onGround) {
-			this.yVel = -15;
+			this.yVel = -22.5;
 			this.onGround = false;
 		}
 
@@ -207,29 +208,30 @@ export default class Player {
 		this.reflecting = true;
 		this.canMove = false;
 
+		for (let i = 0; i < this.previousStates.length - 1; i++) {
+			this.ghostSprites[i].alpha = 0;
+		}
+
 		Actions.sequence(
 			Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)),
 			Actions.delay(1),
-			// fadeOut(this.scene),
 			Actions.runFunc(() => (this.position = this.respawn)),
-			// fadeIn(this.scene),
 			Actions.delay(1),
-			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
+			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1)),
+			Actions.runFunc(() => (this.canMove = true)),
+			Actions.runFunc(() => (this.reflecting = false))
 		).play();
 
 		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`]);
 		ghostSprite.width = this.width;
 		ghostSprite.height = this.height;
 		ghostSprite.anchor.set(0.5);
-		ghostSprite.alpha = 0.5;
+		ghostSprite.alpha = 0;
 		this.ghostSprites.push(ghostSprite);
 		this.scene.addDisplayObject(ghostSprite);
 
 		this.previousStates.push([]);
 		this.ghostIndex = -1;
-
-		this.reflecting = false;
-		this.canMove = true;
 	}
 
 	private updateVisuals(): void {

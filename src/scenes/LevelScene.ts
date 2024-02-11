@@ -28,10 +28,9 @@ export default abstract class LevelScene extends Scene {
 	initScene(assets: any, make_level: () => Level) {
 		this.assets = assets;
 
-		const assetName = this.LEVEL + '_background';
+		const assetName = this.LEVEL + "_background";
 		this.background = new BackgroundObject(
-			assets[assetName].baseTexture.width *
-				(HEIGHT / assets[assetName].baseTexture.height),
+			assets[assetName].baseTexture.width * (HEIGHT / assets[assetName].baseTexture.height),
 			HEIGHT,
 			assets[assetName] as Texture,
 			this
@@ -41,7 +40,7 @@ export default abstract class LevelScene extends Scene {
 
 		const level: Level = make_level();
 
-		this.player = new Player(0.07, assets, level, this.RESPAWN, this, this.LEVEL);
+		this.player = new Player(0.05, assets, level, this.RESPAWN, this, this.LEVEL);
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);
