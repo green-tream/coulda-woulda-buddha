@@ -36,7 +36,6 @@ export default abstract class LevelScene extends Scene {
 		);
 
 		this.initViewport();
-		console.log(this.viewport.worldWidth);
 
 		const level: Level = make_level();
 

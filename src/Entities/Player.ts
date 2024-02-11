@@ -136,7 +136,7 @@ export default class Player {
 		}
 
 		// Gravity
-		this.yAcc = 3;
+		// this.yAcc = 3;
 	}
 
 	private updateVisuals(): void {
