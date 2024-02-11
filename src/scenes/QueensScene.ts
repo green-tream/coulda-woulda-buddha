@@ -7,7 +7,7 @@ import Level from "../map/Level";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
-	RESPAWN = { x: TILESIZE * 2, y: HEIGHT - TILESIZE * 6 };
+	RESPAWN = { x: TILESIZE * 2, y: TILESIZE * 4 };
 	private buddha: ForegroundObject;
 
 	async init(assets) {
@@ -25,7 +25,7 @@ export default class QueensScene extends LevelScene {
 			this
 		);
 
-		this.buddha.position(WIDTH * 0.2, HEIGHT * 0.4);
+		this.buddha.position(WIDTH * 0.2, HEIGHT * 0.2);
 	}
 
 	async start() {

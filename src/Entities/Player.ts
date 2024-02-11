@@ -1,10 +1,12 @@
 import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
-import { sleep } from "../utils";
+import { fadeIn, fadeInOut, fadeOut, sleep } from "../utils";
 import { Actions } from "pixi-actions";
 
 export default class Player {
+	private scene: Scene;
+
 	private xPos: number = 0;
 	private yPos: number = 0;
 	private xVel: number = 0;
@@ -39,12 +41,13 @@ export default class Player {
 
 	private levelName: string;
 
-	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, levelName: string) {
+	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, scene: Scene, levelName: string) {
 		this.level = level;
 		this.levelName = levelName;
 		this.animationSpeed = 0.1;
 		this.respawn = respawn;
 		this.position = respawn;
+		this.scene = scene;
 
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
 
@@ -98,7 +101,6 @@ export default class Player {
 				this.jumpKeyPressed = true;
 				break;
 		}
-
 	}
 
 	handleKeyup(event: KeyboardEvent): void {
@@ -165,16 +167,19 @@ export default class Player {
 	}
 
 	private startReflection() {
-		console.log(this.xVel);
-
 		if (this.reflecting) return;
-		// if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
-
-		console.log("Reflecting");
-
+		if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
 		this.reflecting = true;
 
-		Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)).play();
+		Actions.sequence(
+			Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)),
+			Actions.delay(1),
+			// fadeOut(this.scene),
+			Actions.runFunc(() => (this.position = this.respawn)),
+			// fadeIn(this.scene),
+			Actions.delay(1),
+			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
+		).play();
 
 		this.reflecting = false;
 	}
@@ -233,7 +238,7 @@ export default class Player {
 						this.pointTileBounds(this.bottomRight).xMin
 					) - 0.1;
 				this.xVel = 0;
-                console.log('right wall');
+				console.log("right wall");
 			}
 		} else if (this.xVel < 0) {
 			// Left wall
@@ -244,12 +249,12 @@ export default class Player {
 						this.pointTileBounds(this.bottomLeft).xMax
 					) + 0.1;
 				this.xVel = 0;
-                console.log('left wall');
+				console.log("left wall");
 			}
 		}
 
 		this.yPos += this.yVel;
-        this.onGround = false;
+		this.onGround = false;
 		if (this.yVel > 0) {
 			// Ground
 			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight)) {
@@ -259,7 +264,8 @@ export default class Player {
 						this.pointTileBounds(this.bottomRight).yMin
 					) - 0.1;
 				this.yVel = 0;
-                this.onGround = true;
+				this.onGround = true;
+				console.log("ground");
 			}
 		} else if (this.yVel < 0) {
 			// Ceiling
@@ -270,8 +276,8 @@ export default class Player {
 						this.pointTileBounds(this.topRight).yMax
 					) + 0.1;
 				this.yVel = 1;
+			console.log("ceiling");
 			}
-            console.log('ceiling');
 		}
 	}
 

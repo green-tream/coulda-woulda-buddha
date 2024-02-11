@@ -1,49 +1,37 @@
 import Block from "./Block";
 
-
 export default class Level {
+	public map: Block[][];
 
-    public map: Block[][];
+	public squareSize: number;
+	public width: number;
+	public height: number;
 
-    public squareSize: number;
-    public width: number;
-    public height: number;
+	constructor(width: number, height: number, squareSize: number) {
+		this.squareSize = squareSize;
+		this.width = width;
+		this.height = height;
 
-    constructor(width: number, height: number, squareSize: number) {
+		this.map = [];
+		let row: Block[];
+		for (let j = 0; j < height; j++) {
+			row = [];
+			for (let i = 0; i < width; i++) {
+				row.push(null);
+			}
+			this.map.push(row);
+		}
+	}
 
-        this.squareSize = squareSize;
-        this.width = width;
-        this.height = height;
+	applyRect(x: number, y: number, width: number, height: number): void {
+		for (let i = x; i < x + width; i++) {
+			for (let j = y; j < y + height; j++) {
+				this.add(i, j);
+			}
+		}
+	}
 
-        this.map = [];
-        let row: Block[];
-        for (let j=0; j<height; j++) {
-            row = [];
-            for (let i=0; i<width; i++) {
-                row.push(null);
-            }
-            this.map.push(row);
-        }
-
-    }
-
-    applyRect(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-    ): void {
-    
-        for (let i=x; i<x+width; i++) {
-            for (let j=y; j<y+height; j++) {
-                this.add(i, j);
-            }
-        }
-    
-    }
-
-    add(x: number, y: number) {
-
+	add(x: number, y: number) {
         this.map[this.height - y - 1][x] = new Block(x, y, this.squareSize);
 
     }
@@ -57,7 +45,6 @@ export default class Level {
 
     is_in_uwu_block(world_x: number, world_y: number): boolean {
 
-        return false;
 
         if (
             0 >= world_x ||
@@ -68,7 +55,9 @@ export default class Level {
             return true;
         }
 
-        return this.map[Math.floor(world_x / this.squareSize)][Math.floor(world_y / this.squareSize)] != null;
+        console.log(Math.floor(world_x / this.squareSize), Math.floor(world_y / this.squareSize));
+
+        return this.map[Math.floor(world_y / this.squareSize)][Math.floor(world_x / this.squareSize)] != null;
 
     }
 

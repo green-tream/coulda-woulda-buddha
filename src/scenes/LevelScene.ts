@@ -41,7 +41,7 @@ export default abstract class LevelScene extends Scene {
 
 		const level: Level = make_level();
 
-		this.player = new Player(0.07, assets, level, this.RESPAWN, this.LEVEL);
+		this.player = new Player(0.07, assets, level, this.RESPAWN, this, this.LEVEL);
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);
