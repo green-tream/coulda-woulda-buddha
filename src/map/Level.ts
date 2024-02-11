@@ -57,8 +57,6 @@ export default class Level {
 
     is_in_uwu_block(world_x: number, world_y: number): boolean {
 
-        return false;
-
         if (
             0 >= world_x ||
             this.squareSize * this.width <= world_x ||
