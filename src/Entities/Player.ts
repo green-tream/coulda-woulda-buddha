@@ -174,7 +174,6 @@ export default class Player {
 	private updateVisuals(): void {
 		this.changeSprites();
 		this.moveSprites();
-		this.yPos = 400;
 	}
 
 	private moveSprites(): void {
