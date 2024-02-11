@@ -37,7 +37,7 @@ export default abstract class LevelScene extends Scene {
 
 		this.initViewport();
 
-		this.player = new Player(0.4, assets, level);
+		this.player = new Player(0.07, assets, level);
 		this.player.position = { x: WIDTH * 0.1, y: HEIGHT * 0.4 };
 
 		this.addEntity(this.background);
@@ -71,9 +71,9 @@ export default abstract class LevelScene extends Scene {
 		this.addDisplayObject(g);
 
 		this.viewport.follow(this.player.mIdleSprite, {
-			speed: 0.5,
-			acceleration: 2,
-			radius: 3,
+			speed: 0.1,
+			acceleration: 1,
+			radius: 75,
 		});
 
 		fadeInScene(this);

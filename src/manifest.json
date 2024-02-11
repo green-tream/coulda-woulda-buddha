@@ -50,7 +50,7 @@
 				},
 				{
 					"name": "idle_sprite",
-					"srcs": "sprites/buddha/zen.png"
+					"srcs": "sprites/buddha/idle.png"
 				},
 				{
 					"name": "box",
