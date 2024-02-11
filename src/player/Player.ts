@@ -42,12 +42,20 @@ export default class Player {
 	private reflecting: boolean;
 
 	private levelName: string;
+	private canMove: boolean;
 
 	private previousStates: SavedState[][] = [[]]; //Add in constructir
 	private ghostSprites: Sprite[] = [];
 	private ghostIndex: number = 0;
 
-	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, scene: Scene, levelName: string) {
+	constructor(
+		spriteScale: number,
+		assets: any,
+		level: Level,
+		respawn: { x: number; y: number },
+		scene: Scene,
+		levelName: string
+	) {
 		this.level = level;
 		this.levelName = levelName;
 		this.animationSpeed = 0.1;
@@ -55,7 +63,7 @@ export default class Player {
 		this.position = respawn;
 		this.scene = scene;
 		this.assets = assets;
-
+		this.canMove = true;
 
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
 
@@ -65,11 +73,7 @@ export default class Player {
 		this.runningSprite = this.loadAnimation(assets, `${levelName}_running_animation`);
 		this.runningSprite.visible = false;
 
-		this.spriteList = [
-			this.idleSprite,
-			this.runningSprite,
-			this.zenSprite
-		];
+		this.spriteList = [this.idleSprite, this.runningSprite, this.zenSprite];
 
 		const width = assets[`${levelName}_idle_sprite`].baseTexture.width * spriteScale;
 		const height = assets[`${levelName}_idle_sprite`].baseTexture.height * spriteScale;
@@ -82,12 +86,10 @@ export default class Player {
 			sprite.height = height;
 			sprite.anchor.set(0.5);
 		}
-
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
 		const frames: Texture[] = [];
-
 
 		for (let i = 1; i < 4; i++) {
 			frames.push(assets[`${animationName}_${i}`]);
@@ -137,7 +139,7 @@ export default class Player {
 		// Might not work cos of frame timings
 		this.saveState();
 
-		for (let i=0; i<this.previousStates.length - 1; i++) {
+		for (let i = 0; i < this.previousStates.length - 1; i++) {
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
 		}
@@ -146,7 +148,7 @@ export default class Player {
 	saveState() {
 		this.previousStates[this.previousStates.length - 1].push({
 			position: new Point(this.xPos, this.yPos),
-			state: 'running'
+			state: "running",
 		});
 	}
 
@@ -187,6 +189,8 @@ export default class Player {
 	}
 
 	public setVisible(visible: boolean) {
+		this.canMove = !visible;
+
 		for (const sprite of this.spriteList) {
 			sprite.visible = visible;
 		}
@@ -196,6 +200,7 @@ export default class Player {
 		if (this.reflecting) return;
 		if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
 		this.reflecting = true;
+		this.canMove = false;
 
 		Actions.sequence(
 			Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)),
@@ -207,14 +212,15 @@ export default class Player {
 			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
 		).play();
 
-		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`])
-		this.ghostSprites.push(ghostSprite)
+		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`]);
+		this.ghostSprites.push(ghostSprite);
 		this.scene.addDisplayObject(ghostSprite);
 
 		this.previousStates.push([]);
 		this.ghostIndex = 0;
 
 		this.reflecting = false;
+		this.canMove = true;
 	}
 
 	private updateVisuals(): void {
