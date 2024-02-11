@@ -432,21 +432,23 @@ export default class Player {
 		this.xPos += this.xVel;
 		if (this.xVel > 0) {
 			// Right wall
-			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight)) {
+			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight) || this.pointInCollision(this.rightCenter)) {
 				this.rightEdgePosition =
 					Math.min(
 						this.pointTileBounds(this.topRight).xMin,
-						this.pointTileBounds(this.bottomRight).xMin
+						this.pointTileBounds(this.bottomRight).xMin,
+						this.pointTileBounds(this.rightCenter).xMin
 					) - 0.1;
 				this.xVel = 0;
 			}
 		} else if (this.xVel < 0) {
 			// Left wall
-			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft)) {
+			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.leftCenter)) {
 				this.leftEdgePosition =
 					Math.max(
 						this.pointTileBounds(this.topLeft).xMax,
-						this.pointTileBounds(this.bottomLeft).xMax
+						this.pointTileBounds(this.bottomLeft).xMax,
+						this.pointTileBounds(this.leftCenter).xMax
 					) + 0.1;
 				this.xVel = 0;
 			}
@@ -460,18 +462,20 @@ export default class Player {
 				this.bottomEdgePosition =
 					Math.min(
 						this.pointTileBounds(this.bottomLeft).yMin,
-						this.pointTileBounds(this.bottomRight).yMin
+						this.pointTileBounds(this.bottomRight).yMin,
+						this.pointTileBounds(this.bottomCenter).yMin
 					) - 0.1;
 				this.yVel = 0;
 				this.onGround = true;
 			}
 		} else if (this.yVel < 0) {
 			// Ceiling
-			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.topRight)) {
+			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.topRight) || this.pointInCollision(this.topCenter)) {
 				this.topEdgePosition =
 					Math.max(
 						this.pointTileBounds(this.topLeft).yMax,
-						this.pointTileBounds(this.topRight).yMax
+						this.pointTileBounds(this.topRight).yMax,
+						this.pointTileBounds(this.topCenter).yMax
 					) + 0.1;
 				this.yVel = 1;
 			}
@@ -548,6 +552,14 @@ export default class Player {
 
 	get topRight(): { x: number; y: number } {
 		return { x: this.xPos + this.width / 2, y: this.yPos - this.height / 2 };
+	}
+
+	get leftCenter(): { x: number; y: number } {
+		return { x: this.xPos - this.width / 2, y: this.yPos };
+	}
+
+	get rightCenter(): { x: number; y: number } {
+		return { x: this.xPos + this.width / 2, y: this.yPos };
 	}
 
 	get position(): { x: number; y: number } {
