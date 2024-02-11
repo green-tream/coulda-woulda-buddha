@@ -13,7 +13,6 @@ export function fadeOut(currentScene: Scene, viewport: Viewport, time: number = 
 	box.alpha = 0;
 	box.drawRect(viewport.corner.x, viewport.corner.y, WIDTH * 3, HEIGHT);
 	currentScene.addDisplayObject(box);
-
 	return Actions.fadeIn(box, time);
 }
 
@@ -62,7 +61,7 @@ export function fadeOutToScene(
 ) {
 	return Actions.sequence(
 		fadeOut(currentScene, viewport, time),
-		Actions.runFunc(() => app.scenes.start(nextSceneKey))
+		Actions.runFunc(() => app.scenes.start(nextSceneKey)).play()
 	);
 }
 
