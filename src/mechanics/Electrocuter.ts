@@ -34,7 +34,7 @@ export default class Electrocuter extends InteractableObject {
 				player.gravity = -1;
 				setTimeout(() => {
 					player.gravity = 1;
-				}, 2000);
+				}, 1000);
 				player.mIdleSprite.texture = assets.lab_buddha_shocked;
 			}
 		}, 50);
