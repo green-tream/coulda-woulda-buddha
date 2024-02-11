@@ -6,6 +6,7 @@ import level1 from "../map/levels/level1";
 import Level from "../map/Level";
 import Entity from "../entities/Entity";
 import { fadeOutToScene, mathematicalBridge } from "../utils";
+import Box from "../mechanics/Box";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";

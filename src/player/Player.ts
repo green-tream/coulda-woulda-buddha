@@ -76,7 +76,7 @@ export default class Player {
 		level: Level,
 		respawn: { x: number; y: number },
 		scene: LevelScene,
-		levelName: string
+		levelName: string,
 	) {
 		this.level = level;
 		this.levelName = levelName;
@@ -110,8 +110,13 @@ export default class Player {
 			sprite.anchor.set(0.5);
 		}
 
-		this.boxes.push(new Box(assets, this.levelName, this.level, new Point(15, 4)));
-		this.boxes.push(new Box(assets, this.levelName, this.level, new Point(30, 4)));
+		if (this.levelName == "queens") {
+			this.boxes.push(new Box(assets, this.levelName, this.level, new Point(0, 0)))
+		} else if (this.levelName == "kings") {
+			this.boxes.push(new Box(assets, this.levelName, this.level, new Point(0, 0)))
+		} else if (this.levelName == "lab") {
+			this.boxes.push(new Box(assets, this.levelName, this.level, new Point(0, 0)))
+		}
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
