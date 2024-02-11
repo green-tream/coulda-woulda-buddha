@@ -73,6 +73,51 @@
 					"srcs": "img/buddha/open.png"
 				}
 			]
+		},
+		{
+			"name": "kings",
+			"assets": [
+				{
+					"name": "running_animation_1",
+					"srcs": "sprites/buddha/running_animation/running_animation_1.png"
+				},
+				{
+					"name": "running_animation_2",
+					"srcs": "sprites/buddha/running_animation/running_animation_2.png"
+				},
+				{
+					"name": "running_animation_3",
+					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
+				},
+				{
+					"name": "background_kings",
+					"srcs": "img/background/kings.png"
+				},
+				{
+					"name": "idle_sprite",
+					"srcs": "sprites/buddha/idle.png"
+				},
+				{
+					"name": "zen_sprite",
+					"srcs": "sprites/buddha/zen.png"
+				},
+				{
+					"name": "box",
+					"srcs": "sprites/item/box.png"
+				},
+				{
+					"name": "buddha_closed",
+					"srcs": "img/buddha/closed.png"
+				},
+				{
+					"name": "buddha_middle",
+					"srcs": "img/buddha/middle.png"
+				},
+				{
+					"name": "buddha_open",
+					"srcs": "img/buddha/open.png"
+				}
+			]
 		}
 	]
 }

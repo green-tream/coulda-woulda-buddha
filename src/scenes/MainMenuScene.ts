@@ -53,7 +53,7 @@ export default class MainMenuScene extends Scene {
 	}
 
 	async start() {
-		this.playButton.getSprite().on("click", () => fadeToScene(this, "queens"));
+		this.playButton.getSprite().on("click", () => fadeToScene(this, "kings"));
 
 		this.buddha.getSprite().on("click", () => {
 			if (this.buddhaOpen) return;
