@@ -6,24 +6,35 @@ import { Actions } from "pixi-actions";
 import InteractableObject from "./entities/InteractableObject";
 import Player from "./entities/Player";
 
-export function fadeToScene(currentScene: Scene, time: number = 1) {
+export function fadeOut(currentScene: Scene, time: number = 1) {
 	const box = new Graphics();
 	box.beginFill(0x000000);
 	box.alpha = 0;
 	box.drawRect(0, 0, WIDTH, HEIGHT);
 	currentScene.addDisplayObject(box);
 
-	Actions.fadeIn(box, time).play();
+	return Actions.fadeIn(box, time);
 }
 
-export function fadeInScene(currentScene: Scene, time: number = 1) {
+export function fadeIn(currentScene: Scene, time: number = 1) {
 	const box = new Graphics();
 	box.beginFill(0x000000);
 	box.alpha = 1;
 	box.drawRect(0, 0, WIDTH, HEIGHT);
 	currentScene.addDisplayObject(box);
 
-	Actions.fadeOut(box, time).play();
+	return Actions.fadeOut(box, time);
+}
+
+export function fadeInOut(currentScene: Scene, time: number = 1) {
+	return Actions.sequence(fadeIn(currentScene, time), fadeOut(currentScene, time));
+}
+
+export function fadeOutToScene(currentScene: Scene, nextSceneKey: string, time: number = 1) {
+	Actions.sequence(
+		fadeOut(currentScene, time),
+		Actions.runFunc(() => app.scenes.start(nextSceneKey))
+	).play();
 }
 
 export function closerObject(player: Player, a: InteractableObject, b: InteractableObject) {

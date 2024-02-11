@@ -1,7 +1,7 @@
 import Player from "../entities/Player";
 import { Scene } from "../engine/Scene";
 import InteractableObject from "../entities/InteractableObject";
-import { closerObject, fadeInScene } from "../utils";
+import { closerObject, fadeIn, fadeInScene } from "../utils";
 import BackgroundObject from "../entities/BackgroundObject";
 import { Graphics, Rectangle, TextStyle, Texture } from "pixi.js";
 import { HEIGHT, TILESIZE, WIDTH } from "../constants";
@@ -78,6 +78,6 @@ export default abstract class LevelScene extends Scene {
 			radius: 75,
 		});
 
-		fadeInScene(this);
+		fadeIn(this).play();
 	}
 }
