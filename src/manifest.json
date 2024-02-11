@@ -53,6 +53,10 @@
 					"srcs": "sprites/buddha/idle.png"
 				},
 				{
+					"name": "zen_sprite",
+					"srcs": "sprites/buddha/zen.png"
+				},
+				{
 					"name": "box",
 					"srcs": "sprites/item/box.png"
 				},

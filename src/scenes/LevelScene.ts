@@ -14,6 +14,7 @@ export default abstract class LevelScene extends Scene {
 	private checkpoints: Checkpoint[];
 	public player: Player;
 	abstract BACKGROUND: string;
+	abstract RESPAWN: { x: number; y: number };
 
 	playerInteract() {
 		const closestObject = this.objects
@@ -39,14 +40,13 @@ export default abstract class LevelScene extends Scene {
 
 		const level: Level = make_level();
 
-		this.player = new Player(0.07, assets, level, { x: WIDTH * 0.1, y: HEIGHT * 0.4 });
-		this.player.position = { x: TILESIZE * 3, y: TILESIZE * 5 };
+		this.player = new Player(0.07, assets, level, this.RESPAWN);
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);
 
 		const g: Graphics = new Graphics();
-		g.beginFill(0x000000, 0.2);
+		g.beginFill(0x000000, 0.5);
 		for (let j = 0; j < this.player.level.height; j++) {
 			for (let i = 0; i < this.player.level.width; i++) {
 				if (this.player.level.map[j][i] != null) {
