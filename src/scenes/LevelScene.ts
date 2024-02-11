@@ -46,7 +46,7 @@ export default abstract class LevelScene extends Scene {
 		this.player.addToScene(this);
 
 		const g: Graphics = new Graphics();
-		g.beginFill(0x000000, 0.2);
+		g.beginFill(0x000000, 0.5);
 		for (let j = 0; j < this.player.level.height; j++) {
 			for (let i = 0; i < this.player.level.width; i++) {
 				if (this.player.level.map[j][i] != null) {

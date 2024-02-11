@@ -38,6 +38,7 @@ export class App {
 		this.app.stage.addChild(this.viewport);
 		this.viewport.clamp({ direction: "all" }).decelerate();
 
+		this.app.ticker.maxFPS = 60;
 		this.app.ticker.add((delta) => Actions.tick(delta / 60));
 
 		await this.scenes.start("mainMenu");
