@@ -138,6 +138,10 @@
 					"srcs": "img/buddha/open.png"
 				},
 				{
+					"name": "kings_end",
+					"srcs": "sprites/environment/mathematical_bridge.png"
+				},
+				{
 					"name": "kings_box_1",
 					"srcs": "sprites/item/box/box_bl.png"
 				},
@@ -152,6 +156,51 @@
 				{
 					"name": "kings_box_4",
 					"srcs": "sprites/item/box/box_tr.png"
+				}
+			]
+		},
+		{
+			"name": "lab",
+			"assets": [
+				{
+					"name": "lab_running_animation_1",
+					"srcs": "sprites/buddha/running_animation/running_animation_1.png"
+				},
+				{
+					"name": "lab_running_animation_2",
+					"srcs": "sprites/buddha/running_animation/running_animation_2.png"
+				},
+				{
+					"name": "lab_running_animation_3",
+					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
+				},
+				{
+					"name": "lab_background",
+					"srcs": "img/background/lab.png"
+				},
+				{
+					"name": "lab_idle_sprite",
+					"srcs": "sprites/buddha/idle.png"
+				},
+				{
+					"name": "lab_zen_sprite",
+					"srcs": "sprites/buddha/zen.png"
+				},
+				{
+					"name": "lab_buddha_closed",
+					"srcs": "img/buddha/closed.png"
+				},
+				{
+					"name": "lab_buddha_middle",
+					"srcs": "img/buddha/middle.png"
+				},
+				{
+					"name": "lab_buddha_open",
+					"srcs": "img/buddha/open.png"
+				},
+				{
+					"name": "lab_end",
+					"srcs": "sprites/environment/mathematical_bridge.png"
 				}
 			]
 		}

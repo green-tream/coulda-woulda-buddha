@@ -1,9 +1,11 @@
 import { AnimatedSprite, ObservablePoint, Point, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
-import { fadeIn, fadeInOut, fadeOut, mathematicalBridge, sleep } from "../utils";
+import { fadeIn, fadeInOut, fadeOut, fadeOutToScene, mathematicalBridge, sleep } from "../utils";
 import { Actions } from "pixi-actions";
 import SavedState from "./SavedState";
+import { app } from "..";
+import LevelScene from "../scenes/LevelScene";
 import Box from "../mechanics/Box";
 
 export default class Player {
@@ -41,7 +43,7 @@ export default class Player {
 
 	private box: Box;
 
-	private state: string
+	private state: string;
 	private box_sprite: Sprite;
 
 	public level: Level; //Change back to private when using
@@ -95,8 +97,7 @@ export default class Player {
 			sprite.anchor.set(0.5);
 		}
 
-		this.box = new Box(assets, "queens", this.level, new Point(8, 8))
-
+		this.box = new Box(assets, "queens", this.level, new Point(8, 8));
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
@@ -139,6 +140,8 @@ export default class Player {
 			case "e":
 				this.startReflection();
 				break;
+			case "r":
+				this.restartScene();
 			case "q":
 				this.box.interact(this);
 				break;
@@ -158,10 +161,10 @@ export default class Player {
 			}
 			this.ghostSprites[i].alpha = 0.5;
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
-			this.ghostSprites[i].position.y = 
-				this.previousStates[i][this.ghostIndex].position.y
-				+ (this.levelName == "queens" ?
-					mathematicalBridge(this.previousStates[i][this.ghostIndex].position.x)
+			this.ghostSprites[i].position.y =
+				this.previousStates[i][this.ghostIndex].position.y +
+				(this.levelName == "queens"
+					? mathematicalBridge(this.previousStates[i][this.ghostIndex].position.x)
 					: 0);
 		}
 
@@ -218,6 +221,10 @@ export default class Player {
 
 		// Gravity
 		this.yAcc = 1;
+	}
+
+	private restartScene() {
+		fadeOutToScene(this.scene, (this.scene as LevelScene).LEVEL, this.scene.viewport);
 	}
 
 	private startReflection() {

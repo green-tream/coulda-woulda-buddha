@@ -19,7 +19,8 @@ export default function level1(viewport_width: number): Level {
 	level.applyRect(85, 8, 5, 3);
 	level.applyRect(89, 9, 3, 3);
 	level.applyRect(106, 12, 2, 3);
-	level.applyRect(108, 13, 4, 3);
+	level.applyRect(108, 12, 4, 3);
+	level.applyRect(95, 10, 7, 3);
 
 	return level;
 }

@@ -3,9 +3,11 @@ import { HEIGHT, TILESIZE, WIDTH } from "../constants";
 import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import level2 from "../map/levels/level2";
+import { fadeOutToScene } from "../utils";
 
 export default class KingsParadeScene extends LevelScene {
 	LEVEL = "kings";
+	END = { x: 0, y: 0 };
 	RESPAWN = { x: TILESIZE * 2, y: TILESIZE * 4 };
 	private buddha: ForegroundObject;
 
@@ -36,6 +38,12 @@ export default class KingsParadeScene extends LevelScene {
 	}
 
 	public update(delta: number): void {
+		if (this.switchingScenes) return;
 		this.player.update(delta);
+
+		if (this.end.ifInside(this.player)) {
+			this.switchingScenes = true;
+			fadeOutToScene(this, "lab", this.viewport);
+		}
 	}
 }
