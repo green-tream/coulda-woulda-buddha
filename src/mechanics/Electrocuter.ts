@@ -30,7 +30,11 @@ export default class Electrocuter extends InteractableObject {
 				player.position.x > this.getSprite().x + TILESIZE * 2.5 &&
 				player.position.x < this.getSprite().x + TILESIZE * 5.5
 			) {
-				player.addMotion(0, -30);
+				// player.addMotion(0, -30);
+				player.gravity = -1;
+				setTimeout(() => {
+					player.gravity = 1;
+				}, 1000);
 				player.mIdleSprite.texture = assets.lab_buddha_shocked;
 			}
 		}, 50);
