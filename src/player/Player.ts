@@ -280,7 +280,6 @@ export default class Player {
 		if (this.state == "holding-on-to-a-fucking-box") {
 			this.box_sprite.position.x = this.xPos;
 			this.box_sprite.position.y = this.yPos + this.yOffset - 130;
-
 		}
 	}
 
