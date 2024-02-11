@@ -45,32 +45,32 @@ export default abstract class LevelScene extends Scene {
 		this.addEntity(this.background);
 		this.player.addToScene(this);
 
-		const g: Graphics = new Graphics();
-		g.beginFill(0x000000, 0.5);
-		for (let j = 0; j < this.player.level.height; j++) {
-			for (let i = 0; i < this.player.level.width; i++) {
-				if (this.player.level.map[j][i] != null) {
-					g.drawRect(
-						this.player.level.squareSize * i,
-						this.player.level.squareSize * j,
-						this.player.level.squareSize,
-						this.player.level.squareSize
-					);
-				} else {
-					const text = new TextStyle({
-						fill: "black",
-						fontSize: 8,
-					});
+		// const g: Graphics = new Graphics();
+		// g.beginFill(0x000000, 0.5);
+		// for (let j = 0; j < this.player.level.height; j++) {
+		// 	for (let i = 0; i < this.player.level.width; i++) {
+		// 		if (this.player.level.map[j][i] != null) {
+		// 			g.drawRect(
+		// 				this.player.level.squareSize * i,
+		// 				this.player.level.squareSize * j,
+		// 				this.player.level.squareSize,
+		// 				this.player.level.squareSize
+		// 			);
+		// 		} else {
+		// 			const text = new TextStyle({
+		// 				fill: "black",
+		// 				fontSize: 8,
+		// 			});
 
-					const t = new Text(`${i},${j}`, text);
-					t.position.x = i * this.player.level.squareSize;
-					t.position.y = j * this.player.level.squareSize;
+		// 			const t = new Text(`${i},${j}`, text);
+		// 			t.position.x = i * this.player.level.squareSize;
+		// 			t.position.y = j * this.player.level.squareSize;
 
-					this.addDisplayObject(t);
-				}
-			}
-		}
-		this.addDisplayObject(g);
+		// 			this.addDisplayObject(t);
+		// 		}
+		// 	}
+		// }
+		// this.addDisplayObject(g);
 
 		this.viewport.follow(this.player.mIdleSprite, {
 			speed: 3,

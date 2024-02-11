@@ -15,7 +15,11 @@ export default function level1(viewport_width: number): Level {
 	level.applyRect(30, 13, 8, 2);
 	// bridge after
 	level.applyRect(78, 2, 2, 7);
-	level.applyRect(80, 9, 4, 2);
+	level.applyRect(80, 7, 5, 3);
+	level.applyRect(85, 8, 5, 3);
+	level.applyRect(89, 9, 3, 3);
+	level.applyRect(106, 12, 2, 3);
+	level.applyRect(108, 13, 4, 3);
 
 	return level;
 }
