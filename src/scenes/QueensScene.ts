@@ -17,7 +17,7 @@ export default class QueensScene extends LevelScene {
 		};
 
 		this.initScene(assets, make_level);
-		this.player.setVisible(false);
+		this.player.mIdleSprite.alpha = 0;
 
 		// buddha
 		this.buddha = new ForegroundObject(
@@ -44,8 +44,10 @@ export default class QueensScene extends LevelScene {
 			Actions.delay(0.1),
 			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.055)),
 			Actions.delay(1),
-			Actions.fadeOut(this.buddha.getSprite(), 1),
-			Actions.runFunc(() => this.player.setVisible(true)),
+			Actions.parallel(
+				Actions.fadeOut(this.buddha.getSprite(), 1),
+				Actions.fadeIn(this.player.mIdleSprite, 1)
+			),
 			Actions.runFunc(() => this.setupInputs())
 		).play();
 	}

@@ -139,8 +139,10 @@ export default class Player {
 		// Might not work cos of frame timings
 		this.saveState();
 
-		for (let i=0; i<this.previousStates.length - 1; i++) {
-			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) { continue; }
+		for (let i = 0; i < this.previousStates.length - 1; i++) {
+			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) {
+				continue;
+			}
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
 		}
@@ -148,7 +150,6 @@ export default class Player {
 		if (this.canMove) {
 			this.ghostIndex++;
 		}
-
 	}
 
 	saveState() {
@@ -159,7 +160,6 @@ export default class Player {
 	}
 
 	updateInputs(): void {
-
 		if (!this.canMove) {
 			this.leftKeyPressed = false;
 			this.rightKeyPressed = false;
@@ -201,13 +201,6 @@ export default class Player {
 		this.yAcc = 1;
 	}
 
-	public setVisible(visible: boolean) {
-		this.canMove = !visible;
-
-		this.idleSprite.alpha = visible ? 1 : 0;
-		this.runningSprite.alpha = visible ? 1 : 0;
-	}
-
 	private startReflection() {
 		if (this.reflecting) return;
 		if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
@@ -224,12 +217,12 @@ export default class Player {
 			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
 		).play();
 
-		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`])
+		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`]);
 		ghostSprite.width = this.width;
 		ghostSprite.height = this.height;
 		ghostSprite.anchor.set(0.5);
 		ghostSprite.alpha = 0.5;
-		this.ghostSprites.push(ghostSprite)
+		this.ghostSprites.push(ghostSprite);
 		this.scene.addDisplayObject(ghostSprite);
 
 		this.previousStates.push([]);
