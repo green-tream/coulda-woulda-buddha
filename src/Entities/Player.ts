@@ -90,6 +90,7 @@ export default class Player {
 				break;
 		}
 
+		return;
 	}
 
 	handleKeyup(event: KeyboardEvent): void {
@@ -147,12 +148,12 @@ export default class Player {
 
 		// Jump
 		if (this.jumpKeyPressed && this.onGround) {
-			this.yVel = -15;
+			this.yVel = -10;
 			this.onGround = false;
 		}
 
 		// Gravity
-		this.yAcc = 1;
+		// this.yAcc = 3;
 	}
 
 	private startReflection() {
@@ -205,65 +206,60 @@ export default class Player {
 
 	private updatePhysics(delta: number): void {
 		if (!this.leftKeyPressed && !this.rightKeyPressed) {
-			this.xVel *= 0.4;
-		} else {
 			this.xVel *= 0.9;
+		} else {
+			this.xVel *= 0.4;
 		}
 
 		// Update position
 		this.xVel += this.xAcc;
 		this.yVel += this.yAcc;
-		this.yVel = Math.min(this.yVel, 40);
+		this.yVel = Math.min(this.yVel, 10);
 
 		this.xPos += this.xVel;
 		if (this.xVel > 0) {
 			// Right wall
 			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight)) {
-				this.rightEdgePosition =
+				this.xPos =
 					Math.min(
 						this.pointTileBounds(this.topRight).xMin,
 						this.pointTileBounds(this.bottomRight).xMin
 					) - 0.1;
 				this.xVel = 0;
-                console.log('right wall');
 			}
 		} else if (this.xVel < 0) {
 			// Left wall
 			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft)) {
-				this.leftEdgePosition =
+				this.xPos =
 					Math.max(
 						this.pointTileBounds(this.topLeft).xMax,
 						this.pointTileBounds(this.bottomLeft).xMax
 					) + 0.1;
 				this.xVel = 0;
-                console.log('left wall');
 			}
 		}
 
 		this.yPos += this.yVel;
-        this.onGround = false;
 		if (this.yVel > 0) {
 			// Ground
 			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight)) {
-				this.bottomEdgePosition =
+				this.yPos =
 					Math.min(
 						this.pointTileBounds(this.bottomLeft).yMin,
 						this.pointTileBounds(this.bottomRight).yMin
 					) - 0.1;
 				this.yVel = 0;
-                this.onGround = true;
 			}
 		} else if (this.yVel < 0) {
 			// Ceiling
 			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.topRight)) {
-				this.topEdgePosition =
+				this.yPos =
 					Math.max(
 						this.pointTileBounds(this.topLeft).yMax,
 						this.pointTileBounds(this.topRight).yMax
 					) + 0.1;
 				this.yVel = 1;
 			}
-            console.log('ceiling');
 		}
 	}
 
