@@ -171,7 +171,12 @@ export default class Player {
 		this.updatePhysics(delta);
 		this.updateVisuals();
 
-		if (this.holdingBox !== undefined && this.tutorialdone == false && this.position.x > 600) {
+		if (
+			this.holdingBox !== undefined &&
+			this.tutorialdone == false &&
+			this.position.x > 600 &&
+			this.levelName == "queens"
+		) {
 			this.tutorialdone = true;
 			this.popUpText(["press e to reflect\non your actions..."]).play();
 		}
@@ -518,7 +523,7 @@ export default class Player {
 		for (const text of texts) {
 			text.alpha = 0;
 			text.anchor.set(0.5, 1);
-			text.position.set(this.xPos, this.yPos - 50);
+			text.position.set(this.xPos, this.yPos - 45);
 			this.scene.addDisplayObject(text);
 		}
 

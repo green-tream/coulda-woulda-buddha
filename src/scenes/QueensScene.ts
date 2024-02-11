@@ -58,24 +58,24 @@ export default class QueensScene extends LevelScene {
 		this.player.canMove = false;
 
 		Actions.sequence(
-			// Actions.delay(2),
-			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
-			// Actions.delay(0.1),
-			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
-			// Actions.delay(1),
-			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
-			// Actions.delay(0.1),
-			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.0475)),
-			// Actions.delay(1),
-			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
-			// Actions.delay(0.1),
-			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
-			// Actions.delay(1),
-			// this.player.popUpText([
-			// 	"oh no!",
-			// 	"i'm late for the\ngame jam results!",
-			// 	"better get to the\nintel lab quick!",
-			// ]),
+			Actions.delay(2),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
+			Actions.delay(0.1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
+			Actions.delay(1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
+			Actions.delay(0.1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.0475)),
+			Actions.delay(1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
+			Actions.delay(0.1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
+			Actions.delay(1),
+			this.player.popUpText([
+				"oh no!",
+				"i'm late for the\ngame jam results!",
+				"better get to the\nintel lab quick!",
+			]),
 			Actions.parallel(
 				Actions.fadeOut(this.buddha.getSprite(), 1),
 				Actions.fadeIn(this.player.mIdleSprite, 1)
