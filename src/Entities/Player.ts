@@ -6,7 +6,7 @@ export default class Player {
 	private xPos: number = 0;
 	private yPos: number = 0;
 	private xVel: number = 0;
-	private yVel: number = 0;
+	private yVel: number = -5;
 	private xAcc: number = 0;
 	private yAcc: number = 0;
 
@@ -186,25 +186,46 @@ export default class Player {
 
 		this.xPos += this.xVel;
 		if (this.xVel > 0) {
+            // Right wall
 			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight)) {
-				// TODO: move slightly to left
 				this.xPos = Math.min(
 					this.pointTileBounds(this.topRight).xMin,
 					this.pointTileBounds(this.bottomRight).xMin
-				);
+				) - 0.1;
 				this.xVel = 0;
 			}
 		} else if (this.xVel < 0) {
+            // Left wall
 			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft)) {
-				// TODO: move slightly to right
 				this.xPos = Math.max(
 					this.pointTileBounds(this.topLeft).xMax,
 					this.pointTileBounds(this.bottomLeft).xMax
-				);
+				) + 0.1;
 				this.xVel = 0;
 			}
 		}
-		// TODO: x vel pos
+
+		this.yPos += this.yVel;
+		if (this.yVel > 0) {
+            // Ground
+			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight)) {
+				this.yPos = Math.min(
+					this.pointTileBounds(this.bottomLeft).yMin,
+					this.pointTileBounds(this.bottomRight).yMin
+				) - 0.1;
+				this.yVel = 0;
+			}
+		} else if (this.yVel < 0) {
+            // Ceiling
+			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.topRight)) {
+				this.yPos = Math.max(
+					this.pointTileBounds(this.topLeft).yMax,
+					this.pointTileBounds(this.topRight).yMax
+				) + 0.1;
+				this.yVel = 1;
+			}
+		}
+
 	}
 
 	pointInCollision(point: { x: number; y: number }): boolean {
