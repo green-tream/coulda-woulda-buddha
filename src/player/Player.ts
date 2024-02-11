@@ -139,10 +139,16 @@ export default class Player {
 		// Might not work cos of frame timings
 		this.saveState();
 
-		for (let i = 0; i < this.previousStates.length - 1; i++) {
+		for (let i=0; i<this.previousStates.length - 1; i++) {
+			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) { continue; }
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
 		}
+
+		if (this.canMove) {
+			this.ghostIndex++;
+		}
+
 	}
 
 	saveState() {
@@ -153,6 +159,13 @@ export default class Player {
 	}
 
 	updateInputs(): void {
+
+		if (!this.canMove) {
+			this.leftKeyPressed = false;
+			this.rightKeyPressed = false;
+			this.jumpKeyPressed = false;
+		}
+
 		// Left
 		if (this.leftKeyPressed && !this.rightKeyPressed) {
 			// Initial speed boost when starting to move
@@ -211,12 +224,16 @@ export default class Player {
 			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
 		).play();
 
-		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`]);
-		this.ghostSprites.push(ghostSprite);
+		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`])
+		ghostSprite.width = this.width;
+		ghostSprite.height = this.height;
+		ghostSprite.anchor.set(0.5);
+		ghostSprite.alpha = 0.5;
+		this.ghostSprites.push(ghostSprite)
 		this.scene.addDisplayObject(ghostSprite);
 
 		this.previousStates.push([]);
-		this.ghostIndex = 0;
+		this.ghostIndex = -1;
 
 		this.reflecting = false;
 		this.canMove = true;
