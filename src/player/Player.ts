@@ -44,7 +44,7 @@ export default class Player {
 	private levelName: string;
 
 	private previousStates: SavedState[][] = []; //Add in constructir
-	private ghostSprites: Sprite[];
+	private ghostSprites: Sprite[] = [];
 	private ghostIndex: number;
 
 	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, scene: Scene, levelName: string) {
