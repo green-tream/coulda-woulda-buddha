@@ -3,7 +3,6 @@ import { HEIGHT, TILESIZE, WIDTH } from "../../constants";
 
 export default function level1(viewport_width: number): Level {
     const levelWidth = Math.floor(viewport_width / TILESIZE);
-    console.log(viewport_width);
     const levelHeight = HEIGHT / TILESIZE;
     const level: Level = new Level(levelWidth, levelHeight, TILESIZE);
     //Ground

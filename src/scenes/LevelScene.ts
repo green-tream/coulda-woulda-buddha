@@ -4,7 +4,7 @@ import InteractableObject from "../entities/InteractableObject";
 import { closerObject, fadeInScene } from "../utils";
 import BackgroundObject from "../entities/BackgroundObject";
 import { Graphics, Rectangle, TextStyle, Texture } from "pixi.js";
-import { HEIGHT, WIDTH } from "../constants";
+import { HEIGHT, TILESIZE, WIDTH } from "../constants";
 import Level from "../map/Level";
 
 import { Text } from "pixi.js";
@@ -36,12 +36,11 @@ export default abstract class LevelScene extends Scene {
 		);
 
 		this.initViewport();
-		console.log(this.viewport.worldWidth);
 
 		const level: Level = make_level();
 
-		this.player = new Player(0.07, assets, level);
-		this.player.position = { x: WIDTH * 0.1, y: HEIGHT * 0.4 };
+		this.player = new Player(0.07, assets, level, { x: WIDTH * 0.1, y: HEIGHT * 0.4 });
+		this.player.position = { x: TILESIZE * 2, y: HEIGHT - TILESIZE * 2 };
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);
