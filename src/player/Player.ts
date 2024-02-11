@@ -456,7 +456,7 @@ export default class Player {
 		this.onGround = false;
 		if (this.yVel > 0) {
 			// Ground
-			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight)) {
+			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight) || this.pointInCollision(this.bottomCenter)) {
 				this.bottomEdgePosition =
 					Math.min(
 						this.pointTileBounds(this.bottomLeft).yMin,
@@ -534,8 +534,16 @@ export default class Player {
 		return { x: this.xPos + this.width / 2, y: this.yPos + this.height / 2 };
 	}
 
+	get bottomCenter(): { x: number; y: number } {
+		return { x: this.xPos, y: this.yPos + this.height / 2 };
+	}
+
 	get topLeft(): { x: number; y: number } {
 		return { x: this.xPos - this.width / 2, y: this.yPos - this.height / 2 };
+	}
+
+	get topCenter(): { x: number; y: number } {
+		return { x: this.xPos, y: this.yPos - this.height / 2 };
 	}
 
 	get topRight(): { x: number; y: number } {
