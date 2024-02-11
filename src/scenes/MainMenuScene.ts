@@ -34,7 +34,7 @@ export default class MainMenuScene extends Scene {
 			this
 		);
 
-		this.buddha.getSprite().scale.set(0.15);
+		this.buddha.getSprite().scale.set(0.14);
 		this.buddha.position(WIDTH * 0.67, HEIGHT * 0.1);
 
 		// play button

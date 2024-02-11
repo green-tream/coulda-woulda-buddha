@@ -1,6 +1,7 @@
 import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
+import { sleep } from "../utils";
 
 export default class Player {
 	private xPos: number = 0;
@@ -12,6 +13,8 @@ export default class Player {
 
 	private width: number;
 	private height: number;
+
+	private respawn: { x: number; y: number };
 
 	private onGround: boolean;
 
@@ -30,10 +33,12 @@ export default class Player {
 	private velocity: number;
 
 	public level: Level; //Change back to private when using
+	reflecting: boolean;
 
-	constructor(spriteScale: number, assets: any, level: Level) {
+	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }) {
 		this.level = level;
 		this.animationSpeed = 0.1;
+		this.respawn = respawn;
 
 		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);
 
@@ -94,6 +99,9 @@ export default class Player {
 			case " ":
 				this.jumpKeyPressed = false;
 				break;
+			case "e":
+				this.startReflection();
+				break;
 		}
 	}
 
@@ -124,10 +132,10 @@ export default class Player {
 			}
 		}
 
-        // None
-        if (!this.rightKeyPressed && !this.leftKeyPressed) {
-            this.xAcc = 0;
-        }
+		// None
+		if (!this.rightKeyPressed && !this.leftKeyPressed) {
+			this.xAcc = 0;
+		}
 
 		// Jump
 		if (this.jumpKeyPressed && this.onGround) {
@@ -137,6 +145,19 @@ export default class Player {
 
 		// Gravity
 		// this.yAcc = 3;
+	}
+
+	private startReflection() {
+		if (this.reflecting) return;
+		this.reflecting = true;
+
+		console.log("reflec??");
+
+		setTimeout(() => {
+			console.log("omg no reflec!");
+
+			this.reflecting = false;
+		}, 1000);
 	}
 
 	private updateVisuals(): void {
@@ -172,13 +193,12 @@ export default class Player {
 	}
 
 	private updatePhysics(delta: number): void {
-        if (!this.leftKeyPressed && !this.rightKeyPressed) {
-            this.xVel *= 0.9;
-        } else {
-            this.xVel *= 0.4;
-        }
-        
-        
+		if (!this.leftKeyPressed && !this.rightKeyPressed) {
+			this.xVel *= 0.9;
+		} else {
+			this.xVel *= 0.4;
+		}
+
 		// Update position
 		this.xVel += this.xAcc;
 		this.yVel += this.yAcc;
@@ -186,46 +206,49 @@ export default class Player {
 
 		this.xPos += this.xVel;
 		if (this.xVel > 0) {
-            // Right wall
+			// Right wall
 			if (this.pointInCollision(this.topRight) || this.pointInCollision(this.bottomRight)) {
-				this.xPos = Math.min(
-					this.pointTileBounds(this.topRight).xMin,
-					this.pointTileBounds(this.bottomRight).xMin
-				) - 0.1;
+				this.xPos =
+					Math.min(
+						this.pointTileBounds(this.topRight).xMin,
+						this.pointTileBounds(this.bottomRight).xMin
+					) - 0.1;
 				this.xVel = 0;
 			}
 		} else if (this.xVel < 0) {
-            // Left wall
+			// Left wall
 			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.bottomLeft)) {
-				this.xPos = Math.max(
-					this.pointTileBounds(this.topLeft).xMax,
-					this.pointTileBounds(this.bottomLeft).xMax
-				) + 0.1;
+				this.xPos =
+					Math.max(
+						this.pointTileBounds(this.topLeft).xMax,
+						this.pointTileBounds(this.bottomLeft).xMax
+					) + 0.1;
 				this.xVel = 0;
 			}
 		}
 
 		this.yPos += this.yVel;
 		if (this.yVel > 0) {
-            // Ground
+			// Ground
 			if (this.pointInCollision(this.bottomLeft) || this.pointInCollision(this.bottomRight)) {
-				this.yPos = Math.min(
-					this.pointTileBounds(this.bottomLeft).yMin,
-					this.pointTileBounds(this.bottomRight).yMin
-				) - 0.1;
+				this.yPos =
+					Math.min(
+						this.pointTileBounds(this.bottomLeft).yMin,
+						this.pointTileBounds(this.bottomRight).yMin
+					) - 0.1;
 				this.yVel = 0;
 			}
 		} else if (this.yVel < 0) {
-            // Ceiling
+			// Ceiling
 			if (this.pointInCollision(this.topLeft) || this.pointInCollision(this.topRight)) {
-				this.yPos = Math.max(
-					this.pointTileBounds(this.topLeft).yMax,
-					this.pointTileBounds(this.topRight).yMax
-				) + 0.1;
+				this.yPos =
+					Math.max(
+						this.pointTileBounds(this.topLeft).yMax,
+						this.pointTileBounds(this.topRight).yMax
+					) + 0.1;
 				this.yVel = 1;
 			}
 		}
-
 	}
 
 	pointInCollision(point: { x: number; y: number }): boolean {

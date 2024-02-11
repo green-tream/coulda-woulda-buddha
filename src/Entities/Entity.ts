@@ -33,5 +33,6 @@ export default class Entity {
 
 	setSpriteTexture(texture: Texture): void {
 		this.sprite.texture = texture;
+		this.sprite.scale.set(0.14);
 	}
 }
