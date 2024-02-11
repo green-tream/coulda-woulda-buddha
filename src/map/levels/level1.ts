@@ -8,11 +8,11 @@ export default function level1(viewport_width: number): Level {
     //Ground
     level.applyRect(0, 0, levelWidth - 1, 2);
     //Bed
-    level.applyRect(0, 2, 10, 2);
+    level.applyRect(0, 2, 8, 2);
     //platform
-    level.applyRect(30, 2, 10, 14);
+    level.applyRect(36, 2, 2, 13);
     //smaller platform
-    level.applyRect(15, 13, 15, 3);
+    level.applyRect(30, 13, 8, 2);
 
 
     return level;
