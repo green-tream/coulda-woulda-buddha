@@ -1,4 +1,4 @@
-import Player from "../entities/Player";
+import Player from "../player/Player";
 import { Scene } from "../engine/Scene";
 import InteractableObject from "../entities/InteractableObject";
 import { closerObject, fadeIn } from "../utils";

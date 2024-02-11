@@ -1,7 +1,7 @@
 import { Texture } from "pixi.js";
 import Entity from "./Entity";
 import LevelScene from "../scenes/LevelScene";
-import Player from "./Player";
+import Player from "../player/Player";
 
 export default abstract class InteractableObject extends Entity {
 	constructor(

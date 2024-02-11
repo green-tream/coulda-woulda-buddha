@@ -1,5 +1,5 @@
 import InteractableObject from "../entities/InteractableObject";
-import Player from "../entities/Player";
+import Player from "../player/Player";
 
 class Box extends InteractableObject {
 	constructor(scene) {

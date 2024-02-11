@@ -1,8 +1,9 @@
-import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
+import { AnimatedSprite, ObservablePoint, Point, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
 import { fadeIn, fadeInOut, fadeOut, sleep } from "../utils";
 import { Actions } from "pixi-actions";
+import SavedState from "./SavedState";
 
 export default class Player {
 	private scene: Scene;
@@ -32,6 +33,7 @@ export default class Player {
 	private runningSprite: AnimatedSprite;
 	private spriteList: Sprite[];
 	private zenSprite: Sprite;
+	private assets: any;
 
 	private maxspeed: number;
 	private velocity: number;
@@ -41,6 +43,10 @@ export default class Player {
 
 	private levelName: string;
 
+	private previousStates: SavedState[][] = []; //Add in constructir
+	private ghostSprites: Sprite[];
+	private ghostIndex: number;
+
 	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, scene: Scene, levelName: string) {
 		this.level = level;
 		this.levelName = levelName;
@@ -48,6 +54,7 @@ export default class Player {
 		this.respawn = respawn;
 		this.position = respawn;
 		this.scene = scene;
+
 
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
 
@@ -74,6 +81,7 @@ export default class Player {
 			sprite.height = height;
 			sprite.anchor.set(0.5);
 		}
+
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
@@ -125,9 +133,15 @@ export default class Player {
 		this.updatePhysics(delta);
 		this.updateVisuals();
 
-		// console.log('Player position:', this.xPos, this.yPos);
-		// console.log('Player velocity:', this.xVel, this.yVel);
-		// console.log('Player acceleration:', this.xAcc, this.yAcc);
+		// Might not work cos of frame timings
+		this.saveState();
+	}
+
+	saveState() {
+		this.previousStates[this.previousStates.length - 1].push({
+			position: new Point(this.xPos, this.yPos),
+			state: 'running'
+		});
 	}
 
 	updateInputs(): void {
@@ -187,6 +201,9 @@ export default class Player {
 			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
 		).play();
 
+		this.ghostSprites.push(new Sprite(this.assets[`${this.levelName}_zen_sprite`]))
+		this.previousStates.push([]);
+
 		this.reflecting = false;
 	}
 
@@ -244,7 +261,6 @@ export default class Player {
 						this.pointTileBounds(this.bottomRight).xMin
 					) - 0.1;
 				this.xVel = 0;
-				console.log("right wall");
 			}
 		} else if (this.xVel < 0) {
 			// Left wall
@@ -255,7 +271,6 @@ export default class Player {
 						this.pointTileBounds(this.bottomLeft).xMax
 					) + 0.1;
 				this.xVel = 0;
-				console.log("left wall");
 			}
 		}
 
@@ -271,7 +286,6 @@ export default class Player {
 					) - 0.1;
 				this.yVel = 0;
 				this.onGround = true;
-				console.log("ground");
 			}
 		} else if (this.yVel < 0) {
 			// Ceiling
@@ -282,7 +296,6 @@ export default class Player {
 						this.pointTileBounds(this.topRight).yMax
 					) + 0.1;
 				this.yVel = 1;
-				console.log("ceiling");
 			}
 		}
 	}

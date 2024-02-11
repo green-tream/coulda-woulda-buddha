@@ -4,7 +4,7 @@ import type { Scene } from "./engine/Scene";
 import { app } from ".";
 import { Actions } from "pixi-actions";
 import InteractableObject from "./entities/InteractableObject";
-import Player from "./entities/Player";
+import Player from "./player/Player";
 
 export function fadeOut(currentScene: Scene, time: number = 1) {
 	const box = new Graphics();
