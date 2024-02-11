@@ -7,8 +7,8 @@ import { fadeOutToScene } from "../utils";
 
 export default class KingsParadeScene extends LevelScene {
 	LEVEL = "kings";
-	END = { x: TILESIZE * 32, y: TILESIZE * 18 };
-	RESPAWN = { x: TILESIZE * 2, y: TILESIZE * 4 };
+	END = { x: TILESIZE * 33, y: TILESIZE * 14 };
+	RESPAWN = { x: TILESIZE * 2, y: TILESIZE * 17 };
 	private buddha: ForegroundObject;
 
 	async init(assets) {
@@ -44,7 +44,7 @@ export default class KingsParadeScene extends LevelScene {
 
 		if (this.end.ifInside(this.player)) {
 			this.switchingScenes = true;
-			fadeOutToScene(this, "end", this.viewport).play();
+			fadeOutToScene(this, "lab", this.viewport).play();
 		}
 	}
 }

@@ -83,7 +83,9 @@ export default class QueensScene extends LevelScene {
 			Actions.runFunc(() => this.setupInputs()),
 			Actions.runFunc(() => (this.player.canMove = true)),
 			Actions.delay(1),
-			this.player.popUpText(["'a', 'd' to move\n'space' to jump", "'q' to interact"])
+			this.player.popUpText(["'a', 'd' to move\n'space' to jump\n"]),
+			Actions.delay(1),
+			Actions.runFunc(() => this.player.popUpText(["'q' to interact\n\n"]).play())
 		).play();
 	}
 
