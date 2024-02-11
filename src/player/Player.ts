@@ -27,6 +27,8 @@ export default class Player {
 	private xAcc: number = 0;
 	private yAcc: number = 0;
 
+	public gravity: number = 1;
+
 	private width: number;
 	private height: number;
 
@@ -37,9 +39,7 @@ export default class Player {
 	private leftKeyPressed: boolean;
 	private rightKeyPressed: boolean;
 	private jumpKeyPressed: boolean;
-	private interactKeyPressed: boolean;
 
-	private carryingBox: boolean = false;
 	public carriedBox: Sprite;
 
 	private animationSpeed: number;
@@ -87,6 +87,8 @@ export default class Player {
 		this.assets = assets;
 		this.canMove = true;
 		this.yOffset = 0;
+
+
 
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
 
@@ -339,7 +341,7 @@ export default class Player {
 		}
 
 		// Gravity
-		this.yAcc = 1;
+		this.yAcc = this.gravity;
 	}
 
 	private restartScene() {
