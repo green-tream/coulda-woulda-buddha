@@ -54,6 +54,7 @@ export default class Player {
 		this.respawn = respawn;
 		this.position = respawn;
 		this.scene = scene;
+		this.assets = assets;
 
 
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
@@ -136,10 +137,10 @@ export default class Player {
 		// Might not work cos of frame timings
 		this.saveState();
 
-		// for (let i=0; i<this.previousStates.length - 1; i++) {
-		// 	this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
-		// 	this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
-		// }
+		for (let i=0; i<this.previousStates.length - 1; i++) {
+			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
+			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
+		}
 	}
 
 	saveState() {
@@ -206,7 +207,10 @@ export default class Player {
 			Actions.parallel(Actions.fadeIn(this.idleSprite, 1), Actions.fadeOut(this.zenSprite, 1))
 		).play();
 
-		this.ghostSprites.push(new Sprite(this.assets[`${this.levelName}_zen_sprite`]))
+		const ghostSprite = new Sprite(this.assets[`${this.levelName}_zen_sprite`])
+		this.ghostSprites.push(ghostSprite)
+		this.scene.addDisplayObject(ghostSprite);
+
 		this.previousStates.push([]);
 		this.ghostIndex = 0;
 
