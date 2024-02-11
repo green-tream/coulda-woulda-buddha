@@ -74,8 +74,9 @@ export default abstract class LevelScene extends Scene {
 		this.addDisplayObject(g);
 
 		this.viewport.follow(this.player.mIdleSprite, {
-			speed: 1,
-			acceleration: 3,
+			speed: 0.5,
+			acceleration: 2,
+			radius: 3,
 		});
 
 		fadeInScene(this);
