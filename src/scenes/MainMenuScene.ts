@@ -6,7 +6,7 @@ import ForegroundObject from "../entities/ForegroundObject";
 import UIObject from "../entities/UIObject";
 import { HEIGHT, WIDTH } from "../constants";
 import { Actions } from "pixi-actions";
-import { fadeInOutScene, fadeOutScene, fadeOutToScene, fadeToScene } from "../utils";
+import { fadeOutToScene } from "../utils";
 
 export default class MainMenuScene extends Scene {
 	private buddha: UIObject;
@@ -53,11 +53,7 @@ export default class MainMenuScene extends Scene {
 	}
 
 	async start() {
-<<<<<<< HEAD
-		this.playButton.getSprite().on("click", () => fadeToScene(this, "queens"));
-=======
 		this.playButton.getSprite().on("click", () => fadeOutToScene(this, "queens"));
->>>>>>> efb4346e6c695211cb070be2a8a60bf2085d1b77
 
 		this.buddha.getSprite().on("click", () => {
 			if (this.buddhaOpen) return;

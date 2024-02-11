@@ -33,43 +33,43 @@
 			"name": "queens",
 			"assets": [
 				{
-					"name": "running_animation_1",
+					"name": "queens_running_animation_1",
 					"srcs": "sprites/buddha/running_animation/running_animation_1.png"
 				},
 				{
-					"name": "running_animation_2",
+					"name": "queens_running_animation_2",
 					"srcs": "sprites/buddha/running_animation/running_animation_2.png"
 				},
 				{
-					"name": "running_animation_3",
+					"name": "queens_running_animation_3",
 					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
 				},
 				{
-					"name": "background_queens",
+					"name": "queens_background",
 					"srcs": "img/background/queens.png"
 				},
 				{
-					"name": "idle_sprite",
+					"name": "queens_idle_sprite",
 					"srcs": "sprites/buddha/idle.png"
 				},
 				{
-					"name": "zen_sprite",
+					"name": "queens_zen_sprite",
 					"srcs": "sprites/buddha/zen.png"
 				},
 				{
-					"name": "box",
+					"name": "queens_box",
 					"srcs": "sprites/item/box.png"
 				},
 				{
-					"name": "buddha_closed",
+					"name": "queens_buddha_closed",
 					"srcs": "img/buddha/closed.png"
 				},
 				{
-					"name": "buddha_middle",
+					"name": "queens_buddha_middle",
 					"srcs": "img/buddha/middle.png"
 				},
 				{
-					"name": "buddha_open",
+					"name": "queens_buddha_open",
 					"srcs": "img/buddha/open.png"
 				}
 			]
@@ -78,43 +78,43 @@
 			"name": "kings",
 			"assets": [
 				{
-					"name": "running_animation_1",
+					"name": "kings_running_animation_1",
 					"srcs": "sprites/buddha/running_animation/running_animation_1.png"
 				},
 				{
-					"name": "running_animation_2",
+					"name": "kings_running_animation_2",
 					"srcs": "sprites/buddha/running_animation/running_animation_2.png"
 				},
 				{
-					"name": "running_animation_3",
+					"name": "kings_running_animation_3",
 					"srcs": "sprites/buddha/running_animation/running_animation_3.png"
 				},
 				{
-					"name": "background_kings",
+					"name": "kings_background",
 					"srcs": "img/background/kings.png"
 				},
 				{
-					"name": "idle_sprite",
+					"name": "kings_idle_sprite",
 					"srcs": "sprites/buddha/idle.png"
 				},
 				{
-					"name": "zen_sprite",
+					"name": "kings_zen_sprite",
 					"srcs": "sprites/buddha/zen.png"
 				},
 				{
-					"name": "box",
+					"name": "kings_box",
 					"srcs": "sprites/item/box.png"
 				},
 				{
-					"name": "buddha_closed",
+					"name": "kings_buddha_closed",
 					"srcs": "img/buddha/closed.png"
 				},
 				{
-					"name": "buddha_middle",
+					"name": "kings_buddha_middle",
 					"srcs": "img/buddha/middle.png"
 				},
 				{
-					"name": "buddha_open",
+					"name": "kings_buddha_open",
 					"srcs": "img/buddha/open.png"
 				}
 			]
