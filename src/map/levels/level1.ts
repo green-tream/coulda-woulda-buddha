@@ -6,7 +6,7 @@ export default function level1(viewport_width: number): Level {
     const levelHeight = HEIGHT / TILESIZE;
     const level: Level = new Level(levelWidth, levelHeight, TILESIZE);
     //Ground
-    level.applyRect(0, 0, levelWidth - 1, 2);
+    level.applyRect(0, 0, levelWidth, 2);
     //Bed
     level.applyRect(0, 2, 8, 2);
     //platform
