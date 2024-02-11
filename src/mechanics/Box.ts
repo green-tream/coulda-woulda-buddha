@@ -16,7 +16,6 @@ export default class Box {
 	
 	constructor(assets, sceneName: string, level: Level, respawnPos: Point) {
 		this.respawnPos = respawnPos; // Bottom right
-		this.position = respawnPos;
 		this.level = level;
 		this.sceneName = sceneName;
 		this.assets = assets;
@@ -55,9 +54,16 @@ export default class Box {
 		if (!this.interactable) {
 			return;
 		}
-
-		// player.pickUpBox();
-		this.interactable = false;
+		const worldPos = this.level.localToWorld(this.position);
+		const dx = Math.pow(worldPos.x - player.position.x, 2);
+		const dy = Math.pow(worldPos.y - player.position.y, 2);
+		if (Math.pow(dx + dy, 0.5) > 30) {
+			return;
+		}
+		if (player.pickupBox() == true) {
+			this.interactable = false;
+			this.destroy(this.position);
+		}
 	}
 
 

@@ -52,8 +52,7 @@ export default abstract class LevelScene extends Scene {
 		this.player = new Player(0.05, assets, level, this.RESPAWN, this, this.LEVEL);
 		this.player.addToScene(this);
 
-		const box = new Box(assets, "queens", this.player.level, new Point(8, 8));
-
+		// NOW RENDERS BOX
 		const g: Graphics = new Graphics();
 		g.beginFill(0x000000, 0.5);
 		for (let j = 0; j < this.player.level.height; j++) {

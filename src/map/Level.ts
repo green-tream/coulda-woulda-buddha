@@ -1,4 +1,4 @@
-import { Sprite } from "pixi.js";
+import { Point, Sprite } from "pixi.js";
 import Block from "./Block";
 import BoxBlock from "./BoxBlock";
 
@@ -83,6 +83,10 @@ export default class Level {
         };
 
 
+    }
+    
+    localToWorld(point: Point): Point {
+        return new Point(point.x * this.squareSize, point.y * this.squareSize);
     }
 
 
