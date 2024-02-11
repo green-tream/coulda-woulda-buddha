@@ -2,6 +2,7 @@ import { AnimatedSprite, ObservablePoint, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
 import { sleep } from "../utils";
+import { Actions } from "pixi-actions";
 
 export default class Player {
 	private xPos: number = 0;
@@ -27,7 +28,8 @@ export default class Player {
 
 	private idleSprite: AnimatedSprite;
 	private runningSprite: AnimatedSprite;
-	private spriteList: AnimatedSprite[];
+	private spriteList: Sprite[];
+	private zenSprite: Sprite;
 
 	private maxspeed: number;
 	private velocity: number;
@@ -39,13 +41,16 @@ export default class Player {
 		this.level = level;
 		this.animationSpeed = 0.1;
 		this.respawn = respawn;
+		this.position = respawn;
 
 		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);
+		this.zenSprite = new Sprite(assets["zen_sprite"]);
+		this.zenSprite.alpha = 0;
 
 		this.runningSprite = this.loadAnimation(assets, "running_animation");
 		this.runningSprite.visible = false;
 
-		this.spriteList = [this.idleSprite, this.runningSprite];
+		this.spriteList = [this.idleSprite, this.runningSprite, this.zenSprite];
 
 		const width = assets.idle_sprite.baseTexture.width * spriteScale;
 		const height = assets.idle_sprite.baseTexture.height * spriteScale;
@@ -151,13 +156,9 @@ export default class Player {
 		if (this.reflecting) return;
 		this.reflecting = true;
 
-		console.log("reflec??");
+		Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)).play();
 
-		setTimeout(() => {
-			console.log("omg no reflec!");
-
-			this.reflecting = false;
-		}, 1000);
+		this.reflecting = false;
 	}
 
 	private updateVisuals(): void {
