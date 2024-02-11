@@ -71,6 +71,10 @@
 				{
 					"name": "queens_buddha_open",
 					"srcs": "img/buddha/open.png"
+				},
+				{
+					"name": "queens_bridge",
+					"srcs": "sprites/environment/mathematical_bridge.png"
 				}
 			]
 		},

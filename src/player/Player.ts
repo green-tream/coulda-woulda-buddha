@@ -27,7 +27,7 @@ export default class Player {
 	private jumpKeyPressed: boolean;
 	private interactKeyPressed: boolean;
 
-	private carryingBox: boolean = false ;
+	private carryingBox: boolean = false;
 	public carriedBox: Sprite;
 
 	private animationSpeed: number;
@@ -46,6 +46,7 @@ export default class Player {
 
 	private levelName: string;
 	public canMove: boolean;
+	public yOffset: number;
 
 	private previousStates: SavedState[][] = [[]]; //Add in constructir
 	private ghostSprites: Sprite[] = [];
@@ -67,6 +68,7 @@ export default class Player {
 		this.scene = scene;
 		this.assets = assets;
 		this.canMove = true;
+		this.yOffset = 0;
 
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
 
@@ -246,7 +248,7 @@ export default class Player {
 	private moveSprites(): void {
 		for (const sprite of this.spriteList) {
 			sprite.position.x = this.xPos;
-			sprite.position.y = this.yPos;
+			sprite.position.y = this.yPos + this.yOffset;
 
 			if (this.xVel > 0) {
 				sprite.scale.x = 1;
@@ -398,5 +400,4 @@ export default class Player {
 	ghostCount(): number {
 		return this.previousStates.length;
 	}
-
 }

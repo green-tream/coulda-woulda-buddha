@@ -10,6 +10,7 @@ export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
 	RESPAWN = { x: TILESIZE * 5, y: TILESIZE * 14 };
 	private buddha: ForegroundObject;
+	private bridge: ForegroundObject;
 
 	async init(assets) {
 		const make_level = () => {
@@ -30,22 +31,33 @@ export default class QueensScene extends LevelScene {
 		this.buddha.position(this.RESPAWN.x, this.RESPAWN.y + TILESIZE);
 		this.addEntity(this.buddha);
 
-		this.player.canMove = false;
+		this.bridge = new ForegroundObject(
+			assets.queens_bridge.baseTexture.width * (HEIGHT / assets.queens_bridge.baseTexture.height),
+			HEIGHT,
+			this.assets.queens_bridge,
+			this
+		);
+
+		this.bridge.getSprite().anchor.set(0, 1);
+		this.bridge.position(1090, HEIGHT);
+		this.addEntity(this.bridge);
+
+		// this.player.canMove = false;
 
 		Actions.sequence(
-			Actions.delay(2),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
-			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
-			Actions.delay(1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
-			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.0475)),
-			Actions.delay(1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
-			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
-			Actions.delay(1),
+			// Actions.delay(2),
+			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
+			// Actions.delay(0.1),
+			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
+			// Actions.delay(1),
+			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
+			// Actions.delay(0.1),
+			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.0475)),
+			// Actions.delay(1),
+			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.0475)),
+			// Actions.delay(0.1),
+			// Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.0475)),
+			// Actions.delay(1),
 			Actions.parallel(
 				Actions.fadeOut(this.buddha.getSprite(), 1),
 				Actions.fadeIn(this.player.mIdleSprite, 1)
@@ -66,5 +78,14 @@ export default class QueensScene extends LevelScene {
 
 	public update(delta: number): void {
 		this.player.update(delta);
+
+		if (this.player.position.x > 1315 && this.player.position.x < 2075) {
+			const fixed = ((this.player.position.x - 1315) / (2075 - 1315)) * Math.PI - Math.PI / 2;
+			const transformedY = Math.cos(fixed / 0.81);
+
+			this.player.yOffset = -(2 * TILESIZE + transformedY * 100);
+		} else {
+			this.player.yOffset = 0;
+		}
 	}
 }
