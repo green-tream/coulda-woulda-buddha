@@ -232,13 +232,13 @@ export default class Player {
 				const tileCoords = this.level.WorldToLocal(coords);
 				tileCoords.y -= 3;
 				if (
-					tileCoords.x > 1 ||
-					tileCoords.x < this.level.width - 1 ||
-					tileCoords.y > 1 ||
-					tileCoords.y < this.level.height - 1 ||
-					this.level.map[this.level.height - tileCoords.y][tileCoords.x] != null ||
-					this.level.map[this.level.height - tileCoords.y][tileCoords.x - 1] != null ||
-					this.level.map[this.level.height - tileCoords.y][tileCoords.x + 1] != null
+					tileCoords.x > 1 &&
+					tileCoords.x < this.level.width - 1 &&
+					tileCoords.y > 1 &&
+					tileCoords.y < this.level.height - 1 &&
+					this.level.map[this.level.height - tileCoords.y][tileCoords.x] == null &&
+					this.level.map[this.level.height - tileCoords.y][tileCoords.x - 1] == null &&
+					this.level.map[this.level.height - tileCoords.y][tileCoords.x + 1] == null
 				) {
 					// console.log(this.level.height - tileCoords.y)
 					this.level.add(tileCoords.x, this.level.height - tileCoords.y);
