@@ -3,7 +3,6 @@ import { HEIGHT, TILESIZE, WIDTH } from "../constants";
 import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
-import Level from "../map/Level";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
