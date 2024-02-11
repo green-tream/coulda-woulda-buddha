@@ -57,6 +57,9 @@ export default abstract class LevelScene extends Scene {
 		g.beginFill(0x000000, 0.5);
 		for (let j = 0; j < this.player.level.height; j++) {
 			for (let i = 0; i < this.player.level.width; i++) {
+				if (this.player.level.map[j][i] instanceof BoxBlock) {
+					this.addDisplayObject((this.player.level.map[j][i] as BoxBlock).getSprite());
+				} 
 				if (this.player.level.map[j][i] != null) {
 					g.drawRect(
 						this.player.level.squareSize * i,

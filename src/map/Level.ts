@@ -38,13 +38,13 @@ export default class Level {
 
     }
 
-    addBox(x: number, y: number, sprite: Sprite) {
+    addBox(x: number, y: number, sprite: Sprite, interactable: boolean) {
         sprite.width = this.squareSize;
         sprite.height = this.squareSize;
         sprite.position.x = this.squareSize * x
         sprite.position.y = this.squareSize * (this.height - y - 1)
 
-        this.map[this.height - y - 1][x] = new BoxBlock(x, y, this.squareSize, sprite);
+        this.map[this.height - y - 1][x] = new BoxBlock(x, y, this.squareSize, sprite, interactable);
 
     }
 
@@ -66,8 +66,17 @@ export default class Level {
         ) {
             return true;
         }
+        const tile = this.map[Math.floor(world_y / this.squareSize)][Math.floor(world_x / this.squareSize)];
+        if (tile instanceof BoxBlock) {
+            const boxblock = tile as BoxBlock;
+            if (!boxblock.interactable) {
+                return false;
+            }
+        }
+        return tile != null;
 
-        return this.map[Math.floor(world_y / this.squareSize)][Math.floor(world_x / this.squareSize)] != null;
+        // Return true - tile is there
+        // retunr false, no tile or interactable = false
 
     }
 
@@ -84,9 +93,23 @@ export default class Level {
 
 
     }
-    
+
     localToWorld(point: Point): Point {
         return new Point(point.x * this.squareSize, point.y * this.squareSize);
+    }
+
+    WorldToLocal(point: Point): Point {
+        if (
+            0 >= point.x ||
+            this.squareSize * this.width <= point.x ||
+            0 >= point.y ||
+            this.squareSize * this.height <= point.y
+        ) {
+            throw Error("Nope, L, Cringe")
+        }
+
+        return new Point(Math.floor(point.x / this.squareSize), Math.floor(point.y / this.squareSize));
+
     }
 
 

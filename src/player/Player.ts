@@ -41,10 +41,12 @@ export default class Player {
 	private zenSprite: Sprite;
 	private assets: any;
 
-	private box: Box;
+	private boxes: Box[] = [];
+	private holdingBox: Box;
 
-	private state: string;
-	private box_sprite: Sprite;
+	private collisonPoints: Point[] = [];
+
+	private state: string = 'idle';
 
 	public level: Level; //Change back to private when using
 	private reflecting: boolean;
@@ -97,7 +99,9 @@ export default class Player {
 			sprite.anchor.set(0.5);
 		}
 
-		this.box = new Box(assets, "queens", this.level, new Point(8, 8));
+		this.boxes.push(new Box(assets, this.levelName, this.level, new Point(15, 4)));
+		this.boxes.push(new Box(assets, this.levelName, this.level, new Point(30, 4)));
+
 	}
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
@@ -143,7 +147,9 @@ export default class Player {
 			case "r":
 				this.restartScene();
 			case "q":
-				this.box.interact(this);
+				for (const box of this.boxes) {
+					box.interact(this);
+				}
 				break;
 		}
 	}
@@ -153,12 +159,16 @@ export default class Player {
 		this.updatePhysics(delta);
 		this.updateVisuals();
 
-		// Might not work cos of frame timings
+		const ghostsWithBoxes = []
 
 		for (let i = 0; i < this.previousStates.length - 1; i++) {
-			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) {
-				continue;
+			if (this.ghostIndex == -1) { continue; }
+			if (this.previousStates[i][Math.min(this.ghostIndex, this.previousStates[i].length - 1)].state == "holding-on-to-a-fucking-box") {
+				ghostsWithBoxes.push(this.ghostSprites[i]);
 			}
+
+			if (this.previousStates[i].length < this.ghostIndex + 1) { continue; }
+
 			this.ghostSprites[i].alpha = 0.5;
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y =
@@ -166,6 +176,58 @@ export default class Player {
 				(this.levelName == "queens"
 					? mathematicalBridge(this.previousStates[i][this.ghostIndex].position.x)
 					: 0);
+		}
+		if (this.state == "holding-on-to-a-fucking-box") {
+			ghostsWithBoxes.push(this.idleSprite);
+		}
+		const temp_boxes = this.boxes.toSorted((a, b) => {
+			if (a.interactable && !b.interactable) {
+				return -1; // a should come before b
+			} else if (!a.interactable && b.interactable) {
+				return 1; // b should come before a
+			} else {
+				return 0; // No change in order
+			}
+		});
+		while (this.collisonPoints.length > 0) {
+			const collisionPoint = this.collisonPoints.pop();
+			this.level.delete(collisionPoint.x, this.level.height - collisionPoint.y);
+			// console.log(this.level.height - collisionPoint.y);
+		}
+
+		for (const box of temp_boxes) {
+			if (this.ghostIndex > box.memoryFrames && ghostsWithBoxes.length > 0) {
+				const coords = ghostsWithBoxes.shift().position;
+				box.box_sprite.position.x = coords.x;
+				box.box_sprite.position.y = coords.y - 120; //OFFSET
+				box.box_sprite.visible = true;
+
+				// COLLISION
+				const tileCoords = this.level.WorldToLocal(coords);
+				tileCoords.y -= 3
+				if (
+					tileCoords.x > 1 ||
+					tileCoords.x < this.level.width - 1 ||
+					tileCoords.y > 1 || 
+					tileCoords.y < this.level.height - 1 ||
+					this.level.map[this.level.height - tileCoords.y][tileCoords.x] != null ||
+					this.level.map[this.level.height - tileCoords.y][tileCoords.x - 1] != null ||
+					this.level.map[this.level.height - tileCoords.y][tileCoords.x + 1] != null
+				) {
+					// console.log(this.level.height - tileCoords.y)
+					this.level.add(tileCoords.x, this.level.height - tileCoords.y);
+					this.collisonPoints.push(new Point(tileCoords.x, tileCoords.y));
+					tileCoords.x += 1;
+					this.level.add(tileCoords.x, this.level.height - tileCoords.y);
+					this.collisonPoints.push(new Point(tileCoords.x, tileCoords.y));
+					tileCoords.x -= 1;
+					this.level.add(tileCoords.x, this.level.height - tileCoords.y);
+					this.collisonPoints.push(new Point(tileCoords.x, tileCoords.y));
+				}
+
+			} else {
+				box.spawn(box.original);
+			}
 		}
 
 		if (this.canMove) {
@@ -177,7 +239,7 @@ export default class Player {
 	saveState() {
 		this.previousStates[this.previousStates.length - 1].push({
 			position: new Point(this.xPos, this.yPos),
-			state: "running",
+			state: this.state,
 		});
 	}
 
@@ -257,6 +319,12 @@ export default class Player {
 
 		this.previousStates.push([]);
 		this.ghostIndex = -1;
+		this.state = 'idle';
+
+		for (const box of this.boxes) {
+			box.box_sprite.visible = false;
+		}
+
 	}
 
 	private updateVisuals(): void {
@@ -278,8 +346,8 @@ export default class Player {
 			}
 		}
 		if (this.state == "holding-on-to-a-fucking-box") {
-			this.box_sprite.position.x = this.xPos;
-			this.box_sprite.position.y = this.yPos + this.yOffset - 130;
+			this.holdingBox.box_sprite.position.x = this.xPos;
+			this.holdingBox.box_sprite.position.y = this.yPos + this.yOffset - 130;
 		}
 	}
 
@@ -295,15 +363,18 @@ export default class Player {
 		}
 	}
 
-	public pickupBox(): boolean {
+	public pickupBox(box: Box): boolean {
 
 		if (this.state != "holding-on-to-a-fucking-box") {
-			this.box_sprite = new Sprite(this.scene.assets[`${this.levelName}_box`])
-			this.box_sprite.anchor.set(0.5)
-			this.box_sprite.width = 60;
-			this.box_sprite.height = 60;
-			this.scene.addDisplayObject(this.box_sprite);
+			box.box_sprite = new Sprite(this.scene.assets[`${this.levelName}_box`])
+			box.box_sprite.anchor.set(0.5)
+			box.box_sprite.width = 60;
+			box.box_sprite.height = 60;
+			this.scene.addDisplayObject(box.box_sprite);
 			this.state = "holding-on-to-a-fucking-box";
+			this.holdingBox = box;
+			box.memoryFrames = this.ghostIndex;
+			box.destroy(box.position);
 			return true;
 		}
 		return false;
