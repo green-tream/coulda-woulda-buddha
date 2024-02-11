@@ -6,7 +6,7 @@ import ForegroundObject from "../entities/ForegroundObject";
 import UIObject from "../entities/UIObject";
 import { HEIGHT, WIDTH } from "../constants";
 import { Actions } from "pixi-actions";
-import { fadeInOutScene, fadeOutScene, fadeOutToScene, fadeToScene } from "../utils";
+import { fadeOutToScene } from "../utils";
 
 export default class MainMenuScene extends Scene {
 	private buddha: UIObject;

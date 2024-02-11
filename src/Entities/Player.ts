@@ -39,30 +39,32 @@ export default class Player {
 	public level: Level; //Change back to private when using
 	private reflecting: boolean;
 
-	constructor(
-		spriteScale: number,
-		assets: any,
-		level: Level,
-		respawn: { x: number; y: number },
-		scene: Scene
-	) {
+	private levelName: string;
+
+	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }, scene: Scene, levelName: string) {
 		this.level = level;
+		this.levelName = levelName;
 		this.animationSpeed = 0.1;
 		this.respawn = respawn;
 		this.position = respawn;
 		this.scene = scene;
 
-		this.idleSprite = new AnimatedSprite([assets["idle_sprite"]]);
-		this.zenSprite = new Sprite(assets["zen_sprite"]);
+		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
+
+		this.zenSprite = new Sprite(assets[`${levelName}_zen_sprite`]);
 		this.zenSprite.alpha = 0;
 
-		this.runningSprite = this.loadAnimation(assets, "running_animation");
+		this.runningSprite = this.loadAnimation(assets, `${levelName}_running_animation`);
 		this.runningSprite.visible = false;
 
-		this.spriteList = [this.idleSprite, this.runningSprite, this.zenSprite];
+		this.spriteList = [
+			this.idleSprite,
+			this.runningSprite,
+			this.zenSprite
+		];
 
-		const width = assets.idle_sprite.baseTexture.width * spriteScale;
-		const height = assets.idle_sprite.baseTexture.height * spriteScale;
+		const width = assets[`${levelName}_idle_sprite`].baseTexture.width * spriteScale;
+		const height = assets[`${levelName}_idle_sprite`].baseTexture.height * spriteScale;
 
 		this.width = width;
 		this.height = height;
@@ -76,6 +78,7 @@ export default class Player {
 
 	loadAnimation(assets: any, animationName: string): AnimatedSprite {
 		const frames: Texture[] = [];
+
 
 		for (let i = 1; i < 4; i++) {
 			frames.push(assets[`${animationName}_${i}`]);
@@ -154,8 +157,7 @@ export default class Player {
 		}
 
 		// Jump
-		// if (this.jumpKeyPressed && this.onGround) {
-		if (this.jumpKeyPressed) {
+		if (this.jumpKeyPressed && this.onGround) {
 			this.yVel = -15;
 			this.onGround = false;
 		}

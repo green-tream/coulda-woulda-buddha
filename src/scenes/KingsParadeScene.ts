@@ -6,7 +6,7 @@ import level1 from "../map/levels/level1";
 import Level from "../map/Level";
 
 export default class KingsParadeScene extends LevelScene {
-	BACKGROUND = "background_kings";
+	LEVEL = "kings";
 	RESPAWN = { x: TILESIZE * 2, y: HEIGHT - TILESIZE * 6 };
 	private buddha: ForegroundObject;
 
@@ -19,9 +19,9 @@ export default class KingsParadeScene extends LevelScene {
 
 		// buddha
 		this.buddha = new ForegroundObject(
-			this.assets.buddha_closed.baseTexture.width / 7,
-			this.assets.buddha_closed.baseTexture.height / 7,
-			this.assets.buddha_closed,
+			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.width / 7,
+			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.height / 7,
+			this.assets[`${this.LEVEL}_buddha_closed`],
 			this
 		);
 

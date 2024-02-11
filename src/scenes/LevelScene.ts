@@ -1,7 +1,7 @@
 import Player from "../entities/Player";
 import { Scene } from "../engine/Scene";
 import InteractableObject from "../entities/InteractableObject";
-import { closerObject, fadeIn, fadeInScene } from "../utils";
+import { closerObject, fadeIn } from "../utils";
 import BackgroundObject from "../entities/BackgroundObject";
 import { Graphics, Rectangle, TextStyle, Texture } from "pixi.js";
 import { HEIGHT, TILESIZE, WIDTH } from "../constants";
@@ -13,7 +13,7 @@ export default abstract class LevelScene extends Scene {
 	private objects: InteractableObject[];
 	private checkpoints: Checkpoint[];
 	public player: Player;
-	abstract BACKGROUND: string;
+	abstract LEVEL: string;
 	abstract RESPAWN: { x: number; y: number };
 
 	playerInteract() {
@@ -28,11 +28,12 @@ export default abstract class LevelScene extends Scene {
 	initScene(assets: any, make_level: () => Level) {
 		this.assets = assets;
 
+		const assetName = this.LEVEL + '_background';
 		this.background = new BackgroundObject(
-			assets[this.BACKGROUND].baseTexture.width *
-				(HEIGHT / assets[this.BACKGROUND].baseTexture.height),
+			assets[assetName].baseTexture.width *
+				(HEIGHT / assets[assetName].baseTexture.height),
 			HEIGHT,
-			assets[this.BACKGROUND] as Texture,
+			assets[assetName] as Texture,
 			this
 		);
 
@@ -40,7 +41,7 @@ export default abstract class LevelScene extends Scene {
 
 		const level: Level = make_level();
 
-		this.player = new Player(0.07, assets, level, this.RESPAWN, this);
+		this.player = new Player(0.07, assets, level, this.RESPAWN, this, this.LEVEL);
 
 		this.addEntity(this.background);
 		this.player.addToScene(this);
