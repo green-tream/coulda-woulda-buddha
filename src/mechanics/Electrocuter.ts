@@ -31,11 +31,13 @@ export default class Electrocuter extends InteractableObject {
 				player.position.x < this.getSprite().x + TILESIZE * 5.5
 			) {
 				player.addMotion(0, -30);
+				player.mIdleSprite.texture = assets.lab_buddha_shocked;
 			}
 		}, 50);
 
 		setTimeout(() => {
 			this.scene.container.removeChild(electricity.getSprite());
-		}, 400);
+			player.mIdleSprite.texture = assets.lab_idle_sprite;
+		}, 1000);
 	}
 }

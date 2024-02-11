@@ -241,6 +241,30 @@
 				{
 					"name": "lab_electricity",
 					"srcs": "sprites/item/electricity.png"
+				},
+				{
+					"name": "lab_box_1",
+					"srcs": "sprites/item/box/box_bl.png"
+				},
+				{
+					"name": "lab_box_2",
+					"srcs": "sprites/item/box/box_br.png"
+				},
+				{
+					"name": "lab_box_3",
+					"srcs": "sprites/item/box/box_tl.png"
+				},
+				{
+					"name": "lab_box_4",
+					"srcs": "sprites/item/box/box_tr.png"
+				},
+				{
+					"name": "lab_box",
+					"srcs": "sprites/item/box/box.png"
+				},
+				{
+					"name": "lab_buddha_shocked",
+					"srcs": "sprites/buddha/shocked.png"
 				}
 			]
 		},

@@ -67,7 +67,7 @@ export default class MainMenuScene extends Scene {
 				})
 				.catch((error) => console.error(error));
 
-			fadeOutToScene(this, "queens", this.viewport).play();
+			fadeOutToScene(this, "lab", this.viewport).play();
 		});
 
 		this.buddha.getSprite().on("click", () => {
