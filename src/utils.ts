@@ -61,7 +61,7 @@ export function fadeOutToScene(
 ) {
 	return Actions.sequence(
 		fadeOut(currentScene, viewport, time),
-		Actions.runFunc(() => app.scenes.start(nextSceneKey)).play()
+		Actions.runFunc(() => app.scenes.start(nextSceneKey))
 	);
 }
 

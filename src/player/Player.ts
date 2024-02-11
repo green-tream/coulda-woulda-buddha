@@ -343,7 +343,7 @@ export default class Player {
 	}
 
 	private restartScene() {
-		fadeOutToScene(this.scene, (this.scene as LevelScene).LEVEL, this.scene.viewport);
+		fadeOutToScene(this.scene, (this.scene as LevelScene).LEVEL, this.scene.viewport).play();
 	}
 
 	private startReflection() {
