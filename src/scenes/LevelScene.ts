@@ -24,7 +24,7 @@ export default abstract class LevelScene extends Scene {
 		closestObject.interact(this.player);
 	}
 
-	initScene(assets: any, level: Level) {
+	initScene(assets: any, make_level: () => Level) {
 		this.assets = assets;
 
 		this.background = new BackgroundObject(
@@ -36,6 +36,9 @@ export default abstract class LevelScene extends Scene {
 		);
 
 		this.initViewport();
+		console.log(this.viewport.worldWidth);
+
+		const level: Level = make_level();
 
 		this.player = new Player(0.4, assets, level);
 		this.player.position = { x: WIDTH * 0.1, y: HEIGHT * 0.4 };

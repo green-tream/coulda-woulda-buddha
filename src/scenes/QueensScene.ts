@@ -3,13 +3,18 @@ import { HEIGHT, WIDTH } from "../constants";
 import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
+import Level from "../map/Level";
 
 export default class QueensScene extends LevelScene {
 	BACKGROUND = "background_queens";
 	private buddha: ForegroundObject;
 
 	async init(assets) {
-		this.initScene(assets, level1(this.viewport.worldWidth));
+		const make_level = () => {
+			return level1(this.viewport.worldWidth);
+		};
+
+		this.initScene(assets, make_level);
 
 		// buddha
 		this.buddha = new ForegroundObject(
