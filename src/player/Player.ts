@@ -191,9 +191,8 @@ export default class Player {
 	public setVisible(visible: boolean) {
 		this.canMove = !visible;
 
-		for (const sprite of this.spriteList) {
-			sprite.visible = visible;
-		}
+		this.idleSprite.alpha = visible ? 1 : 0;
+		this.runningSprite.alpha = visible ? 1 : 0;
 	}
 
 	private startReflection() {

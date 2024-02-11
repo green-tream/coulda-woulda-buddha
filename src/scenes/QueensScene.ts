@@ -4,10 +4,11 @@ import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
 import Level from "../map/Level";
+import Entity from "../entities/Entity";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
-	RESPAWN = { x: TILESIZE * 4, y: TILESIZE * 14 };
+	RESPAWN = { x: TILESIZE * 5, y: TILESIZE * 14 };
 	private buddha: ForegroundObject;
 
 	async init(assets) {
@@ -20,27 +21,28 @@ export default class QueensScene extends LevelScene {
 
 		// buddha
 		this.buddha = new ForegroundObject(
-			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.width * 0.07,
-			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.height * 0.07,
-			this.assets[`${this.LEVEL}_buddha_closed`],
+			this.assets.queens_buddha_closed.baseTexture.width * 0.055,
+			this.assets.queens_buddha_closed.baseTexture.height * 0.055,
+			this.assets.queens_buddha_closed,
 			this
 		);
 
-		// this.buddha.position(this.RESPAWN.x, this.RESPAWN.y);
+		this.buddha.position(this.RESPAWN.x, this.RESPAWN.y);
 		this.addEntity(this.buddha);
 
 		Actions.sequence(
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+			Actions.delay(2),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.055)),
 			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.055)),
 			Actions.delay(1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.055)),
 			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_closed)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_closed, 0.055)),
 			Actions.delay(1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_middle, 0.055)),
 			Actions.delay(0.1),
-			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.queens_buddha_open, 0.055)),
 			Actions.delay(1),
 			Actions.fadeOut(this.buddha.getSprite(), 1),
 			Actions.runFunc(() => this.player.setVisible(true)),
