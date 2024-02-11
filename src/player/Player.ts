@@ -159,6 +159,13 @@ export default class Player {
 	}
 
 	updateInputs(): void {
+
+		if (!this.canMove) {
+			this.leftKeyPressed = false;
+			this.rightKeyPressed = false;
+			this.jumpKeyPressed = false;
+		}
+
 		// Left
 		if (this.leftKeyPressed && !this.rightKeyPressed) {
 			// Initial speed boost when starting to move
