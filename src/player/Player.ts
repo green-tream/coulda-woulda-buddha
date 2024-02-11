@@ -137,7 +137,6 @@ export default class Player {
 		this.updateVisuals();
 
 		// Might not work cos of frame timings
-		this.saveState();
 
 		for (let i=0; i<this.previousStates.length - 1; i++) {
 			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) { continue; }
@@ -146,6 +145,7 @@ export default class Player {
 		}
 
 		if (this.canMove) {
+			this.saveState();
 			this.ghostIndex++;
 		}
 
