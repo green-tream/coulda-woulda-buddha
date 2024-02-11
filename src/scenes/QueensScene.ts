@@ -4,9 +4,10 @@ import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
 import Level from "../map/Level";
+import { detectAvif } from "pixi.js";
 
 export default class QueensScene extends LevelScene {
-	BACKGROUND = "background_queens";
+	LEVEL = "queens";
 	RESPAWN = { x: TILESIZE * 4, y: TILESIZE * 14 };
 	private buddha: ForegroundObject;
 
@@ -26,9 +27,24 @@ export default class QueensScene extends LevelScene {
 			this
 		);
 
-		this.buddha.position(WIDTH * 0.2, HEIGHT * 0.2);
+		this.buddha.position(this.RESPAWN.x, this.RESPAWN.y);
 
-		Actions.sequence();
+		Actions.sequence(
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+			Actions.delay(0.1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
+			Actions.delay(1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+			Actions.delay(0.1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_closed)),
+			Actions.delay(1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+			Actions.delay(0.1),
+			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
+			Actions.delay(1),
+			Actions.fadeOut(this.buddha.getSprite(), 1),
+			Actions.runFunc(() => this.player.setVisible(true))
+		).play();
 	}
 
 	async start() {
