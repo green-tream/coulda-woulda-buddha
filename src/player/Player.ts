@@ -140,12 +140,15 @@ export default class Player {
 		this.saveState();
 
 		for (let i=0; i<this.previousStates.length - 1; i++) {
-			if (this.previousStates[i].length < this.ghostIndex + 1) { continue; }
+			if (this.previousStates[i].length < this.ghostIndex + 1 || this.ghostIndex == -1) { continue; }
 			this.ghostSprites[i].position.x = this.previousStates[i][this.ghostIndex].position.x;
 			this.ghostSprites[i].position.y = this.previousStates[i][this.ghostIndex].position.y;
 		}
 
-		this.ghostIndex++;
+		if (this.canMove) {
+			this.ghostIndex++;
+		}
+
 	}
 
 	saveState() {
