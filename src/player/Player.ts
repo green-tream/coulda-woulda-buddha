@@ -140,7 +140,7 @@ export default class Player {
 		this.updateInputs();
 		this.updatePhysics(delta);
 		this.updateVisuals();
-		if (this.carriedBox != null) this.carriedBox.update();
+		// if (this.carriedBox != null) this.carriedBox.update();
 
 		// Might not work cos of frame timings
 
