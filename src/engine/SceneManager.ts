@@ -25,6 +25,11 @@ export class SceneManager {
 		this.viewport.removeChildren();
 		this.app.ticker.remove(this.currentUpdate, key);
 
+		for (const scene of this.viewport.children) {
+			scene.destroy();
+			this.viewport.removeChild(scene);
+		}
+
 		const scene = this.scenes.get(key);
 
 		if (scene) {

@@ -1,9 +1,11 @@
 import { AnimatedSprite, ObservablePoint, Point, Sprite, Texture } from "pixi.js";
 import { Scene } from "../engine/Scene";
 import Level from "../map/Level";
-import { fadeIn, fadeInOut, fadeOut, sleep } from "../utils";
+import { fadeIn, fadeInOut, fadeOut, fadeOutToScene, sleep } from "../utils";
 import { Actions } from "pixi-actions";
 import SavedState from "./SavedState";
+import { app } from "..";
+import LevelScene from "../scenes/LevelScene";
 
 export default class Player {
 	private scene: Scene;
@@ -133,6 +135,9 @@ export default class Player {
 			case "e":
 				this.startReflection();
 				break;
+			case "r":
+				this.restartScene();
+				break;
 		}
 	}
 
@@ -206,6 +211,10 @@ export default class Player {
 
 		// Gravity
 		this.yAcc = 1;
+	}
+
+	private restartScene() {
+		fadeOutToScene(this.scene, (this.scene as LevelScene).LEVEL, this.scene.viewport);
 	}
 
 	private startReflection() {

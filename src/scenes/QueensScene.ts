@@ -5,10 +5,12 @@ import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
 import Level from "../map/Level";
 import Entity from "../entities/Entity";
+import { fadeOutToScene } from "../utils";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
 	RESPAWN = { x: TILESIZE * 5, y: TILESIZE * 14 };
+	END = { x: TILESIZE * 108, y: TILESIZE * 2 };
 	private buddha: ForegroundObject;
 	private bridge: ForegroundObject;
 
@@ -77,6 +79,7 @@ export default class QueensScene extends LevelScene {
 	}
 
 	public update(delta: number): void {
+		if (this.switchingScenes) return;
 		this.player.update(delta);
 
 		if (this.player.position.x > 1315 && this.player.position.x < 2075) {
@@ -86,6 +89,11 @@ export default class QueensScene extends LevelScene {
 			this.player.yOffset = -(2 * TILESIZE + transformedY * 100);
 		} else {
 			this.player.yOffset = 0;
+		}
+
+		if (this.end.ifInside(this.player)) {
+			this.switchingScenes = true;
+			fadeOutToScene(this, "kings", this.viewport);
 		}
 	}
 }
