@@ -61,13 +61,13 @@ export default class MainMenuScene extends Scene {
 			this.buddhaOpen = true;
 
 			Actions.sequence(
-				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle, 0.14)),
 				Actions.delay(0.1),
-				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open, 0.14)),
 				Actions.delay(1.5),
-				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle, 0.14)),
 				Actions.delay(0.1),
-				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_closed)),
+				Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_closed, 0.14)),
 				Actions.runFunc(() => (this.buddhaOpen = false))
 			).play();
 		});
