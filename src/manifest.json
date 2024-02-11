@@ -58,7 +58,7 @@
 				},
 				{
 					"name": "queens_box",
-					"srcs": "sprites/item/box.png"
+					"srcs": "sprites/item/box/box.png"
 				},
 				{
 					"name": "queens_buddha_closed",
@@ -75,6 +75,22 @@
 				{
 					"name": "queens_bridge",
 					"srcs": "sprites/environment/mathematical_bridge.png"
+				},
+				{
+					"name": "queens_box_1",
+					"srcs": "sprites/item/box/box_bl.png"
+				},
+				{
+					"name": "queens_box_2",
+					"srcs": "sprites/item/box/box_br.png"
+				},
+				{
+					"name": "queens_box_3",
+					"srcs": "sprites/item/box/box_tl.png"
+				},
+				{
+					"name": "queens_box_4",
+					"srcs": "sprites/item/box/box_tr.png"
 				}
 			]
 		},
@@ -107,7 +123,7 @@
 				},
 				{
 					"name": "kings_box",
-					"srcs": "sprites/item/box.png"
+					"srcs": "sprites/item/box/box.png"
 				},
 				{
 					"name": "kings_buddha_closed",
@@ -120,6 +136,22 @@
 				{
 					"name": "kings_buddha_open",
 					"srcs": "img/buddha/open.png"
+				},
+				{
+					"name": "kings_box_1",
+					"srcs": "sprites/item/box/box_bl.png"
+				},
+				{
+					"name": "kings_box_2",
+					"srcs": "sprites/item/box/box_br.png"
+				},
+				{
+					"name": "kings_box_3",
+					"srcs": "sprites/item/box/box_tl.png"
+				},
+				{
+					"name": "kings_box_4",
+					"srcs": "sprites/item/box/box_tr.png"
 				}
 			]
 		}

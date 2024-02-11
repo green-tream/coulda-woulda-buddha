@@ -1,4 +1,6 @@
+import { Sprite } from "pixi.js";
 import Block from "./Block";
+import BoxBlock from "./BoxBlock";
 
 export default class Level {
 	public map: Block[][];
@@ -33,6 +35,16 @@ export default class Level {
 
 	add(x: number, y: number) {
         this.map[this.height - y - 1][x] = new Block(x, y, this.squareSize);
+
+    }
+
+    addBox(x: number, y: number, sprite: Sprite) {
+        sprite.width = this.squareSize;
+        sprite.height = this.squareSize;
+        sprite.position.x = this.squareSize * x
+        sprite.position.y = this.squareSize * (this.height - y - 1)
+
+        this.map[this.height - y - 1][x] = new BoxBlock(x, y, this.squareSize, sprite);
 
     }
 

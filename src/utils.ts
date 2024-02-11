@@ -1,5 +1,5 @@
 import { Graphics } from "pixi.js";
-import { HEIGHT, WIDTH } from "./constants";
+import { HEIGHT, TILESIZE, WIDTH } from "./constants";
 import type { Scene } from "./engine/Scene";
 import { app } from ".";
 import { Actions } from "pixi-actions";
@@ -49,4 +49,16 @@ export function closerObject(player: Player, a: InteractableObject, b: Interacta
 
 export function sleep(time: number) {
 	return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+export function mathematicalBridge(x: number): number {
+	if (x > 1315 && x < 2075) {
+		const fixed = ((x - 1315) / (2075 - 1315)) * Math.PI - Math.PI / 2;
+		const transformedY = Math.cos(fixed / 0.81);
+
+		return -(2 * TILESIZE + transformedY * 100);
+	} else {
+		return 0;
+	}
 }
