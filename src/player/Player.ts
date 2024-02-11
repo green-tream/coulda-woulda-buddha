@@ -161,6 +161,7 @@ export default class Player {
 				break;
 			case "r":
 				this.restartScene();
+				break;
 			case "q":
 				this.interactedWith = this.scene.playerInteract();
 

@@ -84,7 +84,7 @@ export default class Box {
 		const worldPos = this.level.localToWorld(this.position);
 		const dx = Math.pow(worldPos.x - player.position.x, 2);
 		const dy = Math.pow(HEIGHT - worldPos.y - player.position.y, 2);
-		if (Math.pow(dx + dy, 0.5) > 100) 	{
+		if (Math.pow(dx + dy, 0.5) > 140) 	{
 			return;
 		}
 		if (player.pickupBox(this)) {
