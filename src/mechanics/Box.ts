@@ -52,10 +52,10 @@ export default class Box {
 	drawBox(point: Point) {
 
 		if (!this.interactable) {
-			this.box1.alpha = 0.4;
-			this.box2.alpha = 0.4;
-			this.box3.alpha = 0.4;
-			this.box4.alpha = 0.4;
+			this.box1.alpha = 0.2;
+			this.box2.alpha = 0.2;
+			this.box3.alpha = 0.2;
+			this.box4.alpha = 0.2;
 		}
 
 		this.level.addBox(point.x, point.y, this.box1, this.interactable);
