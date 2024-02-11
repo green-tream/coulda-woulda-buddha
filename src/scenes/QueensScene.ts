@@ -4,7 +4,6 @@ import LevelScene from "./LevelScene";
 import ForegroundObject from "../entities/ForegroundObject";
 import level1 from "../map/levels/level1";
 import Level from "../map/Level";
-import { detectAvif } from "pixi.js";
 
 export default class QueensScene extends LevelScene {
 	LEVEL = "queens";
@@ -21,13 +20,14 @@ export default class QueensScene extends LevelScene {
 
 		// buddha
 		this.buddha = new ForegroundObject(
-			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.width / 7,
-			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.height / 7,
+			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.width * 0.07,
+			this.assets[`${this.LEVEL}_buddha_closed`].baseTexture.height * 0.07,
 			this.assets[`${this.LEVEL}_buddha_closed`],
 			this
 		);
 
-		this.buddha.position(this.RESPAWN.x, this.RESPAWN.y);
+		// this.buddha.position(this.RESPAWN.x, this.RESPAWN.y);
+		this.addEntity(this.buddha);
 
 		Actions.sequence(
 			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_middle)),
@@ -43,15 +43,18 @@ export default class QueensScene extends LevelScene {
 			Actions.runFunc(() => this.buddha.setSpriteTexture(this.assets.menu_buddha_open)),
 			Actions.delay(1),
 			Actions.fadeOut(this.buddha.getSprite(), 1),
-			Actions.runFunc(() => this.player.setVisible(true))
+			Actions.runFunc(() => this.player.setVisible(true)),
+			Actions.runFunc(() => this.setupInputs())
 		).play();
 	}
 
 	async start() {
+		// Actions.moveTo(this.player.mIdleSprite, 3200, 400, 10);
+	}
+
+	setupInputs() {
 		document.addEventListener("keydown", (event) => this.player.handleKeydown(event));
 		document.addEventListener("keyup", (event) => this.player.handleKeyup(event));
-
-		// Actions.moveTo(this.player.mIdleSprite, 3200, 400, 10);
 	}
 
 	public update(delta: number): void {
