@@ -5,7 +5,6 @@ import LevelScene from "../scenes/LevelScene";
 import Level from "../map/Level";
 
 export default class Box {
-	private respawnPos: Point;
 	private position: Point;
 	private interactable: boolean = true;
 
@@ -13,41 +12,51 @@ export default class Box {
 
 	private level: Level;
 	private sceneName: string;
+
+	private box1: Sprite;
+	private box2: Sprite;
+	private box3: Sprite;
+	private box4: Sprite;
 	
-	constructor(assets, sceneName: string, level: Level, respawnPos: Point) {
-		this.respawnPos = respawnPos; // Bottom right
+	constructor(assets, sceneName: string, level: Level, position: Point) {
+		this.position = position;
 		this.level = level;
 		this.sceneName = sceneName;
 		this.assets = assets;
-		this.spawn(this.respawnPos);
+
+		this.box1 = new Sprite(this.assets[`${this.sceneName}_box_1`]);
+		this.box2 = new Sprite(this.assets[`${this.sceneName}_box_2`]);
+		this.box3 = new Sprite(this.assets[`${this.sceneName}_box_3`]);
+		this.box4 = new Sprite(this.assets[`${this.sceneName}_box_4`]);
+
+		this.spawn(this.position);
 	}
 
 	spawn(point: Point): void {
 
-		this.destroy(this.position);
 		this.drawBox(point);
-		this.position = point;
 
 	}
 
 	drawBox(point: Point) {
 
-		const box1 = new Sprite(this.assets[`${this.sceneName}_box_1`]);
-		const box2 = new Sprite(this.assets[`${this.sceneName}_box_2`]);
-		const box3 = new Sprite(this.assets[`${this.sceneName}_box_3`]);
-		const box4 = new Sprite(this.assets[`${this.sceneName}_box_4`]);
-
-		this.level.addBox(point.x, point.y, box1);
-		this.level.addBox(point.x + 1, point.y, box2);
-		this.level.addBox(point.x, point.y + 1, box3);
-		this.level.addBox(point.x + 1, point.y + 1, box4);
+		this.level.addBox(point.x, point.y, this.box1);
+		this.level.addBox(point.x + 1, point.y, this.box2);
+		this.level.addBox(point.x, point.y + 1, this.box3);
+		this.level.addBox(point.x + 1, point.y + 1, this.box4);
 	}
 
 	destroy(point: Point) {
-		this.level.delete(point.x, point.y)
-		this.level.delete(point.x + 1, point.y)
-		this.level.delete(point.x, point.y + 1)
-		this.level.delete(point.x + 1, point.y + 1)
+
+		this.box1.visible = false;
+		this.box2.visible = false;
+		this.box3.visible = false;
+		this.box4.visible = false;
+
+		this.level.delete(point.x, point.y);
+		this.level.delete(point.x + 1, point.y);
+		this.level.delete(point.x, point.y + 1);
+		this.level.delete(point.x + 1, point.y + 1);
 	}
 
 	interact(player: Player) {
@@ -57,7 +66,7 @@ export default class Box {
 		const worldPos = this.level.localToWorld(this.position);
 		const dx = Math.pow(worldPos.x - player.position.x, 2);
 		const dy = Math.pow(worldPos.y - player.position.y, 2);
-		if (Math.pow(dx + dy, 0.5) > 30) {
+		if (Math.pow(dx + dy, 0.5) > 1000) 	{
 			return;
 		}
 		if (player.pickupBox() == true) {

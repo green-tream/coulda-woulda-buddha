@@ -53,6 +53,7 @@ export default class Player {
 	private box: Box;
 
 	private state: string;
+	private box_sprite: Sprite;
 
 	public level: Level; //Change back to private when using
 	private reflecting: boolean;
@@ -162,7 +163,6 @@ export default class Player {
 		this.updateInputs();
 		this.updatePhysics(delta);
 		this.updateVisuals();
-		// if (this.carriedBox != null) this.carriedBox.update();
 
 		// Might not work cos of frame timings
 
@@ -310,6 +310,10 @@ export default class Player {
 				sprite.width = this.width;
 			}
 		}
+		if (this.state == "holding-on-to-a-fucking-box") {
+			this.box_sprite.position.x = this.xPos;
+			this.box_sprite.position.y = this.yPos + this.yOffset - 130;
+		}
 	}
 
 	private changeSprites(): void {
@@ -322,6 +326,19 @@ export default class Player {
 			this.idleSprite.visible = true;
 			this.runningSprite.stop();
 		}
+	}
+
+	public pickupBox(): boolean {
+		if (this.state != "holding-on-to-a-fucking-box") {
+			this.box_sprite = new Sprite(this.scene.assets[`${this.levelName}_box`]);
+			this.box_sprite.anchor.set(0.5);
+			this.box_sprite.width = 60;
+			this.box_sprite.height = 60;
+			this.scene.addDisplayObject(this.box_sprite);
+			this.state = "holding-on-to-a-fucking-box";
+			return true;
+		}
+		return false;
 	}
 
 	private updatePhysics(delta: number): void {
