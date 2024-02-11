@@ -27,6 +27,9 @@ export default class Player {
 	private jumpKeyPressed: boolean;
 	private interactKeyPressed: boolean;
 
+	private carryingBox: boolean = false ;
+	public carriedBox: Sprite;
+
 	private animationSpeed: number;
 
 	private idleSprite: AnimatedSprite;
@@ -135,6 +138,7 @@ export default class Player {
 		this.updateInputs();
 		this.updatePhysics(delta);
 		this.updateVisuals();
+		if (this.carriedBox != null) this.carriedBox.update();
 
 		// Might not work cos of frame timings
 
@@ -390,4 +394,9 @@ export default class Player {
 	set topEdgePosition(y: number) {
 		this.yPos = y + this.height / 2;
 	}
+
+	ghostCount(): number {
+		return this.previousStates.length;
+	}
+
 }
