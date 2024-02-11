@@ -88,8 +88,6 @@ export default class Player {
 		this.canMove = true;
 		this.yOffset = 0;
 
-
-
 		this.idleSprite = new AnimatedSprite([assets[`${levelName}_idle_sprite`]]);
 
 		this.zenSprite = new Sprite(assets[`${levelName}_zen_sprite`]);
@@ -345,7 +343,7 @@ export default class Player {
 	}
 
 	private restartScene() {
-		fadeOutToScene(this.scene, (this.scene as LevelScene).LEVEL, this.scene.viewport).play()
+		fadeOutToScene(this.scene, (this.scene as LevelScene).LEVEL, this.scene.viewport).play();
 	}
 
 	private startReflection() {
