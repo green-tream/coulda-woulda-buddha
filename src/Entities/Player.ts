@@ -35,7 +35,7 @@ export default class Player {
 	private velocity: number;
 
 	public level: Level; //Change back to private when using
-	reflecting: boolean;
+	private reflecting: boolean;
 
 	constructor(spriteScale: number, assets: any, level: Level, respawn: { x: number; y: number }) {
 		this.level = level;
@@ -115,9 +115,9 @@ export default class Player {
 		this.updatePhysics(delta);
 		this.updateVisuals();
 
-        // console.log('Player position:', this.xPos, this.yPos);
-        // console.log('Player velocity:', this.xVel, this.yVel);
-        // console.log('Player acceleration:', this.xAcc, this.yAcc);
+		// console.log('Player position:', this.xPos, this.yPos);
+		// console.log('Player velocity:', this.xVel, this.yVel);
+		// console.log('Player acceleration:', this.xAcc, this.yAcc);
 	}
 
 	updateInputs(): void {
@@ -157,7 +157,13 @@ export default class Player {
 	}
 
 	private startReflection() {
+		console.log(this.xVel);
+
 		if (this.reflecting) return;
+		// if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
+
+		console.log("Reflecting");
+
 		this.reflecting = true;
 
 		Actions.parallel(Actions.fadeIn(this.zenSprite, 1), Actions.fadeOut(this.idleSprite, 1)).play();
