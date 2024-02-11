@@ -166,6 +166,12 @@ export default class Player {
 		this.yAcc = 1;
 	}
 
+	public setVisible(visible: boolean) {
+		for (const sprite of this.spriteList) {
+			sprite.visible = visible;
+		}
+	}
+
 	private startReflection() {
 		if (this.reflecting) return;
 		if (!this.onGround || Math.abs(this.xVel) > 0.1) return;
@@ -276,7 +282,7 @@ export default class Player {
 						this.pointTileBounds(this.topRight).yMax
 					) + 0.1;
 				this.yVel = 1;
-			console.log("ceiling");
+				console.log("ceiling");
 			}
 		}
 	}

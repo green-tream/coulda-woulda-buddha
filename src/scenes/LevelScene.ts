@@ -74,7 +74,7 @@ export default abstract class LevelScene extends Scene {
 		this.addDisplayObject(g);
 
 		this.viewport.follow(this.player.mIdleSprite, {
-			speed: 0.1,
+			speed: 3,
 			acceleration: 1,
 			radius: 75,
 		});
