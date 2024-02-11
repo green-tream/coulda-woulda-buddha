@@ -7,7 +7,7 @@ export default class Player {
 	private xPos: number = 0;
 	private yPos: number = 0;
 	private xVel: number = 0;
-	private yVel: number = -5;
+	private yVel: number = 0;
 	private xAcc: number = 0;
 	private yAcc: number = 0;
 
@@ -109,6 +109,10 @@ export default class Player {
 		this.updateInputs();
 		this.updatePhysics(delta);
 		this.updateVisuals();
+
+        // console.log('Player position:', this.xPos, this.yPos);
+        // console.log('Player velocity:', this.xVel, this.yVel);
+        // console.log('Player acceleration:', this.xAcc, this.yAcc);
 	}
 
 	updateInputs(): void {
