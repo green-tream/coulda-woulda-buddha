@@ -57,7 +57,6 @@ export default class Level {
 
     is_in_uwu_block(world_x: number, world_y: number): boolean {
 
-        return false;
 
         if (
             0 >= world_x ||
@@ -67,9 +66,8 @@ export default class Level {
         ) {
             return true;
         }
-        console.log(Math.floor(world_x / this.squareSize), Math.floor(world_y / this.squareSize));
 
-        return this.map[Math.floor(world_x / this.squareSize)][Math.floor(world_y / this.squareSize)] == null;
+        return this.map[Math.floor(world_x / this.squareSize)][Math.floor(world_y / this.squareSize)] != null;
 
     }
 
